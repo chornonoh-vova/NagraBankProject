@@ -1,0 +1,1 @@
+insert into users values('2', 0, 1234, '2000-03-30', 'test2', 'test2', 'test2');
