@@ -29,7 +29,7 @@ public class Database {
 		}
 	}
 
-	public boolean RegistryNewUser(int pin, String user_login, Date birthdate,
+	public boolean registryNewUser(int pin, String user_login, Date birthdate,
 		String secretQuestion, String secretAnswer) {
 		try {
 			ResultSet maximum = (ResultSet) execute("select", "select max(user_id) from users;");
@@ -53,11 +53,17 @@ public class Database {
 			return false;
 		}
 	}
-
+	public boolean transfer(String user_id_from, String user_id_to, double money) {
+		if(money < 0) {
+			return false;
+		}
+		
+	}
 	public void closeConnection() {
 		try {
 			connection.close();
 			statement.close();
 		} catch (SQLException e) {}
 	}
+	
 }
