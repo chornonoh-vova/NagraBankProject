@@ -1,3 +1,5 @@
+package server;
+
 import java.sql.*;
 
 public class Database {
@@ -18,7 +20,7 @@ public class Database {
 	}
 
 	public Object execute(String type, String query) throws SQLException {
-		if (type.equals("insert")) {
+		if (type.equals("insert") || type.equals("update")) {
 			return statement.executeUpdate(query);
 		} else if (type.equals("select")) {
 			return statement.executeQuery(query);
