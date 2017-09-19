@@ -53,12 +53,26 @@ public class Database {
 			return false;
 		}
 	}
-	public boolean transfer(String user_id_from, String user_id_to, double money) {
+	public boolean login(int pin, String user_login)
+{
+	
+	try {execute("select", "select pin, user_login from users where pin==pin1 and user_login==user_login1;");	
+		
+	
+	
+	} catch (SQLException e) {
+		System.out.println(e.getMessage());
+		return false;
+		}
+	return false; 
+	}
+
+	/*public boolean transfer(String user_id_from, String user_id_to, double money) {
 		if(money < 0) {
 			return false;
 		}
 		
-	}
+	}*/
 	public void closeConnection() {
 		try {
 			connection.close();
