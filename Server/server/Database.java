@@ -33,10 +33,11 @@ public class Database {
 		execute("update", "update users set balance = round(balance, 2);");
 	}
 
-	public boolean registryNewUser(int pin, String user_login, Date birthdate,
+	public boolean registryNewUser(int pin, String userLogin, Date birthDate,
 		String secretQuestion, String secretAnswer) {
 		try {
-			ResultSet maximum = (ResultSet) execute("select", "select max(user_id) from users;");
+			ResultSet maximum = (ResultSet) execute("select", 
+					"select max(user_id) from users;");
 			int max = 0;
 			while (maximum.next()) {
 				max = maximum.getInt(1);
@@ -46,8 +47,8 @@ public class Database {
 					+ ++max + ","
 					+ " 0,"
 					+ pin + ","
-					+ " '" + birthdate.toString(	) + "',"
-					+ " '" + user_login + "',"
+					+ " '" + birthDate.toString() + "',"
+					+ " '" + userLogin + "',"
 					+ " '" + secretQuestion + "',"
 					+ " '" + secretAnswer + "',"
 					+ " true);");
@@ -59,9 +60,11 @@ public class Database {
 		}
 	}
 
-	public boolean logIn(int pin, String user_login) {
+	public boolean logIn(int pin, String userLogin) {
 		try {
-			ResultSet client = (ResultSet) execute("select", "select pin, user_login from users where pin = " + pin + " and user_login = '" + user_login + "';");
+			ResultSet client = (ResultSet) execute("select", 
+					"select pin, user_login from users "
+					+ "where pin = " + pin + " and user_login = '" + userLogin + "';");
 			if (!client.first()) {
 				return false;
 			}
@@ -72,26 +75,28 @@ public class Database {
 		}
 	}
 
-	public boolean withdrawal (int user_id, double money) {
+	public boolean withdrawal(int userId, double money) {
 		if(money < 0) {
 			return false;
 		}
 		try {
-			ResultSet has_user = (ResultSet) execute("select", "select user_id from users where user_id = " + user_id + ";" );
-			if (!has_user.first()) {
+			ResultSet hasUser = (ResultSet) execute("select", 
+					"select user_id from users where user_id = " + userId + ";" );
+			if (!hasUser.first()) {
 				return false;
 			}
-			ResultSet enought_money = (ResultSet) execute("select", "select balance from users where user_id = "+ user_id +";");
+			ResultSet enoughtMoney = (ResultSet) execute("select", 
+					"select balance from users where user_id = "+ userId +";");
 			double balance = 0d;
-			while(enought_money.next()) {
-				balance = enought_money.getDouble(1);
+			while(enoughtMoney.next()) {
+				balance = enoughtMoney.getDouble(1);
 			}
-			enought_money.close();
+			enoughtMoney.close();
 			if(money > balance) {
 				return false;
 			}
 			execute("update", "update users set balance = balance - " + money
-					+ " where user_id = " + user_id + ";");
+					+ " where user_id = " + userId + ";");
 			round();
 			return true;
 		} catch (SQLException e) {
@@ -99,18 +104,20 @@ public class Database {
 			return false;
 		}
 	}
-	public boolean refill (int user_id, double money) {
+	
+	public boolean refill (int userId, double money) {
 		if(money < 0) {
 			return false;
 		}
 		try {
-			ResultSet has_user = (ResultSet) execute("select", "select user_id from users where user_id = " + user_id + ";" );
-			if (!has_user.first()) {
+			ResultSet hasUser = (ResultSet) execute("select", 
+					"select user_id from users where user_id = " + userId + ";" );
+			if (!hasUser.first()) {
 				return false;
 			}
-			has_user.close();
+			hasUser.close();
 			execute("update", "update users set balance = balance + " + money
-					+ " where user_id = "+ user_id + ";");
+					+ " where user_id = "+ userId + ";");
 			round();
 			return true;
 		} catch (SQLException e) {
@@ -118,36 +125,40 @@ public class Database {
 			return false;
 		}
 	}
-	public boolean transfer(int user_id_from, int user_id_to, double money) {
+	
+	public boolean transfer(int userIdFrom, int userIdTo, double money) {
 		if(money < 0) {
 			return false;
 		}
 		try {
-			ResultSet has_user_from = (ResultSet) execute("select", "select user_id from users where user_id = " + user_id_from + ";");
-			if (!has_user_from.first()) {
+			ResultSet hasUserFrom = (ResultSet) execute("select", 
+					"select user_id from users where user_id = " + userIdFrom + ";");
+			if (!hasUserFrom.first()) {
 				return false;
 			}
-			has_user_from.close();
-			ResultSet has_user_to = (ResultSet) execute("select", "select user_id from users where user_id = " + user_id_to + ";");
-			if (!has_user_to.first()) {
+			hasUserFrom.close();
+			ResultSet hasUserTo = (ResultSet) execute("select", 
+					"select user_id from users where user_id = " + userIdTo + ";");
+			if (!hasUserTo.first()) {
 				return false;
 			}
-			has_user_to.close();
+			hasUserTo.close();
 
-			ResultSet enought_money =(ResultSet) execute("select", "select balance from users where user_id = " + user_id_from + ";");
+			ResultSet enoughtMoney =(ResultSet) execute("select", 
+					"select balance from users where user_id = " + userIdFrom + ";");
 			double balance = 0d;
-			while (enought_money.next()) {
-				balance = enought_money.getDouble(1);
+			while (enoughtMoney.next()) {
+				balance = enoughtMoney.getDouble(1);
 			}
-			enought_money.close();
+			enoughtMoney.close();
 			if (balance < money) {
 				return false;
 			}
 
 			execute("update", "update users set balance = balance - " + money
-					+ " where user_id = "+ user_id_from + ";");
+					+ " where user_id = "+ userIdFrom + ";");
 			execute("update", "update users set balance = balance + " + money
-					+ " where user_id = "+ user_id_to + ";");
+					+ " where user_id = "+ userIdTo + ";");
 			round();
 			return true;
 		} catch (SQLException e) {
@@ -156,18 +167,19 @@ public class Database {
 		}
 	}
 
-	public UserInfo getUserInfo(int user_id) {
+	public UserInfo getUserInfo(int userId) {
 		try {
-			ResultSet result = (ResultSet) execute("select", "select * from users where user_id = " + user_id + ";");
+			ResultSet result = (ResultSet) execute("select", 
+					"select * from users where user_id = " + userId + ";");
 			UserInfo client = new UserInfo();
 			while(result.next()) {
-				client.user_id = result.getInt(1);
+				client.userId = result.getInt(1);
 				client.balance = result.getDouble(2);
 				client.pin = result.getInt(3);
-				client.birthdate = result.getDate(4);
-				client.user_login = result.getString(5);
-				client.secret_question = result.getString(6);
-				client.secret_answer = result.getString(7);
+				client.birthDate = result.getDate(4);
+				client.userLogin = result.getString(5);
+				client.secretQuestion = result.getString(6);
+				client.secretAnswer = result.getString(7);
 				client.status = result.getBoolean(8);
 			}
 			result.close();
