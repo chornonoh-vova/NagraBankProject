@@ -13,7 +13,7 @@ public class Program {
 		//TODO: test your method here(dlya chotkih kodderov!!!!)
 		Scanner in = new Scanner(System.in);
 		System.out.println("logIn:");
-		String user_login = in.next();
+		String userLogin = in.next();
 		System.out.println("pin:");
 		int pin = in.nextInt();
 		//System.out.println("user_id1: ");
@@ -24,11 +24,12 @@ public class Program {
 		//double money = in.nextDouble();
 		//database.login(int pin, String user_login);
 		//if(database.transfer(user_id_from, user_id_to, money)) {
-		if (database.logIn(pin, user_login)) {
+		if (database.logIn(pin, userLogin)) {
 			System.out.println("ok");
 		} else {
 			System.out.println("error");
 		}
+		in.close();
 		database.closeConnection();
 	}
 }
