@@ -31,6 +31,11 @@ public class Database {
 		}
 	}
 
+	private void round() {
+		try {
+			execute("update", "update users set balance = round(balance, 2);");
+		} catch (SQLException e) {}
+	}
 	//Регистрация клиентов 
 	public boolean registryNewUser(int pin, String user_login, Date birthdate,
 		String secretQuestion, String secretAnswer) {
@@ -50,6 +55,7 @@ public class Database {
 					+ " '" + secretQuestion + "',"
 					+ " '" + secretAnswer + "',"
 					+ " true);");
+			round();
 			return true;
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -94,6 +100,7 @@ public class Database {
 			//Снимаем деньги
 			execute("update", "update users set balance = balance - " + money
 					+ " where user_id = " + user_id + ";");
+			round();
 			return true;
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -113,6 +120,7 @@ public class Database {
 			has_user.close();
 			execute("update", "update users set balance = balance + " + money
 					+ " where user_id = "+ user_id + ";");
+			round();
 			return true;
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -156,6 +164,7 @@ public class Database {
 					+ " where user_id = "+ user_id_from + ";");
 			execute("update", "update users set balance = balance + " + money
 					+ " where user_id = "+ user_id_to + ";");
+			round();
 			return true;
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
