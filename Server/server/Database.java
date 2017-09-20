@@ -10,6 +10,7 @@ public class Database {
 	private Connection connection;
 	private Statement statement;
 
+	//Конструктор 
 	public Database(String url, String user, String password) {
 		try {
 			connection = DriverManager.getConnection(url, user, password);
@@ -18,8 +19,9 @@ public class Database {
 			System.out.println(e.getMessage());
 		}
 	}
-
-	public Object execute(String type, String query) throws SQLException {
+	
+	//Выполнение SQL запроса
+	private Object execute(String type, String query) throws SQLException {
 		if (type.equals("insert") || type.equals("update")) {
 			return statement.executeUpdate(query);
 		} else if (type.equals("select")) {
@@ -29,6 +31,7 @@ public class Database {
 		}
 	}
 
+	//Регистрация клиентов 
 	public boolean registryNewUser(int pin, String user_login, Date birthdate,
 		String secretQuestion, String secretAnswer) {
 		try {
@@ -53,26 +56,86 @@ public class Database {
 			return false;
 		}
 	}
-	public boolean login(int pin, String user_login)
-{
 	
-	try {execute("select", "select pin, user_login from users where pin==pin1 and user_login==user_login1;");	
-		
-	
-	
-	} catch (SQLException e) {
-		System.out.println(e.getMessage());
-		return false;
+	//Авторизация пользователя
+	public boolean logIn(int pin, String user_login) {
+		try {
+			ResultSet client = (ResultSet) execute("select", "select pin, user_login from users where pin = " + pin + " and user_login = '" + user_login + "';");	
+			if (!client.first()) {
+				return false;
+			}
+			return true;
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			return false;
 		}
-	return false; 
 	}
-
-	/*public boolean transfer(String user_id_from, String user_id_to, double money) {
+	
+	//Снятие денег со счета 
+	public boolean withdrawal (String login, double money) {
 		if(money < 0) {
 			return false;
 		}
-		
-	}*/
+		try {
+			ResultSet enought_money = (ResultSet) execute("select", "select balance from users where user_login = '"+ login +"';");
+			double balance = 0d;
+			while(enought_money.next()) {
+				balance = enought_money.getDouble(1);
+			}
+			enought_money.close();
+			if(money > balance) {
+				return false;
+			}
+			execute("update", "update users set balance = balance - " + money
+					+ " where user_login = '"+ login + "';");
+			return true;
+		} catch (SQLException e) {
+			return false;
+		}
+	}
+	//Перевод денег между клиентами
+	public boolean transfer(int user_id_from, int user_id_to, double money) {
+		if(money < 0) {
+			return false;
+		}		
+		try {
+			//Проверка на наличие клиента от которого передаем деньги
+			//Может выбрасывать исключение SQLException
+			ResultSet has_user_from = (ResultSet) execute("select", "select user_id from users where user_id = " + user_id_from + ";");
+			if (!has_user_from.first()) {
+				return false;
+			}
+			has_user_from.close();
+			//Проверка на наличие клиента который получает деньги
+			//Может выбрасывать исключение SQLException
+			ResultSet has_user_to = (ResultSet) execute("select", "select user_id from users where user_id = " + user_id_to + ";");
+			if (!has_user_to.first()) {
+				return false;
+			}
+			has_user_to.close();
+			//Проверка на достаточное количество денег у клиента который переводит сумму
+			//Может выбрасывать исключение SQLException
+			ResultSet enought_money =(ResultSet) execute("select", "select balance from users where user_id = " + user_id_from + ";");
+			double balance = 0d;
+			while (enought_money.next()) {
+				balance = enought_money.getDouble(1);
+			}
+			enought_money.close();
+			if (balance < money) {
+				return false;
+			}
+			//Перевод денег с одного на другой аккаунт
+			//Может выбрасывать исключение SQLException
+			execute("update", "update users set balance = balance - " + money
+					+ " where user_id = "+ user_id_from + ";");
+			execute("update", "update users set balance = balance + " + money
+					+ " where user_id = "+ user_id_to + ";");
+			return true;
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
+	}
 	public void closeConnection() {
 		try {
 			connection.close();
