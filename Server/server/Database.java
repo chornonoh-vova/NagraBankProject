@@ -31,11 +31,10 @@ public class Database {
 		}
 	}
 
-	private void round() {
-		try {
-			execute("update", "update users set balance = round(balance, 2);");
-		} catch (SQLException e) {}
+	private void round() throws SQLException {
+		execute("update", "update users set balance = round(balance, 2);");
 	}
+	
 	//Регистрация клиентов 
 	public boolean registryNewUser(int pin, String user_login, Date birthdate,
 		String secretQuestion, String secretAnswer) {
