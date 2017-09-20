@@ -36,7 +36,7 @@ public class Database {
 	public boolean registryNewUser(int pin, String userLogin, Date birthDate,
 		String secretQuestion, String secretAnswer) {
 		try {
-			ResultSet maximum = (ResultSet) execute("select", 
+			ResultSet maximum = (ResultSet) execute("select",
 					"select max(user_id) from users;");
 			int max = 0;
 			while (maximum.next()) {
@@ -62,7 +62,7 @@ public class Database {
 
 	public boolean logIn(int pin, String userLogin) {
 		try {
-			ResultSet client = (ResultSet) execute("select", 
+			ResultSet client = (ResultSet) execute("select",
 					"select pin, user_login from users "
 					+ "where pin = " + pin + " and user_login = '" + userLogin + "';");
 			if (!client.first()) {
@@ -80,12 +80,12 @@ public class Database {
 			return false;
 		}
 		try {
-			ResultSet hasUser = (ResultSet) execute("select", 
+			ResultSet hasUser = (ResultSet) execute("select",
 					"select user_id from users where user_id = " + userId + ";" );
 			if (!hasUser.first()) {
 				return false;
 			}
-			ResultSet enoughtMoney = (ResultSet) execute("select", 
+			ResultSet enoughtMoney = (ResultSet) execute("select",
 					"select balance from users where user_id = "+ userId +";");
 			double balance = 0d;
 			while(enoughtMoney.next()) {
@@ -104,13 +104,13 @@ public class Database {
 			return false;
 		}
 	}
-	
+
 	public boolean refill (int userId, double money) {
 		if(money < 0) {
 			return false;
 		}
 		try {
-			ResultSet hasUser = (ResultSet) execute("select", 
+			ResultSet hasUser = (ResultSet) execute("select",
 					"select user_id from users where user_id = " + userId + ";" );
 			if (!hasUser.first()) {
 				return false;
@@ -125,26 +125,26 @@ public class Database {
 			return false;
 		}
 	}
-	
+
 	public boolean transfer(int userIdFrom, int userIdTo, double money) {
 		if(money < 0) {
 			return false;
 		}
 		try {
-			ResultSet hasUserFrom = (ResultSet) execute("select", 
+			ResultSet hasUserFrom = (ResultSet) execute("select",
 					"select user_id from users where user_id = " + userIdFrom + ";");
 			if (!hasUserFrom.first()) {
 				return false;
 			}
 			hasUserFrom.close();
-			ResultSet hasUserTo = (ResultSet) execute("select", 
+			ResultSet hasUserTo = (ResultSet) execute("select",
 					"select user_id from users where user_id = " + userIdTo + ";");
 			if (!hasUserTo.first()) {
 				return false;
 			}
 			hasUserTo.close();
 
-			ResultSet enoughtMoney =(ResultSet) execute("select", 
+			ResultSet enoughtMoney =(ResultSet) execute("select",
 					"select balance from users where user_id = " + userIdFrom + ";");
 			double balance = 0d;
 			while (enoughtMoney.next()) {
@@ -169,7 +169,7 @@ public class Database {
 
 	public UserInfo getUserInfo(int userId) {
 		try {
-			ResultSet result = (ResultSet) execute("select", 
+			ResultSet result = (ResultSet) execute("select",
 					"select * from users where user_id = " + userId + ";");
 			UserInfo client = new UserInfo();
 			while(result.next()) {
