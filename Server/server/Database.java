@@ -72,12 +72,17 @@ public class Database {
 	}
 	
 	//Снятие денег со счета 
-	public boolean withdrawal (String login, double money) {
+	public boolean withdrawal (int user_id, double money) {
 		if(money < 0) {
 			return false;
 		}
 		try {
-			ResultSet enought_money = (ResultSet) execute("select", "select balance from users where user_login = '"+ login +"';");
+			ResultSet has_user = (ResultSet) execute("select", "select user_id from users where user_id = " + user_id + ";" );
+			if (!has_user.first()) {
+				return false;
+			}
+			//Проверка достаточного количества денег
+			ResultSet enought_money = (ResultSet) execute("select", "select balance from users where user_id = "+ user_id +";");
 			double balance = 0d;
 			while(enought_money.next()) {
 				balance = enought_money.getDouble(1);
@@ -86,10 +91,31 @@ public class Database {
 			if(money > balance) {
 				return false;
 			}
+			//Снимаем деньги
 			execute("update", "update users set balance = balance - " + money
-					+ " where user_login = '"+ login + "';");
+					+ " where user_id = " + user_id + ";");
 			return true;
 		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
+	}
+	//Пополнение счета
+	public boolean refill (int user_id, double money) {
+		if(money < 0) {
+			return false;
+		}
+		try {
+			ResultSet has_user = (ResultSet) execute("select", "select user_id from users where user_id = " + user_id + ";" );
+			if (!has_user.first()) {
+				return false;
+			} 
+			has_user.close();
+			execute("update", "update users set balance = balance + " + money
+					+ " where user_id = "+ user_id + ";");
+			return true;
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
 			return false;
 		}
 	}
@@ -136,6 +162,29 @@ public class Database {
 			return false;
 		}
 	}
+	
+	public UserInfo getUserInfo(int user_id) {
+		try {
+			ResultSet result = (ResultSet) execute("select", "select * from users where user_id = " + user_id + ";");
+			UserInfo client = new UserInfo();
+			while(result.next()) {
+				client.user_id = result.getInt(1);
+				client.balance = result.getDouble(2);
+				client.pin = result.getInt(3);
+				client.birthdate = result.getDate(4);
+				client.user_login = result.getString(5);
+				client.secret_question = result.getString(6);
+				client.secret_answer = result.getString(7);
+				client.status = result.getBoolean(8);
+			}
+			result.close();
+			return client;
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
+	
 	public void closeConnection() {
 		try {
 			connection.close();
