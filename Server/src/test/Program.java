@@ -1,8 +1,6 @@
 package test;
 
-import java.sql.Date;
 import java.util.Scanner;
-
 import server.Database;
 
 //class for testing methods
