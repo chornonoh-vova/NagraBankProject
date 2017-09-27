@@ -18,5 +18,5 @@ NagraBank system consist of a server, desktop, Android and web applications. MyS
 * **Vladimir Chernonog** - *Project management, programming* - [hbvhuwe](https://github.com/hbvhuwe)
 * **Aleksandr Kondratenko** - *Programming* - [Lurcher13](https://github.com/Lurcher13)
 * **Dmitry Kovalenko** - *Programming* - [PolitehPocan](https://github.com/PolitehPocan)
-* **Myhail Horlach** - *Programming* - []()
+* **Myhail Horlach** - *Programming* - [BBCmisha](https://github.com/BBCmisha)
 * **Vladimir Lyubchyk** - *Programming* - [Golddenkk](https://github.com/Golddenkk)
