@@ -34,7 +34,7 @@ public class Database {
 	 * @param type determines a type of query(insert||select||update)
 	 * @param query string to execute by DB
 	 */
-	private Object execute(OpType type, String query) throws SQLException {
+	public Object execute(OpType type, String query) throws SQLException {
 		if (type == OpType.INSERT || type == OpType.UPDATE) {
 			return statement.executeUpdate(query);
 		} else if (type == OpType.SELECT) {
@@ -94,10 +94,10 @@ public class Database {
 	 * @param userLogin login of a user
 	 * @return boolean(true if confirmed, false if not)
 	 */
-	public boolean logIn(int pin, String userLogin) {
+	public boolean logIn(String userLogin, int pin) {
 		try {
 			ResultSet client = (ResultSet) execute(OpType.SELECT,
-					"select pin, user_login from users "
+					"select user_login, pin from users "
 					+ "where pin = " + pin + " and user_login = '" + userLogin + "';");
 			if (!client.first()) {
 				return false;
@@ -227,10 +227,10 @@ public class Database {
 	 * @param userId account identifier
 	 * @return object of class UserInfo
 	 */
-	public UserInfo getUserInfo(int userId) {
+	public UserInfo getUserInfo(String userLogin) {
 		try {
 			ResultSet result = (ResultSet) execute(OpType.SELECT,
-					"select * from users where user_id = " + userId + ";");
+					"select * from users where user_login = '" + userLogin + "';");
 			UserInfo client = new UserInfo();
 			while(result.next()) {
 				client.userId = result.getInt(1);
