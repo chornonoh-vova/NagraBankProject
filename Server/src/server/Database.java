@@ -228,6 +228,7 @@ public class Database {
 	 * @return object of class UserInfo
 	 */
 	public UserInfo getUserInfo(String userLogin) {
+		
 		try {
 			ResultSet result = (ResultSet) execute(OpType.SELECT,
 					"select * from users where user_login = '" + userLogin + "';");
