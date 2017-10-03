@@ -1,7 +1,7 @@
 package server;
 import java.io.*;
 import java.net.*;
-import java.sql.ResultSet;
+
 public class Server extends Thread{
   Socket socket;
   int number;
