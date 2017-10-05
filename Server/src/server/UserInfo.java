@@ -11,6 +11,7 @@ public class UserInfo {
 	String secretQuestion;
 	String secretAnswer;
 	boolean status;
+
 	public UserInfo() {
 		this.userId = 0;
 		this.balance = 0;
@@ -21,11 +22,12 @@ public class UserInfo {
 		this.secretAnswer = "";
 		this.status = false;
 	}
+
 	@Override
 	public String toString() {
 		return "UserInfo [userId=" + userId + ", balance=" + balance + ", pin=" + pin + ", userLogin=" + userLogin
 				+ ", birthDate=" + birthDate + ", secretQuestion=" + secretQuestion + ", secretAnswer=" + secretAnswer
 				+ ", status=" + status + "]";
 	}
-	
+
 }

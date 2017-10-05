@@ -1,33 +1,26 @@
 package test;
 
-import java.util.Scanner;
-import server.Database;
+import java.io.IOException;
+import java.net.ServerSocket;
 
-//class for testing methods
+import server.MultiServerThread;
+
+//class for server daemon
 public class Program {
-
-	public static void main(String[] args) {
-		Database database = new Database("jdbc:mysql://localhost:3306/bank_users", "root", "root");
-		//TODO: test your method here(dlya chotkih kodderov!!!!)
-		Scanner in = new Scanner(System.in);
-		System.out.println("logIn:");
-		String userLogin = in.next();
-		System.out.println("pin:");
-		int pin = in.nextInt();
-		//System.out.println("user_id1: ");
-		//int user_id_from = in.nextInt();
-		//System.out.println("user_id2: ");
-		//int user_id_to = in.nextInt();
-		//System.out.println("¬ведите сумму: ");
-		//double money = in.nextDouble();
-		//database.login(int pin, String user_login);
-		//if(database.transfer(user_id_from, user_id_to, money)) {
-		if (database.logIn(pin, userLogin)) {
-			System.out.println("ok");
-		} else {
-			System.out.println("error");
+	//starting server and starts executing every new client in a new thread
+	public static void main(String[] args) throws IOException {
+		int portNumber = 4444;
+		boolean listening = true;
+		//try with resources	
+		try (ServerSocket serverSocket = new ServerSocket(portNumber)) {
+			while (listening) {
+				//waiting for a new client to connect
+				new MultiServerThread(serverSocket.accept()).start();
+			}
+		} catch (IOException e) {
+			//error if port is unavailable
+			System.err.println("Could not listen on port " + portNumber);
+			System.exit(-1);
 		}
-		in.close();
-		database.closeConnection();
 	}
 }

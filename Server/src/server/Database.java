@@ -29,6 +29,19 @@ public class Database {
 		}
 	}
 
+	public Database() {
+		try {
+			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/bank_users", "root", "root");
+			statement = connection.createStatement();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public String processInput(String request) {
+		return "unknown error";
+	}
+	
 	/*
 	 * Method to execute specific query
 	 * @param type determines a type of query(insert||select||update)
