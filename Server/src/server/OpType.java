@@ -1,7 +1,3 @@
 package server;
 
-public enum OpType {
-	SELECT,
-	INSERT,
-	UPDATE,
-}
+public enum OpType { SELECT, INSERT, UPDATE }

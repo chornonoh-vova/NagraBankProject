@@ -3,14 +3,14 @@ package server;
 import java.sql.Date;
 
 public class UserInfo {
-	int userId;
-	double balance;
-	int pin;
-	String userLogin;
-	Date birthDate;
-	String secretQuestion;
-	String secretAnswer;
-	boolean status;
+	public int userId;
+	public double balance;
+	public int pin;
+	public String userLogin;
+	public Date birthDate;
+	public String secretQuestion;
+	public String secretAnswer;
+	public boolean status;
 
 	public UserInfo() {
 		this.userId = 0;
@@ -25,9 +25,9 @@ public class UserInfo {
 
 	@Override
 	public String toString() {
-		return "UserInfo [userId=" + userId + ", balance=" + balance + ", pin=" + pin + ", userLogin=" + userLogin
-				+ ", birthDate=" + birthDate + ", secretQuestion=" + secretQuestion + ", secretAnswer=" + secretAnswer
-				+ ", status=" + status + "]";
+		return "UserInfo [userId=" + userId + ", balance=" + balance + ", pin=" + pin + ", userLogin="
+				+ userLogin + ", birthDate=" + birthDate + ", secretQuestion=" + secretQuestion
+				+ ", secretAnswer=" + secretAnswer + ", status=" + status + "]";
 	}
 
 }
