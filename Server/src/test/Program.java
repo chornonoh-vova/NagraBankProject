@@ -5,13 +5,15 @@ import java.net.ServerSocket;
 
 import server.MultiServerThread;
 
-//class for server daemon
+/**
+ * Main server class<br>
+ * Accepts te connection and launches every new client in a new thread
+ * @see server.MultiServerThread
+ */
 public class Program {
-	//starting server and starts executing every new client in a new thread
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		int portNumber = 4444;
-		boolean listening = true;
-		//try with resources	
+		boolean listening = true;	
 		try (ServerSocket serverSocket = new ServerSocket(portNumber)) {
 			while (listening) {
 				//waiting for a new client to connect

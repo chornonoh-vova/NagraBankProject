@@ -46,6 +46,9 @@ public class Database {
 		}
 	}
 
+	/**
+	 * Constructor by default
+	 */
 	public Database() {
 		try {
 			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/bank_users", "root",
