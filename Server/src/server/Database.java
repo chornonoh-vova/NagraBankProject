@@ -101,6 +101,15 @@ public class Database {
 				return gson.toJson(send);
 			}
 		}
+		case "refill":{
+			if(refill(Integer.valueOf(args[1]), Double.valueOf(args[2]))){
+				String[] send = { "refill completed" };
+				return gson.toJson(send);
+			} else {
+				String[] send = { "error", "not enough money" };
+				return gson.toJson(send);
+			}
+		}
 		default:
 			String[] send = { "error", "unknown operation" };
 			return gson.toJson(send);
