@@ -94,7 +94,7 @@ public class Database {
 		}
 		case "transfer":{
 			if(transfer(Integer.valueOf(args[1]), Integer.valueOf(args[2]), Double.valueOf(args[3]))) {
-				String[] send = { "money transfer completed" };
+				String[] send = { "success", "money transfer completed" };
 			return gson.toJson(send);
 			} else {
 				String[] send = { "error", "try again to enter the parameters" };
