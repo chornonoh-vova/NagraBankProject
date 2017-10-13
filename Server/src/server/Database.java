@@ -101,6 +101,30 @@ public class Database {
 				return gson.toJson(send);
 			}
 		}
+		case "withdrawal":{
+			if(withdrawal(Integer.valueOf(args[1]), Double.valueOf(args[2]))) {
+				String[] send = { "success", "money withdrawal completed" };
+			return gson.toJson(send);
+			} else {
+				String[] send = { "error", "try again" };
+				return gson.toJson(send);
+			}
+		}
+		case "refill":{
+			if(refill(Integer.valueOf(args[1]), Double.valueOf(args[2]))) {
+				String[] send = { "success", "money refill completed" };
+			return gson.toJson(send);
+			} else {
+				String[] send = { "error", "try again" };
+				return gson.toJson(send);
+			}
+		}
+		case "update":{
+			UserInfo user = getUserInfo(args[1]);
+			String[] send = { "success", String.valueOf(user.userId), String.valueOf(user.balance),
+					user.secretQuestion, user.birthDate.toString() };
+			return gson.toJson(send);
+		}
 		default:
 			String[] send = { "error", "unknown operation" };
 			return gson.toJson(send);
