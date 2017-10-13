@@ -16,15 +16,17 @@ public class Client {
 	private PrintWriter out;
 	public BufferedReader in;
 
-	public Client() throws IOException {
-		socket = new Socket("8.8.8.8", 4444);
-		out = new PrintWriter(socket.getOutputStream());
-		BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+	
+
+	public Client(Socket socket, PrintWriter out, BufferedReader in) {
+		super();
+		this.socket = socket;
+		this.out = out;
+		this.in = in;
 	}
 
-	public String[] getMessage(String fromServer) {
-		Gson gson = new Gson();
-		return gson.fromJson(fromServer, String[].class);
+	public String getMessage() throws IOException {
+		return in.readLine();
 	}
 
 	public void sendMessage(String... args) {
