@@ -32,8 +32,9 @@ public class MultiServerThread extends Thread {
 				System.out.println("from user:" + inputLine);
 				outputLine = database.processInput(inputLine);
 				// send message to client
+				System.out.println("to user:" + outputLine);
 				out.println(outputLine);
-				if (outputLine.equals("logOut")) {
+				if (outputLine.equals("logout")) {
 					break;
 				}
 			}

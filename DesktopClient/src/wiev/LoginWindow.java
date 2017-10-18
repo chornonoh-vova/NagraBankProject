@@ -4,18 +4,31 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.UIManager;
+
+import client.Client;
+
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
+import javax.swing.JDialog;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
 
 public class LoginWindow {
 
+	private Client client;
 	private JFrame frmLogin;
 	private JTextField loginInputField;
 	private JPasswordField passwordInputField;
@@ -32,7 +45,18 @@ public class LoginWindow {
 			public void run() {
 				try {
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-					LoginWindow window = new LoginWindow();
+					Socket kkSocket = null;
+					PrintWriter out = null;
+					BufferedReader in = null;
+					try {
+						kkSocket = new Socket("localhost", 4444);
+		        out = new PrintWriter(kkSocket.getOutputStream(), true);
+		        in = new BufferedReader(
+		            new InputStreamReader(kkSocket.getInputStream()));
+					} catch (Exception e) {
+						System.exit(1);
+					}
+					LoginWindow window = new LoginWindow(kkSocket, out, in);
 					window.frmLogin.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -44,7 +68,8 @@ public class LoginWindow {
 	/**
 	 * Create the application.
 	 */
-	public LoginWindow() {
+	public LoginWindow(Socket socket, PrintWriter out, BufferedReader in) {
+		client = new Client(socket, out, in);
 		initialize();
 	}
 
@@ -108,7 +133,17 @@ public class LoginWindow {
 		btnLogIn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				
+				client.sendMessage("login", loginInputField.getText(), String.valueOf(passwordInputField.getPassword()));
+				String answer = null;
+				try {
+					 answer = client.getMessage();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				final JDialog dialog = new JDialog();
+				dialog.setAlwaysOnTop(true);
+				JOptionPane.showMessageDialog(dialog, answer, "Answer", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		GridBagConstraints gbc_btnLogIn = new GridBagConstraints();
