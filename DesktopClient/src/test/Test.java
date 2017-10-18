@@ -30,7 +30,7 @@ public class Test {
 //	                if (fromServer.equals("Bye."))
 //	                    break; 
 //	            }
-			Client client = new Client(kkSocket, out, in);
+			Client client = Client.getInstance();
 			client.sendMessage("update", "1");
 			String fromServer;
 			while ((fromServer = client.getMessage()) != null) {

@@ -78,7 +78,7 @@ public class Database {
 						user.secretQuestion, user.birthDate.toString() };
 				return gson.toJson(send);
 			} else {
-				String[] send = { "error", "unknown user" };
+				String[] send = { "error", "wrong login or pin" };
 				return gson.toJson(send);
 			}
 		}
@@ -88,7 +88,7 @@ public class Database {
 				String[] send = { "success", "welcome" };
 				return gson.toJson(send);
 			} else {
-				String[] send = { "error", "already a user" };
+				String[] send = { "error", "already have user with this login" };
 				return gson.toJson(send);
 			}
 		}
@@ -106,7 +106,7 @@ public class Database {
 				String[] send = { "success", "money withdrawal completed" };
 			return gson.toJson(send);
 			} else {
-				String[] send = { "error", "try again" };
+				String[] send = { "error", "not enought money" };
 				return gson.toJson(send);
 			}
 		}
