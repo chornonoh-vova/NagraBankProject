@@ -1,15 +1,15 @@
 package client;
 
-public static class Checker {
-  public boolean verifyLogin(String login) {
+public class Checker {
+  public static boolean verifyLogin(String login) {
     return false;
   }
 
-  public boolean verifyPinCode(String pin) {
+  public static boolean verifyPinCode(String pin) {
     return false;
   }
 
-  public boolean verifyDate(String date) {
+  public static boolean verifyDate(String date) {
     return false;
   }
 }
