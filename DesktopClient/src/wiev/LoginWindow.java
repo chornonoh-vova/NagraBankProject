@@ -16,6 +16,8 @@ import javax.swing.JDialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class LoginWindow {
 
@@ -26,6 +28,7 @@ public class LoginWindow {
 	private JButton btnForgot;
 	private JButton btnLogIn;
 	private JLabel lblYourPincode;
+	private JButton btnRegistration;
 
 	/**
 	 * Launch the application.
@@ -109,7 +112,16 @@ public class LoginWindow {
 		frmLogin.getContentPane().add(passwordInputField, gbc_passwordInputField);
 		
 		btnForgot = new JButton("Forgot?");
+		btnForgot.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				final JDialog dialog = new JDialog();
+				dialog.setAlwaysOnTop(true);
+				JOptionPane.showMessageDialog(dialog, "IDI VSPOMINAY", "VSPOMINALKA", JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
 		GridBagConstraints gbc_btnForgot = new GridBagConstraints();
+		gbc_btnForgot.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnForgot.insets = new Insets(10, 5, 10, 50);
 		gbc_btnForgot.gridx = 1;
 		gbc_btnForgot.gridy = 4;
@@ -132,14 +144,32 @@ public class LoginWindow {
 				JOptionPane.showMessageDialog(dialog, answer, "Answer", JOptionPane.INFORMATION_MESSAGE);
 				loginInputField.setText("");
 				passwordInputField.setText("");
+				MainWindow window = new MainWindow();
+				window.frmNagrabank.setVisible(true);
+				frmLogin.setVisible(false);
 			}
 		});
 		GridBagConstraints gbc_btnLogIn = new GridBagConstraints();
-		gbc_btnLogIn.insets = new Insets(10, 0, 10, 0);
-		gbc_btnLogIn.gridwidth = 2;
+		gbc_btnLogIn.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnLogIn.insets = new Insets(10, 50, 10, 5);
 		gbc_btnLogIn.gridx = 0;
 		gbc_btnLogIn.gridy = 5;
 		frmLogin.getContentPane().add(btnLogIn, gbc_btnLogIn);
+		
+		btnRegistration = new JButton("Registration");
+		btnRegistration.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				RegistrationWindow window = new RegistrationWindow();
+				window.frmRegistration.setVisible(true);
+				frmLogin.setVisible(false);
+			}
+		});
+		GridBagConstraints gbc_btnRegistration = new GridBagConstraints();
+		gbc_btnRegistration.insets = new Insets(10, 5, 10, 50);
+		gbc_btnRegistration.gridx = 1;
+		gbc_btnRegistration.gridy = 5;
+		frmLogin.getContentPane().add(btnRegistration, gbc_btnRegistration);
 	}
 
 }
