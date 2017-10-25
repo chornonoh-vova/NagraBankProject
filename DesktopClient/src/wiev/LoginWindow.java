@@ -3,6 +3,8 @@ package wiev;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
+
+import client.Checker;
 import client.Client;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
@@ -125,6 +127,7 @@ public class LoginWindow {
 			public void actionPerformed(ActionEvent arg0) {
 				String loginToSend = loginInputField.getText();
 				String pinToSend = String.valueOf(passwordInputField.getPassword());
+				if(Checker.verifyPinCode(pinToSend)) {
 				client.sendMessage("login", loginToSend, pinToSend);
 				String[] answer = null;
 				try {
@@ -144,7 +147,14 @@ public class LoginWindow {
 					loginInputField.setText("");
 					passwordInputField.setText("");
 				}
-			}
+				}else {
+					final JDialog dialog = new JDialog();
+					dialog.setAlwaysOnTop(true);
+					JOptionPane.showMessageDialog(dialog, "incorrect password\n try again", "error", JOptionPane.ERROR_MESSAGE);
+					loginInputField.setText("");
+					passwordInputField.setText("");
+				}
+			} 
 		});
 		GridBagConstraints gbc_btnLogIn = new GridBagConstraints();
 		gbc_btnLogIn.fill = GridBagConstraints.HORIZONTAL;

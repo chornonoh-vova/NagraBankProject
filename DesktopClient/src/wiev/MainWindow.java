@@ -37,7 +37,7 @@ public class MainWindow {
 	private void initialize() {
 		frmNagrabank = new JFrame();
 		frmNagrabank.setTitle("NagraBank");
-		frmNagrabank.setBounds(100, 100, 450, 300);
+		frmNagrabank.setBounds(100, 100, 526, 461);
 		frmNagrabank.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
