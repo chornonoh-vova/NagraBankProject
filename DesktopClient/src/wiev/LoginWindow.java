@@ -13,6 +13,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import java.awt.event.ActionEvent;
@@ -22,15 +23,15 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class LoginWindow {
-
 	private Client client = Client.getInstance();
-	private JFrame frmLogin;
+	public JFrame frmLogin;
 	private JTextField loginInputField;
 	private JPasswordField passwordInputField;
 	private JButton btnForgot;
 	private JButton btnLogIn;
 	private JLabel lblYourPincode;
 	private JButton btnRegistration;
+	private JLabel imageLabel;
 
 	/**
 	 * Launch the application.
@@ -60,6 +61,7 @@ public class LoginWindow {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
 		frmLogin = new JFrame();
 		frmLogin.setTitle("Login");
 		frmLogin.setBounds(100, 100, 350, 420);
@@ -70,6 +72,15 @@ public class LoginWindow {
 		gridBagLayout.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		frmLogin.getContentPane().setLayout(gridBagLayout);
+		
+		imageLabel = new JLabel(new ImageIcon("C:\\Users\\\u0412\u043B\u0430\u0434\u0438\u043C\u0438\u0440\\Desktop\\central_bank_dollar.png"));
+		GridBagConstraints gbc_imageLabel = new GridBagConstraints();
+		gbc_imageLabel.gridwidth = 2;
+		gbc_imageLabel.fill = GridBagConstraints.BOTH;
+		gbc_imageLabel.insets = new Insets(0, 50, 5, 50);
+		gbc_imageLabel.gridx = 0;
+		gbc_imageLabel.gridy = 0;
+		frmLogin.getContentPane().add(imageLabel, gbc_imageLabel);
 
 		JLabel lblYourLogin = new JLabel("Your login");
 		GridBagConstraints gbc_lblYourLogin = new GridBagConstraints();
@@ -127,7 +138,14 @@ public class LoginWindow {
 			public void actionPerformed(ActionEvent arg0) {
 				String loginToSend = loginInputField.getText();
 				String pinToSend = String.valueOf(passwordInputField.getPassword());
-				if(Checker.verifyPinCode(pinToSend)) {
+				if(!Checker.verifyPinCode(pinToSend)) {
+					final JDialog dialog = new JDialog();
+					dialog.setAlwaysOnTop(true);
+					JOptionPane.showMessageDialog(dialog, "incorrect password\n try again", "error", JOptionPane.ERROR_MESSAGE);
+					loginInputField.setText("");
+					passwordInputField.setText("");
+					return;
+				}
 				client.sendMessage("login", loginToSend, pinToSend);
 				String[] answer = null;
 				try {
@@ -144,13 +162,6 @@ public class LoginWindow {
 					final JDialog dialog = new JDialog();
 					dialog.setAlwaysOnTop(true);
 					JOptionPane.showMessageDialog(dialog, answer[1], "error while loggining in", JOptionPane.ERROR_MESSAGE);
-					loginInputField.setText("");
-					passwordInputField.setText("");
-				}
-				}else {
-					final JDialog dialog = new JDialog();
-					dialog.setAlwaysOnTop(true);
-					JOptionPane.showMessageDialog(dialog, "incorrect password\n try again", "error", JOptionPane.ERROR_MESSAGE);
 					loginInputField.setText("");
 					passwordInputField.setText("");
 				}
