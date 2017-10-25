@@ -12,23 +12,41 @@ import com.google.gson.Gson;
  * @see java.net.Socket
  */
 public class Client {
+	private static Client uniqueInstance = new Client();
+	@SuppressWarnings("unused")
 	private Socket socket;
 	private PrintWriter out;
-	public BufferedReader in;
+	private BufferedReader in;
 
-	public Client() throws IOException {
-		socket = new Socket("8.8.8.8", 4444);
-		out = new PrintWriter(socket.getOutputStream());
-		BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+	private Client() {
+		try {
+			Socket socket = new Socket("localhost", 4444);
+			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+			BufferedReader in = new BufferedReader(
+          new InputStreamReader(socket.getInputStream()));
+			this.socket = socket;
+			this.out = out;
+			this.in = in;
+		} catch (Exception e) {
+			System.exit(1);
+		}
+	}
+	
+	public String getMessage() throws IOException {
+		return in.readLine();
 	}
 
-	public String[] getMessage(String fromServer) {
+	public String[] getArrayFromMessage() throws IOException {
 		Gson gson = new Gson();
-		return gson.fromJson(fromServer, String[].class);
+		return gson.fromJson(getMessage(), String[].class);
 	}
-
+	
 	public void sendMessage(String... args) {
 		Gson gson = new Gson();
 		out.println(gson.toJson(args));
+	}
+
+	public static Client getInstance() {
+		return uniqueInstance;
 	}
 }

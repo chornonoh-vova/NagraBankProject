@@ -78,7 +78,7 @@ public class Database {
 						user.secretQuestion, user.birthDate.toString(), String.valueOf(user.status) };
 				return gson.toJson(send);
 			} else {
-				String[] send = { "error", "unknown user" };
+				String[] send = { "error", "wrong login or pin" };
 				return gson.toJson(send);
 			}
 		}
@@ -88,19 +88,20 @@ public class Database {
 				String[] send = { "success", "welcome" };
 				return gson.toJson(send);
 			} else {
-				String[] send = { "error", "already a user" };
+				String[] send = { "error", "already have user with this login" };
 				return gson.toJson(send);
 			}
 		}
 		case "transfer":{
 			if(transfer(Integer.valueOf(args[1]), Integer.valueOf(args[2]), Double.valueOf(args[3]))) {
-				String[] send = { "money transfer completed" };
+				String[] send = { "success", "money transfer completed" };
 			return gson.toJson(send);
 			} else {
 				String[] send = { "error", "try again to enter the parameters" };
 				return gson.toJson(send);
 			}
 		}
+<<<<<<< HEAD
 		case "refill":{
 			if(refill(Integer.valueOf(args[1]), Double.valueOf(args[2]))){
 				String[] send = { "refill completed" };
@@ -116,6 +117,31 @@ public class Database {
 					user.secretQuestion, user.birthDate.toString(), user.userLogin, String.valueOf(user.pin)};
 			return gson.toJson(send);
 			
+=======
+		case "withdrawal":{
+			if(withdrawal(Integer.valueOf(args[1]), Double.valueOf(args[2]))) {
+				String[] send = { "success", "money withdrawal completed" };
+			return gson.toJson(send);
+			} else {
+				String[] send = { "error", "not enought money" };
+				return gson.toJson(send);
+			}
+		}
+		case "refill":{
+			if(refill(Integer.valueOf(args[1]), Double.valueOf(args[2]))) {
+				String[] send = { "success", "money refill completed" };
+			return gson.toJson(send);
+			} else {
+				String[] send = { "error", "try again" };
+				return gson.toJson(send);
+			}
+		}
+		case "update":{
+			UserInfo user = getUserInfo(args[1]);
+			String[] send = { "success", String.valueOf(user.userId), String.valueOf(user.balance),
+					user.secretQuestion, user.birthDate.toString() };
+			return gson.toJson(send);
+>>>>>>> 9eabbfe15de26fc67a0ab5edee0876d88115426b
 		}
 		default:
 			String[] send = { "error", "unknown operation" };
