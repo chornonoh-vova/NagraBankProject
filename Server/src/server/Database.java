@@ -75,7 +75,7 @@ public class Database {
 			if (logIn(args[1], Integer.valueOf(args[2]))) {
 				UserInfo user = getUserInfo(args[1]);
 				String[] send = { "success", String.valueOf(user.userId), String.valueOf(user.balance),
-						user.secretQuestion, user.birthDate.toString() };
+						user.secretQuestion, user.birthDate.toString(), String.valueOf(user.status) };
 				return gson.toJson(send);
 			} else {
 				String[] send = { "error", "unknown user" };
@@ -109,6 +109,13 @@ public class Database {
 				String[] send = { "error", "not enough money" };
 				return gson.toJson(send);
 			}
+		}
+		case "Update":{
+			UserInfo user = getUserInfo(args[1]);
+			String[] send = { "success", String.valueOf(user.userId), String.valueOf(user.balance),
+					user.secretQuestion, user.birthDate.toString(), user.userLogin, String.valueOf(user.pin)};
+			return gson.toJson(send);
+			
 		}
 		default:
 			String[] send = { "error", "unknown operation" };
