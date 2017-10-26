@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 
 /**
  * Class for sending data to and from server
+ * 
  * @see java.net.Socket
  */
 public class Client {
@@ -22,8 +23,7 @@ public class Client {
 		try {
 			Socket socket = new Socket("localhost", 4444);
 			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-			BufferedReader in = new BufferedReader(
-          new InputStreamReader(socket.getInputStream()));
+			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			this.socket = socket;
 			this.out = out;
 			this.in = in;
@@ -31,7 +31,7 @@ public class Client {
 			System.exit(1);
 		}
 	}
-	
+
 	public String getMessage() throws IOException {
 		return in.readLine();
 	}
@@ -40,7 +40,7 @@ public class Client {
 		Gson gson = new Gson();
 		return gson.fromJson(getMessage(), String[].class);
 	}
-	
+
 	public void sendMessage(String... args) {
 		Gson gson = new Gson();
 		out.println(gson.toJson(args));

@@ -1,28 +1,16 @@
 package wiev;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 
-public class MainWindow {
+import client.Client;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+public class MainWindow implements IError{
+
+	private Client client = Client.getInstance();
 	public JFrame frmNagrabank;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MainWindow window = new MainWindow();
-					window.frmNagrabank.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.
@@ -36,9 +24,21 @@ public class MainWindow {
 	 */
 	private void initialize() {
 		frmNagrabank = new JFrame();
+		frmNagrabank.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				
+				if (showConfirmDialog("Exit", "Do you really wanna quit?") == 0) {
+					client.sendMessage("logout");
+					arg0.getWindow().dispose();
+				} else {
+					return;
+				}
+			}
+		});
 		frmNagrabank.setTitle("NagraBank");
 		frmNagrabank.setBounds(100, 100, 526, 461);
-		frmNagrabank.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmNagrabank.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 	}
 
 }

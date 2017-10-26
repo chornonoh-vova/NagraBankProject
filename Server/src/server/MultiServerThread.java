@@ -12,7 +12,7 @@ public class MultiServerThread extends Thread {
 	private Socket socket = null;
 
 	public MultiServerThread(Socket socket) {
-		//super("MultiServerThread");
+		// super("MultiServerThread");
 		this.socket = socket;
 		System.out.println("New client connected: " + socket.getInetAddress().getHostAddress());
 	}
@@ -30,13 +30,14 @@ public class MultiServerThread extends Thread {
 			while ((inputLine = in.readLine()) != null) {
 				// process message from client (execute specific query)
 				System.out.println("from user:" + inputLine);
+				if (inputLine.equals("[\"logout\"]") || inputLine.equals("[\"close\"]")) {
+					System.out.println("Closing connection with " + socket.getInetAddress().getHostAddress());
+					break;
+				}
 				outputLine = database.processInput(inputLine);
 				// send message to client
 				System.out.println("to user:" + outputLine);
 				out.println(outputLine);
-				if (outputLine.equals("logout")) {
-					break;
-				}
 			}
 			// close session
 			database.closeConnection();

@@ -1,14 +1,10 @@
 package client;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Checker {
   public static boolean verifyLogin(String login) {
-  	Pattern verifyUserLogin = Pattern.compile("[a-zA-Z]+([/._]?[a-z0-9]+)*", Pattern.CASE_INSENSITIVE);
-  	Matcher matcher = verifyUserLogin.matcher(login);
-  	boolean verified = matcher.matches();
-  	return verified;
+  	return Pattern.matches("[a-zA-Z]+([/._]?[a-zA-Z0-9]+)*", login);
   }
 
   public static boolean verifyPinCode(String pin) {

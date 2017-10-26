@@ -21,8 +21,10 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
-public class LoginWindow {
+public class LoginWindow implements IError{
 	private Client client = Client.getInstance();
 	public JFrame frmLogin;
 	private JTextField loginInputField;
@@ -61,19 +63,26 @@ public class LoginWindow {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		
+
 		frmLogin = new JFrame();
+		frmLogin.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				client.sendMessage("close");
+			}
+		});
 		frmLogin.setTitle("Login");
 		frmLogin.setBounds(100, 100, 350, 420);
 		frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWidths = new int[] { 0, 0, 0 };
+		gridBagLayout.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0 };
+		gridBagLayout.columnWeights = new double[] { 1.0, 0.0, Double.MIN_VALUE };
+		gridBagLayout.rowWeights = new double[] { 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		frmLogin.getContentPane().setLayout(gridBagLayout);
-		
-		imageLabel = new JLabel(new ImageIcon("C:\\Users\\\u0412\u043B\u0430\u0434\u0438\u043C\u0438\u0440\\Desktop\\central_bank_dollar.png"));
+
+		imageLabel = new JLabel(new ImageIcon(
+				"C:\\Users\\\u0412\u043B\u0430\u0434\u0438\u043C\u0438\u0440\\Desktop\\central_bank_dollar.png"));
 		GridBagConstraints gbc_imageLabel = new GridBagConstraints();
 		gbc_imageLabel.gridwidth = 2;
 		gbc_imageLabel.fill = GridBagConstraints.BOTH;
@@ -122,7 +131,8 @@ public class LoginWindow {
 			public void mouseClicked(MouseEvent e) {
 				final JDialog dialog = new JDialog();
 				dialog.setAlwaysOnTop(true);
-				JOptionPane.showMessageDialog(dialog, "IDI VSPOMINAY", "VSPOMINALKA", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(dialog, "IDI VSPOMINAY", "VSPOMINALKA",
+						JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		GridBagConstraints gbc_btnForgot = new GridBagConstraints();
@@ -137,19 +147,21 @@ public class LoginWindow {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				String loginToSend = loginInputField.getText();
-				String pinToSend = String.valueOf(passwordInputField.getPassword());
-				if(!Checker.verifyPinCode(pinToSend)) {
-					final JDialog dialog = new JDialog();
-					dialog.setAlwaysOnTop(true);
-					JOptionPane.showMessageDialog(dialog, "incorrect password\n try again", "error", JOptionPane.ERROR_MESSAGE);
+				if (!Checker.verifyLogin(loginToSend)) {
+					showErrorMessage("error", "Incorrect login\ntry again");
 					loginInputField.setText("");
+					return;
+				}
+				String pinToSend = String.valueOf(passwordInputField.getPassword());
+				if (!Checker.verifyPinCode(pinToSend)) {
+					showErrorMessage("error", "Incorrect password\ntry again");
 					passwordInputField.setText("");
 					return;
 				}
 				client.sendMessage("login", loginToSend, pinToSend);
 				String[] answer = null;
 				try {
-					 answer = client.getArrayFromMessage();
+					answer = client.getArrayFromMessage();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -159,13 +171,11 @@ public class LoginWindow {
 					window.frmNagrabank.setVisible(true);
 					frmLogin.setVisible(false);
 				} else {
-					final JDialog dialog = new JDialog();
-					dialog.setAlwaysOnTop(true);
-					JOptionPane.showMessageDialog(dialog, answer[1], "error while loggining in", JOptionPane.ERROR_MESSAGE);
+					showErrorMessage("error while loggining in", answer[1]);
 					loginInputField.setText("");
 					passwordInputField.setText("");
 				}
-			} 
+			}
 		});
 		GridBagConstraints gbc_btnLogIn = new GridBagConstraints();
 		gbc_btnLogIn.fill = GridBagConstraints.HORIZONTAL;

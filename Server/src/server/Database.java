@@ -92,34 +92,34 @@ public class Database {
 				return gson.toJson(send);
 			}
 		}
-		case "transfer":{
-			if(transfer(Integer.valueOf(args[1]), Integer.valueOf(args[2]), Double.valueOf(args[3]))) {
+		case "transfer": {
+			if (transfer(Integer.valueOf(args[1]), Integer.valueOf(args[2]), Double.valueOf(args[3]))) {
 				String[] send = { "success", "money transfer completed" };
-			return gson.toJson(send);
+				return gson.toJson(send);
 			} else {
 				String[] send = { "error", "try again to enter the parameters" };
 				return gson.toJson(send);
 			}
 		}
-		case "withdrawal":{
-			if(withdrawal(Integer.valueOf(args[1]), Double.valueOf(args[2]))) {
+		case "withdrawal": {
+			if (withdrawal(Integer.valueOf(args[1]), Double.valueOf(args[2]))) {
 				String[] send = { "success", "money withdrawal completed" };
-			return gson.toJson(send);
+				return gson.toJson(send);
 			} else {
 				String[] send = { "error", "not enought money" };
 				return gson.toJson(send);
 			}
 		}
-		case "refill":{
-			if(refill(Integer.valueOf(args[1]), Double.valueOf(args[2]))) {
+		case "refill": {
+			if (refill(Integer.valueOf(args[1]), Double.valueOf(args[2]))) {
 				String[] send = { "success", "money refill completed" };
-			return gson.toJson(send);
+				return gson.toJson(send);
 			} else {
 				String[] send = { "error", "try again" };
 				return gson.toJson(send);
 			}
 		}
-		case "update":{
+		case "update": {
 			UserInfo user = getUserInfo(args[1]);
 			String[] send = { "success", String.valueOf(user.userId), String.valueOf(user.balance),
 					user.secretQuestion, user.birthDate.toString() };
