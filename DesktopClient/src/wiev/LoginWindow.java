@@ -24,7 +24,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class LoginWindow implements IError{
+public class LoginWindow implements ShowMessage, Md5Hasher {
 	private Client client = Client.getInstance();
 	public JFrame frmLogin;
 	private JTextField loginInputField;

@@ -7,7 +7,7 @@ import client.Client;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class MainWindow implements IError{
+public class MainWindow implements ShowMessage, Md5Hasher {
 
 	private Client client = Client.getInstance();
 	public JFrame frmNagrabank;
@@ -27,7 +27,7 @@ public class MainWindow implements IError{
 		frmNagrabank.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent arg0) {
-				
+
 				if (showConfirmDialog("Exit", "Do you really wanna quit?") == 0) {
 					client.sendMessage("logout");
 					arg0.getWindow().dispose();

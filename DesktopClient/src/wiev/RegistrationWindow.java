@@ -20,7 +20,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class RegistrationWindow implements IError {
+public class RegistrationWindow implements ShowMessage, Md5Hasher {
 
 	private Client client = Client.getInstance();
 	public JFrame frmRegistration;
