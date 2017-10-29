@@ -6,6 +6,8 @@ import javax.swing.UIManager;
 
 import client.Checker;
 import client.Client;
+import client.Md5Hasher;
+
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -81,8 +83,7 @@ public class LoginWindow implements ShowMessage, Md5Hasher {
 		gridBagLayout.rowWeights = new double[] { 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		frmLogin.getContentPane().setLayout(gridBagLayout);
 
-		imageLabel = new JLabel(new ImageIcon(
-				"C:\\Users\\\u0412\u043B\u0430\u0434\u0438\u043C\u0438\u0440\\Desktop\\central_bank_dollar.png"));
+		imageLabel = new JLabel(new ImageIcon("img/central_bank_dollar.png"));
 		GridBagConstraints gbc_imageLabel = new GridBagConstraints();
 		gbc_imageLabel.gridwidth = 2;
 		gbc_imageLabel.fill = GridBagConstraints.BOTH;

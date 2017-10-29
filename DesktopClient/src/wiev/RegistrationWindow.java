@@ -6,6 +6,7 @@ import javax.swing.JTextField;
 
 import client.Checker;
 import client.Client;
+import client.Md5Hasher;
 
 import java.awt.GridBagConstraints;
 import javax.swing.JLabel;
