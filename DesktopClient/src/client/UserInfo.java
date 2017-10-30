@@ -22,4 +22,14 @@ public class UserInfo {
 		this.secretAnswer = "";
 		this.status = false;
 	}
+
+	public UserInfo(UserInfo other) {
+		this.userId = other.userId;
+		this.userLogin = other.userLogin;
+		this.balance = other.balance;
+		this.birthDate = other.birthDate;
+		this.secretQuestion = other.secretQuestion;
+		this.status = other.status;
+		this.secretAnswer = other.secretAnswer;
+	}
 }
