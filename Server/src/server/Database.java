@@ -270,7 +270,7 @@ public class Database {
 			return false;
 		}
 		try {
-			ResultSet hasUser = (ResultSet) execute(OpType.INSERT,
+			ResultSet hasUser = (ResultSet) execute(OpType.UPDATE,
 					"select user_id from users where user_id = " + userId + ";");
 			if (!hasUser.first()) {
 				return false;
@@ -347,7 +347,6 @@ public class Database {
 	 * @return object of class UserInfo
 	 */
 	public UserInfo getUserInfo(String userLogin) {
-
 		try {
 			ResultSet result = (ResultSet) execute(OpType.SELECT,
 					"select * from users where user_login = '" + userLogin + "';");
