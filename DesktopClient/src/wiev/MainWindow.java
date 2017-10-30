@@ -247,7 +247,25 @@ public class MainWindow implements ShowMessage, Md5Hasher {
 		JButton btnWidthdraw = new JButton("Widthdraw");
 		btnWidthdraw.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				if(moneyToWidthdraw.getText().isEmpty()) {
+					showErrorMessage("error", "Fill amount of money first");
+					return ;
+				}
+				client.sendMessage("withdrawal", String.valueOf(user.userId), moneyToWidthdraw.getText());
+				String[] answer = null;
+				
+				try {
+					answer = client.getArrayFromMessage();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				if(answer[0].equals("success")) {
+					showPlainMessage("successfully", "Your money delivered");
+				}
+				else{
+					showErrorMessage(answer[0], answer[1]);
+				}
 			}
 		});
 		GridBagConstraints gbc_btnWidthdraw = new GridBagConstraints();
