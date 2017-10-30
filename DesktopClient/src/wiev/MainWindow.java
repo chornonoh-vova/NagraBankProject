@@ -229,7 +229,7 @@ public class MainWindow implements ShowMessage, Md5Hasher {
 					showErrorMessage("error", "Fill amount of money first");
 					return ;
 				}
-				client.sendMessage("refill", String.valueOf(user.userId), moneyToWidthdraw.getText());
+				client.sendMessage("refill", String.valueOf(user.userId), moneyToRefill.getText());
 				String[] answer = null;
 				
 				try {
