@@ -226,6 +226,11 @@ public class MainWindow implements ShowMessage, Md5Hasher {
 		JButton btnRefill = new JButton("Refill");
 		btnRefill.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (user.balance > 10000000d) {
+					showErrorMessage("error", "you are already rich");
+					moneyToRefill.setText("");
+					return;
+				}
 				if(moneyToRefill.getText().isEmpty()) {
 					showErrorMessage("error", "Fill amount of money first");
 					return ;
@@ -241,9 +246,11 @@ public class MainWindow implements ShowMessage, Md5Hasher {
 				}
 				if(answer[0].equals("success")) {
 					showPlainMessage("successfully", "Money refilled");
+					moneyToRefill.setText("");
 				}
 				else{
 					showErrorMessage(answer[0], answer[1]);
+					moneyToRefill.setText("");
 				}
 			}			
 		});
@@ -281,9 +288,11 @@ public class MainWindow implements ShowMessage, Md5Hasher {
 				}
 				if(answer[0].equals("success")) {
 					showPlainMessage("successfully", "Your money delivered");
+					moneyToWidthdraw.setText("");
 				}
 				else{
 					showErrorMessage(answer[0], answer[1]);
+					moneyToWidthdraw.setText("");
 				}
 			}
 		});
@@ -344,9 +353,13 @@ public class MainWindow implements ShowMessage, Md5Hasher {
 				}
 				if(answer[0].equals("success")) {
 					showPlainMessage(answer[0], answer[1]);
+					textField.setText("");
+					textField_1.setText("");
 				}
 				else{
 					showErrorMessage(answer[0], answer[1]);
+					textField.setText("");
+					textField_1.setText("");
 				}
 			}
 		});

@@ -202,6 +202,7 @@ public class RegistrationWindow implements ShowMessage, Md5Hasher {
 					showErrorMessage("error", "Incorrect password or password`s don`t match\ntry again");
 					return;
 				}
+				String hashedPin = getMd5Hash(pinToSend);
 				String birthDate = birthdateField.getText();
 				if (!Checker.verifyDate(birthDate)) {
 					showErrorMessage("error", "Incorrect birthdate\ntry again");
@@ -217,7 +218,7 @@ public class RegistrationWindow implements ShowMessage, Md5Hasher {
 					showErrorMessage("error", "Type secret question, please");
 					return;
 				}
-				client.sendMessage("registry", pinToSend, loginToSend, birthDate, secretQuestion,
+				client.sendMessage("registry", hashedPin, loginToSend, birthDate, secretQuestion,
 						secretAnswer);
 				String[] fromServer = null;
 				try {

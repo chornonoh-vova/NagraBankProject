@@ -150,7 +150,8 @@ public class LoginWindow implements ShowMessage, Md5Hasher {
 						passwordInputField.setText("");
 						return;
 					}
-					client.sendMessage("login", loginToSend, pinToSend);
+					String hashedPin = getMd5Hash(pinToSend);
+					client.sendMessage("login", loginToSend, hashedPin);
 					String[] answer = null;
 					try {
 						answer = client.getArrayFromMessage();
@@ -166,7 +167,7 @@ public class LoginWindow implements ShowMessage, Md5Hasher {
 						newUser.secretQuestion = answer[3];
 						newUser.birthDate = Date.valueOf(answer[4]);
 						newUser.status = Boolean.valueOf(answer[5]);
-						newUser.pin = Integer.valueOf(pinToSend);
+						newUser.pin = hashedPin;
 						MainWindow window = new MainWindow(newUser);
 						window.frmNagrabank.setVisible(true);
 						frmLogin.setVisible(false);
@@ -218,7 +219,8 @@ public class LoginWindow implements ShowMessage, Md5Hasher {
 					passwordInputField.setText("");
 					return;
 				}
-				client.sendMessage("login", loginToSend, pinToSend);
+				String hashedPin = getMd5Hash(pinToSend);
+				client.sendMessage("login", loginToSend, hashedPin);
 				String[] answer = null;
 				try {
 					answer = client.getArrayFromMessage();
@@ -234,7 +236,7 @@ public class LoginWindow implements ShowMessage, Md5Hasher {
 					newUser.secretQuestion = answer[3];
 					newUser.birthDate = Date.valueOf(answer[4]);
 					newUser.status = Boolean.valueOf(answer[5]);
-					newUser.pin = Integer.valueOf(pinToSend);
+					newUser.pin = hashedPin;
 					MainWindow window = new MainWindow(newUser);
 					window.frmNagrabank.setVisible(true);
 					frmLogin.setVisible(false);
