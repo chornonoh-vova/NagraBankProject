@@ -8,6 +8,8 @@ import client.UserInfo;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
+import java.sql.Date;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
@@ -34,7 +36,8 @@ public class MainWindow implements ShowMessage, Md5Hasher {
 	/**
 	 * Create the application.
 	 */
-	public MainWindow() {
+	public MainWindow(UserInfo other) {
+		user = new UserInfo(other);
 		initialize();
 	}
 
@@ -117,11 +120,7 @@ public class MainWindow implements ShowMessage, Md5Hasher {
 		userInfoPanel.add(lblSecretQuestion, gbc_lblSecretQuestion);
 
 		JButton btnUpdate = new JButton("Update");
-		btnUpdate.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-
-			}
-		});
+		
 		GridBagConstraints gbc_btnUpdate = new GridBagConstraints();
 		gbc_btnUpdate.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnUpdate.insets = new Insets(5, 5, 5, 10);
@@ -129,40 +128,66 @@ public class MainWindow implements ShowMessage, Md5Hasher {
 		gbc_btnUpdate.gridy = 0;
 		userInfoPanel.add(btnUpdate, gbc_btnUpdate);
 
-		JLabel labelForLogin = new JLabel("----");
+		JLabel labelForLogin = new JLabel(user.userLogin);
 		GridBagConstraints gbc_labelForLogin = new GridBagConstraints();
 		gbc_labelForLogin.insets = new Insets(5, 10, 5, 5);
 		gbc_labelForLogin.gridx = 0;
 		gbc_labelForLogin.gridy = 1;
 		userInfoPanel.add(labelForLogin, gbc_labelForLogin);
 
-		JLabel labelForBirthdate = new JLabel("----");
+		JLabel labelForBirthdate = new JLabel(user.birthDate.toString());
 		GridBagConstraints gbc_labelForBirthdate = new GridBagConstraints();
 		gbc_labelForBirthdate.insets = new Insets(5, 5, 5, 5);
 		gbc_labelForBirthdate.gridx = 1;
 		gbc_labelForBirthdate.gridy = 1;
 		userInfoPanel.add(labelForBirthdate, gbc_labelForBirthdate);
 
-		JLabel labelForBalance = new JLabel("----");
+		JLabel labelForBalance = new JLabel(String.valueOf(user.balance));
 		GridBagConstraints gbc_labelForBalance = new GridBagConstraints();
 		gbc_labelForBalance.insets = new Insets(5, 5, 5, 5);
 		gbc_labelForBalance.gridx = 2;
 		gbc_labelForBalance.gridy = 1;
 		userInfoPanel.add(labelForBalance, gbc_labelForBalance);
 
-		JLabel labelForId = new JLabel("----");
+		JLabel labelForId = new JLabel(String.valueOf(user.userId));
 		GridBagConstraints gbc_labelForId = new GridBagConstraints();
 		gbc_labelForId.insets = new Insets(5, 5, 5, 5);
 		gbc_labelForId.gridx = 3;
 		gbc_labelForId.gridy = 1;
 		userInfoPanel.add(labelForId, gbc_labelForId);
 
-		JLabel labelForSecrQuestion = new JLabel("----");
+		JLabel labelForSecrQuestion = new JLabel(user.secretQuestion);
 		GridBagConstraints gbc_labelForSecrQuestion = new GridBagConstraints();
 		gbc_labelForSecrQuestion.insets = new Insets(5, 5, 5, 5);
 		gbc_labelForSecrQuestion.gridx = 4;
 		gbc_labelForSecrQuestion.gridy = 1;
 		userInfoPanel.add(labelForSecrQuestion, gbc_labelForSecrQuestion);
+		
+		btnUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				client.sendMessage("update", user.userLogin);
+				String[] upInfo = null;
+				
+				try {
+					upInfo = client.getArrayFromMessage();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				user.userId = Integer.valueOf(upInfo[1]);
+				user.balance = Double.valueOf(upInfo[2]);
+				user.secretQuestion = upInfo[3];
+				user.birthDate = Date.valueOf(upInfo[4]);
+				
+				labelForLogin.setText(user.userLogin);
+				labelForBirthdate.setText(user.birthDate.toString());
+				labelForBalance.setText(String.valueOf(user.balance));			
+				labelForId.setText(String.valueOf(user.userId));
+				labelForSecrQuestion.setText(user.secretQuestion);
+			}
+				
+		});
 
 		JPanel moneyOperations = new JPanel();
 		moneyOperations.setBorder(

@@ -7,6 +7,7 @@ import javax.swing.UIManager;
 import client.Checker;
 import client.Client;
 import client.Md5Hasher;
+import client.UserInfo;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
@@ -21,6 +22,7 @@ import javax.swing.JDialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.sql.Date;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
@@ -168,7 +170,15 @@ public class LoginWindow implements ShowMessage, Md5Hasher {
 					e.printStackTrace();
 				}
 				if (answer[0].equals("success")) {
-					MainWindow window = new MainWindow();
+					UserInfo newUser = new UserInfo();
+					newUser.userId = Integer.valueOf(answer[1]);
+					newUser.userLogin = loginToSend;
+					newUser.balance = Double.valueOf(answer[2]);
+					newUser.secretQuestion = answer[3];
+					newUser.birthDate = Date.valueOf(answer[4]);
+					newUser.status = Boolean.valueOf(answer[5]);
+					newUser.pin = Integer.valueOf(pinToSend);
+					MainWindow window = new MainWindow(newUser);
 					window.frmNagrabank.setVisible(true);
 					frmLogin.setVisible(false);
 				} else {
