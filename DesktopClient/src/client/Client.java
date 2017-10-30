@@ -13,20 +13,21 @@ import com.google.gson.Gson;
  * @see java.net.Socket
  */
 public class Client {
-	private static Client uniqueInstance = new Client();
+	private static Client uniqueInstance;
 	@SuppressWarnings("unused")
 	private Socket socket;
 	private PrintWriter out;
 	private BufferedReader in;
 
-	private Client() {
+	public Client(String ip) {
 		try {
-			Socket socket = new Socket("192.168.63.136", 4444);
+			Socket socket = new Socket(ip, 4444);
 			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			this.socket = socket;
 			this.out = out;
 			this.in = in;
+			uniqueInstance = this;
 		} catch (Exception e) {
 			System.exit(1);
 		}

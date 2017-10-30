@@ -50,6 +50,15 @@ public class LoginWindow implements ShowMessage, Md5Hasher {
 				try {
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 					LoginWindow window = new LoginWindow();
+					final JDialog dialog = new JDialog();
+					dialog.setAlwaysOnTop(true);
+					String ip = (String) JOptionPane.showInputDialog(dialog, "Server ip:", "Enter",
+							JOptionPane.PLAIN_MESSAGE);
+					if ((ip != null) && (ip.length() > 0)) {
+						window.client = new Client(ip);
+					} else {
+						System.exit(0);
+					}
 					window.frmLogin.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -71,11 +80,12 @@ public class LoginWindow implements ShowMessage, Md5Hasher {
 	private void initialize() {
 
 		frmLogin = new JFrame();
-		
+
 		frmLogin.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				client.sendMessage("close");
+				System.exit(0);
 			}
 		});
 		frmLogin.setTitle("Login");

@@ -53,6 +53,7 @@ public class RegistrationWindow implements ShowMessage, Md5Hasher {
 			@Override
 			public void windowClosing(WindowEvent arg0) {
 				client.sendMessage("close");
+				System.exit(0);
 			}
 		});
 		frmRegistration.setTitle("Registration");

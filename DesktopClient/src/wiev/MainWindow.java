@@ -52,6 +52,7 @@ public class MainWindow implements ShowMessage, Md5Hasher {
 				if (showConfirmDialog("Exit", "Do you really wanna quit?") == 0) {
 					client.sendMessage("logout");
 					arg0.getWindow().dispose();
+					System.exit(0);
 				} else {
 					return;
 				}
