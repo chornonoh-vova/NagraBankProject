@@ -225,8 +225,26 @@ public class MainWindow implements ShowMessage, Md5Hasher {
 		JButton btnRefill = new JButton("Refill");
 		btnRefill.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(moneyToRefill.getText().isEmpty()) {
+					showErrorMessage("error", "Fill amount of money first");
+					return ;
+				}
+				client.sendMessage("refill", String.valueOf(user.userId), moneyToRefill.getText());
+				String[] answer = null;
 				
-			}
+				try {
+					answer = client.getArrayFromMessage();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				if(answer[0].equals("success")) {
+					showPlainMessage("successfully", "Money refilled");
+				}
+				else{
+					showErrorMessage(answer[0], answer[1]);
+				}
+			}			
 		});
 		GridBagConstraints gbc_btnRefill = new GridBagConstraints();
 		gbc_btnRefill.fill = GridBagConstraints.HORIZONTAL;
