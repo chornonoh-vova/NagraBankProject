@@ -270,7 +270,7 @@ public class Database {
 			return false;
 		}
 		try {
-			ResultSet hasUser = (ResultSet) execute(OpType.UPDATE,
+			ResultSet hasUser = (ResultSet) execute(OpType.SELECT,
 					"select user_id from users where user_id = " + userId + ";");
 			if (!hasUser.first()) {
 				return false;
