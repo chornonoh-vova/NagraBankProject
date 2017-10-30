@@ -27,6 +27,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class LoginWindow implements ShowMessage, Md5Hasher {
 	private Client client = Client.getInstance();
@@ -69,6 +71,7 @@ public class LoginWindow implements ShowMessage, Md5Hasher {
 	private void initialize() {
 
 		frmLogin = new JFrame();
+		
 		frmLogin.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -121,6 +124,50 @@ public class LoginWindow implements ShowMessage, Md5Hasher {
 		frmLogin.getContentPane().add(lblYourPincode, gbc_lblYourPincode);
 
 		passwordInputField = new JPasswordField();
+		passwordInputField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				if (arg0.getKeyCode() == KeyEvent.VK_ENTER) {
+					String loginToSend = loginInputField.getText();
+					if (!Checker.verifyLogin(loginToSend)) {
+						showErrorMessage("error", "Incorrect login\ntry again");
+						loginInputField.setText("");
+						return;
+					}
+					String pinToSend = String.valueOf(passwordInputField.getPassword());
+					if (!Checker.verifyPinCode(pinToSend)) {
+						showErrorMessage("error", "Incorrect password\ntry again");
+						passwordInputField.setText("");
+						return;
+					}
+					client.sendMessage("login", loginToSend, pinToSend);
+					String[] answer = null;
+					try {
+						answer = client.getArrayFromMessage();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					if (answer[0].equals("success")) {
+						UserInfo newUser = new UserInfo();
+						newUser.userId = Integer.valueOf(answer[1]);
+						newUser.userLogin = loginToSend;
+						newUser.balance = Double.valueOf(answer[2]);
+						newUser.secretQuestion = answer[3];
+						newUser.birthDate = Date.valueOf(answer[4]);
+						newUser.status = Boolean.valueOf(answer[5]);
+						newUser.pin = Integer.valueOf(pinToSend);
+						MainWindow window = new MainWindow(newUser);
+						window.frmNagrabank.setVisible(true);
+						frmLogin.setVisible(false);
+					} else {
+						showErrorMessage("error while loggining in", answer[1]);
+						loginInputField.setText("");
+						passwordInputField.setText("");
+					}
+				}
+			}
+		});
 		GridBagConstraints gbc_passwordInputField = new GridBagConstraints();
 		gbc_passwordInputField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_passwordInputField.insets = new Insets(10, 50, 10, 5);
