@@ -225,8 +225,26 @@ public class MainWindow implements ShowMessage, Md5Hasher {
 		JButton btnRefill = new JButton("Refill");
 		btnRefill.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(moneyToRefill.getText().isEmpty()) {
+					showErrorMessage("error", "Fill amount of money first");
+					return ;
+				}
+				client.sendMessage("refill", String.valueOf(user.userId), moneyToRefill.getText());
+				String[] answer = null;
 				
-			}
+				try {
+					answer = client.getArrayFromMessage();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				if(answer[0].equals("success")) {
+					showPlainMessage("successfully", "Money refilled");
+				}
+				else{
+					showErrorMessage(answer[0], answer[1]);
+				}
+			}			
 		});
 		GridBagConstraints gbc_btnRefill = new GridBagConstraints();
 		gbc_btnRefill.fill = GridBagConstraints.HORIZONTAL;
@@ -247,7 +265,25 @@ public class MainWindow implements ShowMessage, Md5Hasher {
 		JButton btnWidthdraw = new JButton("Widthdraw");
 		btnWidthdraw.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				if(moneyToWidthdraw.getText().isEmpty()) {
+					showErrorMessage("error", "Fill amount of money first");
+					return ;
+				}
+				client.sendMessage("withdrawal", String.valueOf(user.userId), moneyToWidthdraw.getText());
+				String[] answer = null;
+				
+				try {
+					answer = client.getArrayFromMessage();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				if(answer[0].equals("success")) {
+					showPlainMessage("successfully", "Your money delivered");
+				}
+				else{
+					showErrorMessage(answer[0], answer[1]);
+				}
 			}
 		});
 		GridBagConstraints gbc_btnWidthdraw = new GridBagConstraints();
@@ -292,7 +328,25 @@ public class MainWindow implements ShowMessage, Md5Hasher {
 		JButton btnTransfer = new JButton("Transfer");
 		btnTransfer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				if(textField.getText().isEmpty() ||textField_1.getText().isEmpty()) {
+					showErrorMessage("error", "fill fields first");
+					return;
+				}
+				client.sendMessage("transfer", String.valueOf(user.userId), textField.getText(), textField_1.getText());
+				String[] answer = null;
+				
+				try {
+					answer = client.getArrayFromMessage();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				if(answer[0].equals("success")) {
+					showPlainMessage(answer[0], answer[1]);
+				}
+				else{
+					showErrorMessage(answer[0], answer[1]);
+				}
 			}
 		});
 		GridBagConstraints gbc_btnTransfer = new GridBagConstraints();
