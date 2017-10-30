@@ -310,7 +310,25 @@ public class MainWindow implements ShowMessage, Md5Hasher {
 		JButton btnTransfer = new JButton("Transfer");
 		btnTransfer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				if(textField.getText().isEmpty() ||textField_1.getText().isEmpty()) {
+					showErrorMessage("error", "fill fields first");
+					return;
+				}
+				client.sendMessage("transfer", String.valueOf(user.userId), textField.getText(), textField_1.getText());
+				String[] answer = null;
+				
+				try {
+					answer = client.getArrayFromMessage();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				if(answer[0].equals("success")) {
+					showPlainMessage(answer[0], answer[1]);
+				}
+				else{
+					showErrorMessage(answer[0], answer[1]);
+				}
 			}
 		});
 		GridBagConstraints gbc_btnTransfer = new GridBagConstraints();

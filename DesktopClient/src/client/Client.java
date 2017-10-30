@@ -21,7 +21,7 @@ public class Client {
 
 	private Client() {
 		try {
-			Socket socket = new Socket("192.168.82.110", 4444);
+			Socket socket = new Socket("192.168.63.136", 4444);
 			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			this.socket = socket;
