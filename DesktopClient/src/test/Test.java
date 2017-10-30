@@ -12,11 +12,11 @@ import client.Client;
 public class Test {
 
 	public static void main(String[] args) throws IOException {
-		try (Socket kkSocket = new Socket("192.168.1.124", 4444);
+		try (Socket kkSocket = new Socket("localhost", 4444);
 				PrintWriter out = new PrintWriter(kkSocket.getOutputStream(), true);
 				BufferedReader in = new BufferedReader(new InputStreamReader(kkSocket.getInputStream()));) {
 			Client client = Client.getInstance();
-			client.sendMessage("update", "1");
+			client.sendMessage("update", "test");
 			String fromServer;
 			while ((fromServer = client.getMessage()) != null) {
 				System.out.println("Server: " + fromServer);

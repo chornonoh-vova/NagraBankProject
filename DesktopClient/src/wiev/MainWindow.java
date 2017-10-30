@@ -200,7 +200,7 @@ public class MainWindow implements ShowMessage, Md5Hasher {
 		JButton btnRefill = new JButton("Refill");
 		btnRefill.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				
 			}
 		});
 		GridBagConstraints gbc_btnRefill = new GridBagConstraints();
