@@ -72,7 +72,7 @@ public class Database {
 
 		switch (args[0]) {
 		case "login": {
-			if (logIn(args[1], Integer.valueOf(args[2]))) {
+			if (logIn(args[1], args[2])) {
 				UserInfo user = getUserInfo(args[1]);
 				String[] send = { "success", String.valueOf(user.userId), String.valueOf(user.balance),
 						user.secretQuestion, user.birthDate.toString(), String.valueOf(user.status) };
@@ -83,8 +83,7 @@ public class Database {
 			}
 		}
 		case "registry": {
-			if (registryNewUser(Integer.valueOf(args[1]), args[2], Date.valueOf(args[3]), args[4],
-					args[5])) {
+			if (registryNewUser(args[1], args[2], Date.valueOf(args[3]), args[4], args[5])) {
 				String[] send = { "success", "welcome" };
 				return gson.toJson(send);
 			} else {
@@ -173,8 +172,8 @@ public class Database {
 	 *          answer used to confirmation
 	 * @return false because of error
 	 */
-	public boolean registryNewUser(int pin, String userLogin, Date birthDate, String secretQuestion,
-			String secretAnswer) {
+	public boolean registryNewUser(String pin, String userLogin, Date birthDate,
+			String secretQuestion, String secretAnswer) {
 		try {
 			ResultSet maximum = (ResultSet) execute(OpType.SELECT, "select max(user_id) from users;");
 			int max = 0;
@@ -183,7 +182,7 @@ public class Database {
 			}
 			maximum.close();
 			execute(OpType.INSERT,
-					"insert into users values(" + ++max + "," + " 0," + pin + "," + " '"
+					"insert into users values(" + ++max + "," + " 0, '" + pin + "'," + " '"
 							+ birthDate.toString() + "'," + " '" + userLogin + "'," + " '" + secretQuestion + "',"
 							+ " '" + secretAnswer + "'," + " true);");
 			round();
@@ -203,10 +202,10 @@ public class Database {
 	 *          login of a user
 	 * @return true if confirmed, false if not
 	 */
-	public boolean logIn(String userLogin, int pin) {
+	public boolean logIn(String userLogin, String pin) {
 		try {
 			ResultSet client = (ResultSet) execute(OpType.SELECT, "select user_login, pin from users "
-					+ "where pin = " + pin + " and user_login = '" + userLogin + "';");
+					+ "where pin = '" + pin + "' and user_login = '" + userLogin + "';");
 			if (!client.first()) {
 				return false;
 			}
@@ -354,7 +353,7 @@ public class Database {
 			while (result.next()) {
 				client.userId = result.getInt(1);
 				client.balance = result.getDouble(2);
-				client.pin = result.getInt(3);
+				client.pin = result.getString(3);
 				client.birthDate = result.getDate(4);
 				client.userLogin = result.getString(5);
 				client.secretQuestion = result.getString(6);

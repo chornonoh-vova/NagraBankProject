@@ -5,7 +5,7 @@ import java.sql.Date;
 public class UserInfo {
 	public int userId;
 	public double balance;
-	public int pin;
+	public String pin;
 	public String userLogin;
 	public Date birthDate;
 	public String secretQuestion;
@@ -15,7 +15,7 @@ public class UserInfo {
 	public UserInfo() {
 		this.userId = 0;
 		this.balance = 0;
-		this.pin = 0;
+		this.pin = "";
 		this.userLogin = "";
 		this.birthDate = Date.valueOf("1970-01-01");
 		this.secretQuestion = "";
