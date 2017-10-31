@@ -4,6 +4,7 @@ android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.wiev.androidclient"
+
         minSdkVersion 22
         targetSdkVersion 26
         versionCode 1
@@ -27,4 +28,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
     compile 'com.google.code.gson:gson:2.8.2'
+
 }
