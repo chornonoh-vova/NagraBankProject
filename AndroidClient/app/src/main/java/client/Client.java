@@ -24,8 +24,6 @@ public class Client{
     public Client () {}
 
     public void openConnection(String ip) throws Exception {
-        closeConnection();
-
         try {
             this.socket = new Socket(ip, port);
             this.out = new PrintWriter(this.socket.getOutputStream(), true);
@@ -38,6 +36,7 @@ public class Client{
     public void closeConnection() throws Exception{
         if (this.socket != null && !this.socket.isClosed()) {
             try {
+                sendMessage("close");
                 this.socket.close();
             } catch (IOException e) {
                 throw new Exception("Cannot close socket: " + e.getMessage());
