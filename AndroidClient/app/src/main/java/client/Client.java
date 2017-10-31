@@ -13,21 +13,58 @@ import com.google.gson.Gson;
  * @see java.net.Socket
  */
 public class Client{
-    public static String getMessage(BufferedReader in) throws IOException {
+    private int port = 4444;
+
+    private Socket socket = null;
+    private BufferedReader in = null;
+    private PrintWriter out = null;
+
+    private Gson gson = new Gson();
+
+    public Client () {}
+
+    public void openConnection(String ip) throws Exception {
+        try {
+            this.socket = new Socket(ip, port);
+            this.out = new PrintWriter(this.socket.getOutputStream(), true);
+            this.in = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
+        } catch (IOException e) {
+            throw new Exception("Cannot create socket: " + e.getMessage());
+        }
+    }
+
+    public void closeConnection() throws Exception{
+        if (this.socket != null && !this.socket.isClosed()) {
+            try {
+                sendMessage("close");
+                this.socket.close();
+            } catch (IOException e) {
+                throw new Exception("Cannot close socket: " + e.getMessage());
+            } finally {
+                this.socket = null;
+            }
+        }
+        this.socket = null;
+    }
+
+    public String getMessage() throws IOException {
         return in.readLine();
     }
 
-    public static String[] getArrayFromMessage(BufferedReader in) throws IOException {
-        Gson gson = new Gson();
-        return gson.fromJson(getMessage(in), String[].class);
+    public String[] getArrayFromMessage() throws Exception {
+        return gson.fromJson(getMessage(), String[].class);
     }
 
-    public static void sendMessage(PrintWriter out, String... args) {
-        Gson gson = new Gson();
-        out.println(gson.toJson(args));
+    public void sendMessage(String... args) throws Exception{
+        if (this.socket == null || this.socket.isClosed()) {
+            throw new Exception("Cannot send data. Socket not created or closed");
+        }
+        out.println(this.gson.toJson(args));
     }
 
-    public static void close(PrintWriter out) {
-        sendMessage(out, "close");
+    @Override
+    protected void finalize() throws Throwable {
+        super.finalize();
+        closeConnection();
     }
 }

@@ -7,6 +7,21 @@
     android:layout_height="match_parent"
     tools:context="com.wiev.androidclient.LoginActivity">
 
+    <EditText
+        android:id="@+id/ipEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewLogin"
+        app:layout_constraintEnd_toStartOf="@+id/connect"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread_inside" />
+
     <TextView
         android:id="@+id/textViewLogin"
         android:layout_width="wrap_content"
@@ -18,19 +33,23 @@
         android:text="Input your login"
         app:layout_constraintBottom_toTopOf="@+id/loginEditText"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/ipEditText" />
 
     <EditText
         android:id="@+id/loginEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/textViewPin"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewLogin" />
 
@@ -38,12 +57,15 @@
         android:id="@+id/pinEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="numberPassword"
+        app:layout_constraintBottom_toTopOf="@+id/pinEditText"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewPin" />
 
@@ -51,22 +73,22 @@
         android:id="@+id/logIn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="303dp"
+        android:layout_marginBottom="203dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="Log in"
-        android:onClick="logInClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/forgot"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pinEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/pinEditText"
+        app:layout_constraintVertical_bias="0.71" />
 
     <Button
         android:id="@+id/registry"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="303dp"
+        android:layout_marginBottom="203dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -74,13 +96,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/forgot"
-        app:layout_constraintTop_toBottomOf="@+id/pinEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/pinEditText"
+        app:layout_constraintVertical_bias="0.71" />
 
     <Button
         android:id="@+id/forgot"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="303dp"
+        android:layout_marginBottom="203dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -88,18 +111,36 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/registry"
         app:layout_constraintStart_toEndOf="@+id/logIn"
-        app:layout_constraintTop_toBottomOf="@+id/pinEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/pinEditText"
+        app:layout_constraintVertical_bias="0.71" />
 
     <TextView
         android:id="@+id/textViewPin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="Input your pin"
+        app:layout_constraintBottom_toTopOf="@+id/pinEditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginEditText" />
+
+    <Button
+        android:id="@+id/connect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Connect"
+        app:layout_constraintBottom_toTopOf="@+id/loginEditText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ipEditText"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
 </android.support.constraint.ConstraintLayout>
