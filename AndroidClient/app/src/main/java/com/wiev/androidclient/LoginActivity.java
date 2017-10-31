@@ -11,135 +11,137 @@ import client.Client;
 import client.Md5Hasher;
 
 public class LoginActivity extends AppCompatActivity {
-    private Button connect = null;
-    private Button logIn = null;
-    private Button forgot = null;
-    private Button registry = null;
+  private Button connect = null;
+  private Button logIn = null;
+  private Button forgot = null;
+  private Button registry = null;
 
-    private EditText ipEditText = null;
-    private EditText loginEditText = null;
-    private EditText pinEditText = null;
+  private EditText ipEditText = null;
+  private EditText loginEditText = null;
+  private EditText pinEditText = null;
 
-    private Client client = null;
+  private Client client = null;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_login);
 
-        connect = findViewById(R.id.connect);
-        logIn = findViewById(R.id.logIn);
-        logIn.setEnabled(false);
-        forgot = findViewById(R.id.forgot);
-        registry = findViewById(R.id.registry);
+    connect = findViewById(R.id.connect);
+    logIn = findViewById(R.id.logIn);
+    logIn.setEnabled(false);
+    forgot = findViewById(R.id.forgot);
+    registry = findViewById(R.id.registry);
 
-        ipEditText = findViewById(R.id.ipEditText);
-        loginEditText = findViewById(R.id.loginEditText);
-        pinEditText = findViewById(R.id.pinEditText);
+    ipEditText = findViewById(R.id.ipEditText);
+    loginEditText = findViewById(R.id.loginEditText);
+    pinEditText = findViewById(R.id.pinEditText);
 
-        client = new Client();
+    client = new Client();
 
-        connect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            client.openConnection(ipEditText.getText().toString());
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    ipEditText.setEnabled(false);
-                                    connect.setEnabled(false);
-                                    logIn.setEnabled(true);
-                                }
-                            });
-                        } catch (Exception e) {
-                            //TODO: show error message: cannot create connection e.getMessage
-                            Message errorMessage = new Message();
-                            errorMessage.messageTitle = "Error";
-                            errorMessage.messageToShow = e.getMessage();
-                            errorMessage.show(getFragmentManager(), "error_dialog");
-                        }
-                    }
-                }).start();
+    connect.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        new Thread(new Runnable() {
+          @Override
+          public void run() {
+            try {
+              client.openConnection(ipEditText.getText().toString());
+              runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                  ipEditText.setEnabled(false);
+                  connect.setEnabled(false);
+                  logIn.setEnabled(true);
+                }
+              });
+            } catch (Exception e) {
+              //show error message: cannot create connection e.getMessage
+              Message errorMessage = new Message();
+              errorMessage.messageTitle = "Error";
+              errorMessage.messageToShow = e.getMessage();
+              errorMessage.show(getFragmentManager(), "error_dialog");
             }
-        });
+          }
+        }).start();
+      }
+    });
 
-        logIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new Thread(new Runnable() {
+    logIn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        new Thread(new Runnable() {
 
-                    @Override
-                    public void run() {
-                        if (Checker.verifyLogin(loginEditText.getText().toString()) && Checker.verifyPinCode(pinEditText.getText().toString())) {
-                            String hashedPin = Md5Hasher.getMd5Hash(pinEditText.getText().toString());
-                            try {
-                                client.sendMessage("login", loginEditText.getText().toString(), hashedPin);
-                            } catch (Exception e) {
-                                Message errorMessage = new Message();
-                                errorMessage.messageTitle = "Error";
-                                errorMessage.messageToShow = e.getMessage();
-                                errorMessage.show(getFragmentManager(), "error_dialog");
-                            }
-                        } else {
-                            //TODO: show error message: wrong login or password
-                            Message errorMessage = new Message();
-                            errorMessage.messageTitle = "Error";
-                            errorMessage.messageToShow = "Wrong login or pin";
-                            errorMessage.show(getFragmentManager(), "error_dialog");
-                        }
-                        try {
-                            String[] answer = client.getArrayFromMessage();
-                            if (answer[0].equals("success")) {
-                                Message plainMessage = new Message();
-                                plainMessage.messageTitle = "Success";
-                                plainMessage.messageToShow = "Login successfuly";
-                                plainMessage.show(getFragmentManager(), "dialog");
-                                //TODO: switch to main activity
-                            } else {
-                                //TODO: show error message answer[0], answer[1]
-                                Message errorMessage = new Message();
-                                errorMessage.messageTitle = answer[0];
-                                errorMessage.messageToShow = answer[1];
-                                errorMessage.show(getFragmentManager(), "error_dialog");
-                            }
-                        } catch (Exception e) {
-                            //TODO: show error message: cannot receive answer
-                            Message errorMessage = new Message();
-                            errorMessage.messageTitle = "Error";
-                            errorMessage.messageToShow = e.getMessage();
-                            errorMessage.show(getFragmentManager(), "error_dialog");
-                        }
-                    }
-                }).start();
+          @Override
+          public void run() {
+            if (Checker.verifyLogin(loginEditText.getText().toString()) && Checker.verifyPinCode(pinEditText.getText().toString())) {
+              String hashedPin = Md5Hasher.getMd5Hash(pinEditText.getText().toString());
+              try {
+                client.sendMessage("login", loginEditText.getText().toString(), hashedPin);
+              } catch (Exception e) {
+                //show error message: cannot send message
+                Message errorMessage = new Message();
+                errorMessage.messageTitle = "Error";
+                errorMessage.messageToShow = e.getMessage();
+                errorMessage.show(getFragmentManager(), "error_dialog");
+              }
+            } else {
+              //show error message: wrong login or password
+              Message errorMessage = new Message();
+              errorMessage.messageTitle = "Error";
+              errorMessage.messageToShow = "Wrong login or pin";
+              errorMessage.show(getFragmentManager(), "error_dialog");
             }
-        });
-
-        forgot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //TODO: show forgot pin activity
+            try {
+              String[] answer = client.getArrayFromMessage();
+              if (answer[0].equals("success")) {
+                //show message: succesfuly login
+                Message plainMessage = new Message();
+                plainMessage.messageTitle = "Success";
+                plainMessage.messageToShow = "Login successfuly";
+                plainMessage.show(getFragmentManager(), "dialog");
+                //TODO: switch to main activity
+              } else {
+                //show error message answer[0], answer[1]
+                Message errorMessage = new Message();
+                errorMessage.messageTitle = answer[0];
+                errorMessage.messageToShow = answer[1];
+                errorMessage.show(getFragmentManager(), "error_dialog");
+              }
+            } catch (Exception e) {
+              //show error message: cannot receive answer
+              Message errorMessage = new Message();
+              errorMessage.messageTitle = "Error";
+              errorMessage.messageToShow = e.getMessage();
+              errorMessage.show(getFragmentManager(), "error_dialog");
             }
-        });
+          }
+        }).start();
+      }
+    });
 
-        registry.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //TODO: to registry activity
-            }
-        });
-    }
+    forgot.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+      //TODO: show forgot pin activity
+      }
+    });
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        try {
-            client.closeConnection();
-        } catch (Exception e) {
+    registry.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+      //TODO: to registry activity
+      }
+    });
+  }
+
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+    try {
+      client.closeConnection();
+    } catch (Exception e) {
             //do nothing
-        }
     }
+  }
 }
