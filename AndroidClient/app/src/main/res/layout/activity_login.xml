@@ -1,4 +1,3 @@
-
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -63,7 +62,6 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="numberPassword"
-        app:layout_constraintBottom_toTopOf="@+id/pinEditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
