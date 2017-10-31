@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import client.Checker;
 import client.Client;
 
 public class LoginActivity extends AppCompatActivity {
@@ -34,21 +35,20 @@ public class LoginActivity extends AppCompatActivity {
 
         client = new Client();
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    client.openConnection(ipEditText.getText().toString());
-                } catch (Exception e) {
-                    //TODO: show error message: cannot create connection
-                }
-            }
-        }).start();
-
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            client.openConnection(ipEditText.getText().toString());
+                        } catch (Exception e) {
+                            //TODO: show error message: cannot create connection
+                        }
+                        if (Checker.verifyLogin(loginEditText.getText().toString()) && )
+                    }
+                }).start();
             }
         });
     }
