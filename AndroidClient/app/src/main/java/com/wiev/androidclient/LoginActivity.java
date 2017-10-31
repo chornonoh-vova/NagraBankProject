@@ -57,6 +57,10 @@ public class LoginActivity extends AppCompatActivity {
                             });
                         } catch (Exception e) {
                             //TODO: show error message: cannot create connection e.getMessage
+                            Message errorMessage = new Message();
+                            errorMessage.messageTitle = "Error";
+                            errorMessage.messageToShow = e.getMessage();
+                            errorMessage.show(getFragmentManager(), "error_dialog");
                         }
                     }
                 }).start();
@@ -75,20 +79,39 @@ public class LoginActivity extends AppCompatActivity {
                             try {
                                 client.sendMessage("login", loginEditText.getText().toString(), hashedPin);
                             } catch (Exception e) {
-                                //TODO: show error message e.getMessage
+                                Message errorMessage = new Message();
+                                errorMessage.messageTitle = "Error";
+                                errorMessage.messageToShow = e.getMessage();
+                                errorMessage.show(getFragmentManager(), "error_dialog");
                             }
                         } else {
                             //TODO: show error message: wrong login or password
+                            Message errorMessage = new Message();
+                            errorMessage.messageTitle = "Error";
+                            errorMessage.messageToShow = "Wrong login or pin";
+                            errorMessage.show(getFragmentManager(), "error_dialog");
                         }
                         try {
                             String[] answer = client.getArrayFromMessage();
                             if (answer[0].equals("success")) {
-                                //TODO: to main activity
+                                Message plainMessage = new Message();
+                                plainMessage.messageTitle = "Success";
+                                plainMessage.messageToShow = "Login successfuly";
+                                plainMessage.show(getFragmentManager(), "dialog");
+                                //TODO: switch to main activity
                             } else {
                                 //TODO: show error message answer[0], answer[1]
+                                Message errorMessage = new Message();
+                                errorMessage.messageTitle = answer[0];
+                                errorMessage.messageToShow = answer[1];
+                                errorMessage.show(getFragmentManager(), "error_dialog");
                             }
                         } catch (Exception e) {
                             //TODO: show error message: cannot receive answer
+                            Message errorMessage = new Message();
+                            errorMessage.messageTitle = "Error";
+                            errorMessage.messageToShow = e.getMessage();
+                            errorMessage.show(getFragmentManager(), "error_dialog");
                         }
                     }
                 }).start();
