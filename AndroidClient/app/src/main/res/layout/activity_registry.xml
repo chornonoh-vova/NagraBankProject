@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -23,7 +22,7 @@
     <EditText
         android:id="@+id/login"
         android:layout_width="wrap_content"
-        android:layout_height="27dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
         android:layout_marginEnd="60dp"
         android:layout_marginStart="60dp"
@@ -37,9 +36,9 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="150dp"
-        android:layout_height="25dp"
-        android:layout_marginBottom="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         android:layout_marginEnd="30dp"
         android:layout_marginStart="30dp"
         android:layout_marginTop="15dp"
@@ -51,88 +50,124 @@
 
     <EditText
         android:id="@+id/password"
-        android:layout_width="150dp"
-        android:layout_height="25dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="50dp"
+        android:layout_marginEnd="37dp"
+        android:layout_marginStart="74dp"
         android:ems="10"
         android:inputType="numberPassword"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="118dp" />
+        app:layout_constraintBottom_toTopOf="@+id/textView6"
+        app:layout_constraintEnd_toStartOf="@+id/textView4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="150dp"
-        android:layout_height="25dp"
-        android:layout_marginBottom="15dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:layout_marginRight="16dp"
         android:layout_marginTop="25dp"
         android:text="Repeate your password"
         app:layout_constraintBottom_toTopOf="@+id/password_confirm"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/login"
-        app:layout_constraintVertical_bias="0.647" />
+        app:layout_constraintTop_toBottomOf="@+id/login" />
 
     <EditText
         android:id="@+id/password_confirm"
-        android:layout_width="150dp"
-        android:layout_height="25dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="65dp"
+        android:layout_marginEnd="73dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="6dp"
         android:ems="10"
         android:inputType="numberPassword"
-        tools:layout_editor_absoluteX="209dp"
-        tools:layout_editor_absoluteY="118dp" />
+        android:selectAllOnFocus="false"
+        android:singleLine="true"
+        app:layout_constraintBottom_toTopOf="@+id/textView7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="58dp"
+        android:layout_height="19dp"
+        android:layout_marginTop="44dp"
         android:text="Birthdate"
-        tools:layout_editor_absoluteX="151dp"
-        tools:layout_editor_absoluteY="158dp" />
+        app:layout_constraintBottom_toTopOf="@+id/birthdate"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintVertical_bias="0.466" />
 
     <EditText
         android:id="@+id/birthdate"
-        android:layout_width="133dp"
-        android:layout_height="30dp"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
         android:ems="10"
         android:inputType="date"
-        tools:layout_editor_absoluteX="114dp"
-        tools:layout_editor_absoluteY="177dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.479" />
 
     <TextView
         android:id="@+id/textView6"
-        android:layout_width="138dp"
-        android:layout_height="18dp"
+        android:layout_width="140dp"
+        android:layout_height="20dp"
+        android:layout_marginBottom="19dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
         android:text="Secret question"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="227dp" />
+        app:layout_constraintBottom_toTopOf="@+id/question"
+        app:layout_constraintEnd_toStartOf="@+id/textView7"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/birthdate"
+        app:layout_constraintVertical_bias="0.666" />
 
     <TextView
         android:id="@+id/textView7"
-        android:layout_width="138dp"
-        android:layout_height="21dp"
+        android:layout_width="140dp"
+        android:layout_height="20dp"
+        android:layout_marginBottom="19dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginStart="58dp"
+        android:layout_marginTop="19dp"
         android:text="Answer"
-        tools:layout_editor_absoluteX="216dp"
-        tools:layout_editor_absoluteY="226dp" />
+        app:layout_constraintBottom_toTopOf="@+id/answer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView6"
+        app:layout_constraintTop_toBottomOf="@+id/birthdate" />
 
     <EditText
         android:id="@+id/question"
         android:layout_width="140dp"
-        android:layout_height="25dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="205dp"
+        android:layout_marginStart="25dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="266dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/answer"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/answer"
-        android:layout_width="130dp"
-        android:layout_height="27dp"
+        android:layout_width="140dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="206dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="60dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
-        tools:layout_editor_absoluteX="216dp"
-        tools:layout_editor_absoluteY="265dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/question" />
 
 </android.support.constraint.ConstraintLayout>
