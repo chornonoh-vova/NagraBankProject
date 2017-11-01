@@ -22,14 +22,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"></activity>
+            android:name=".MainActivity"
+            android:label="Main page"
+            android:parentActivityName=".LoginActivity"></activity>
 
         <activity
-            android:name=".RegistryActivity"></activity>
-
-            android:name=".MainActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-
+            android:name=".RegistryActivity"
+            android:label="Registry"
+            android:parentActivityName=".LoginActivity"></activity>
     </application>
 
 </manifest>
