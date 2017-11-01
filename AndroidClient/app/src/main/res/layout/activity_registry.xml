@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -9,32 +10,49 @@
         android:id="@+id/textView"
         android:layout_width="100dp"
         android:layout_height="23dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="130dp"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="15dp"
         android:text="Enter your login"
-        tools:layout_editor_absoluteX="130dp"
-        tools:layout_editor_absoluteY="16dp" />
+        app:layout_constraintBottom_toTopOf="@+id/login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/login"
         android:layout_width="wrap_content"
         android:layout_height="27dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="5dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
-        tools:layout_editor_absoluteX="85dp"
-        tools:layout_editor_absoluteY="44dp" />
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="133dp"
-        android:layout_height="18dp"
+        android:layout_width="150dp"
+        android:layout_height="25dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="15dp"
         android:text="Enter your password"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="82dp" />
+        app:layout_constraintBottom_toTopOf="@+id/password"
+        app:layout_constraintEnd_toStartOf="@+id/textView3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login" />
 
     <EditText
         android:id="@+id/password"
-        android:layout_width="133dp"
-        android:layout_height="26dp"
+        android:layout_width="150dp"
+        android:layout_height="25dp"
         android:ems="10"
         android:inputType="numberPassword"
         tools:layout_editor_absoluteX="16dp"
@@ -42,16 +60,23 @@
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="153dp"
-        android:layout_height="24dp"
+        android:layout_width="150dp"
+        android:layout_height="25dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="25dp"
         android:text="Repeate your password"
-        tools:layout_editor_absoluteX="209dp"
-        tools:layout_editor_absoluteY="82dp" />
+        app:layout_constraintBottom_toTopOf="@+id/password_confirm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/login"
+        app:layout_constraintVertical_bias="0.647" />
 
     <EditText
         android:id="@+id/password_confirm"
-        android:layout_width="135dp"
-        android:layout_height="28dp"
+        android:layout_width="150dp"
+        android:layout_height="25dp"
         android:ems="10"
         android:inputType="numberPassword"
         tools:layout_editor_absoluteX="209dp"
