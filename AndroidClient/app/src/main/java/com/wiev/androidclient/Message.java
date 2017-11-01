@@ -19,6 +19,7 @@ public class Message extends DialogFragment {
   public AlertDialog onCreateDialog(Bundle savedInstanceState) {
     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
     builder.setTitle(messageTitle);
+    builder.setCancelable(false);
     builder.setMessage(messageToShow);
     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
       @Override

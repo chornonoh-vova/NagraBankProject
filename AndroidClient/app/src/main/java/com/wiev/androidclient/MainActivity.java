@@ -2,16 +2,35 @@ package com.wiev.androidclient;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import android.app.DialogFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ActionDialog.NoticeDialogListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar mainToolBar = findViewById(R.id.my_toolbar);
-        mainToolBar.setTitle(R.string.activity_main);
-        setSupportActionBar(mainToolBar);
     }
+
+    @Override
+    public void onBackPressed() {
+        ActionDialog dialog = new ActionDialog();
+        dialog.message = "Do you really wanna quit?";
+        dialog.title = "Back";
+        dialog.show(getFragmentManager(), "action_dialog");
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) { super.onBackPressed(); }
 }
