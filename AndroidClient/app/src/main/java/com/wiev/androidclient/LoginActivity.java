@@ -1,5 +1,6 @@
 package com.wiev.androidclient;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -25,6 +26,7 @@ public class LoginActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    setTitle(R.string.activity_login);
     setContentView(R.layout.activity_login);
 
     connect = findViewById(R.id.connect);
@@ -95,12 +97,9 @@ public class LoginActivity extends AppCompatActivity {
             try {
               String[] answer = client.getArrayFromMessage();
               if (answer[0].equals("success")) {
-                //show message: succesfuly login
-                Message plainMessage = new Message();
-                plainMessage.messageTitle = "Success";
-                plainMessage.messageToShow = "Login successfuly";
-                plainMessage.show(getFragmentManager(), "dialog");
-                //TODO: switch to main activity
+                //switch to main activity
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
               } else {
                 //show error message answer[0], answer[1]
                 Message errorMessage = new Message();
