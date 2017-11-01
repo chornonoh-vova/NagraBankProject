@@ -1,9 +1,9 @@
 package com.wiev.androidclient;
 
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.app.DialogFragment;
 
 public class MainActivity extends AppCompatActivity implements ActionDialog.NoticeDialogListener{
 
@@ -32,12 +32,5 @@ public class MainActivity extends AppCompatActivity implements ActionDialog.Noti
     }
 
     @Override
-    public void onDialogPositiveClick(android.app.DialogFragment dialog) {
-        super.onBackPressed();
-    }
-
-    @Override
-    public void onDialogNegativeClick(android.app.DialogFragment dialog) {
-        return;
-    }
+    public void onDialogPositiveClick(DialogFragment dialog) { super.onBackPressed(); }
 }

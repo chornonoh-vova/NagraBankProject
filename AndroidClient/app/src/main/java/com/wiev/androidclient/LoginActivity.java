@@ -127,25 +127,37 @@ public class LoginActivity extends AppCompatActivity {
     forgot.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-      //TODO: show forgot pin activity
+        //TODO: show forgot pin activity
       }
     });
 
     registry.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-      //TODO: to registry activity
+        //TODO: to registry activity
       }
     });
+  }
+
+  @Override
+  public void onBackPressed() {
+    super.onBackPressed();
+    try {
+      client.sendMessage("close");
+      client.closeConnection();
+    } catch (Exception e) {
+      //do nothing
+    }
   }
 
   @Override
   protected void onDestroy() {
     super.onDestroy();
     try {
+      client.sendMessage("close");
       client.closeConnection();
     } catch (Exception e) {
-            //do nothing
+      //do nothing
     }
   }
 }

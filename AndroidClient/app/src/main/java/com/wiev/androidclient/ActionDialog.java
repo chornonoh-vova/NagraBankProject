@@ -11,7 +11,6 @@ public class ActionDialog extends DialogFragment {
 
     public interface NoticeDialogListener {
         void onDialogPositiveClick(DialogFragment dialog);
-        void onDialogNegativeClick(DialogFragment dialog);
     }
 
     // Use this instance of the interface to deliver action events
@@ -23,6 +22,7 @@ public class ActionDialog extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(title);
         builder.setMessage(message);
+        builder.setCancellable(false);
         builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // Send the positive button event back to the host activity
@@ -31,8 +31,8 @@ public class ActionDialog extends DialogFragment {
         });
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                // Send the negative button event back to the host activity
-                mListener.onDialogNegativeClick(ActionDialog.this);
+                //Do nothing
+                return;
             }
         });
         return builder.create();
