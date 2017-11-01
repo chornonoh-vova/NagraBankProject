@@ -98,8 +98,13 @@ public class LoginActivity extends AppCompatActivity {
               String[] answer = client.getArrayFromMessage();
               if (answer[0].equals("success")) {
                 //switch to main activity
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
+                runOnUiThread(new Runnable() {
+                  @Override
+                  public void run() {
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                  }
+                });
               } else {
                 //show error message answer[0], answer[1]
                 Message errorMessage = new Message();
