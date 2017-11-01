@@ -4,11 +4,13 @@ import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 
 public class ActionDialog extends DialogFragment {
     public String title;
     public String message;
 
+    @FunctionalInterface
     public interface NoticeDialogListener {
         void onDialogPositiveClick(DialogFragment dialog);
     }
@@ -17,7 +19,7 @@ public class ActionDialog extends DialogFragment {
     NoticeDialogListener mListener;
 
     @Override
-    public AlertDialog onCreateDialog(Bundle savedInstanceState) {
+    public AlertDialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         // Build the dialog and set up the button click handlers
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(title);

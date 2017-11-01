@@ -2,6 +2,7 @@ package com.wiev.androidclient;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -24,7 +25,7 @@ public class LoginActivity extends AppCompatActivity {
   private Client client = null;
 
   @Override
-  protected void onCreate(Bundle savedInstanceState) {
+  protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setTitle(R.string.activity_login);
     setContentView(R.layout.activity_login);

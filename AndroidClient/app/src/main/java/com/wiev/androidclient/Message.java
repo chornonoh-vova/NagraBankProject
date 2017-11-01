@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 
 /**
  * Class to show messages(plain or error) with button OK<br>
@@ -16,7 +17,7 @@ public class Message extends DialogFragment {
   public String messageToShow = null;
 
   @Override
-  public AlertDialog onCreateDialog(Bundle savedInstanceState) {
+  public AlertDialog onCreateDialog(@Nullable  Bundle savedInstanceState) {
     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
     builder.setTitle(messageTitle);
     builder.setCancelable(false);

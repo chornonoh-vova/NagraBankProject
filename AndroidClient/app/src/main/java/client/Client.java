@@ -1,5 +1,7 @@
 package client;
 
+import android.support.annotation.NonNull;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -23,7 +25,7 @@ public class Client{
 
     public Client () {}
 
-    public void openConnection(String ip) throws Exception {
+    public void openConnection(@NonNull String ip) throws Exception {
         closeConnection();
         try {
             this.socket = new Socket(ip, port);
