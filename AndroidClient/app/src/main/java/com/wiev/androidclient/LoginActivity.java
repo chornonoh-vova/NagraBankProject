@@ -11,9 +11,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.gson.Gson;
+
+import java.sql.Date;
+
 import client.Checker;
 import client.Client;
 import client.Md5Hasher;
+import client.UserInfo;
 
 public class LoginActivity extends AppCompatActivity {
   private Button connect = null;
@@ -25,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
   private EditText loginEditText = null;
   private EditText pinEditText = null;
 
-  private Client client = null;
+  private Client client = new Client();
 
   private String savedIp = null;
 
@@ -44,8 +49,6 @@ public class LoginActivity extends AppCompatActivity {
     ipEditText = findViewById(R.id.ipEditText);
     loginEditText = findViewById(R.id.loginEditText);
     pinEditText = findViewById(R.id.pinEditText);
-
-    client = new Client();
 
     SharedPreferences sharedPrefs = getPreferences(Context.MODE_PRIVATE);
     savedIp = sharedPrefs.getString(getString(R.string.saved_ip), null);
@@ -111,8 +114,20 @@ public class LoginActivity extends AppCompatActivity {
             try {
               String[] answer = client.getArrayFromMessage();
               if (answer[0].equals("success")) {
+                //create UserInfo object
+                UserInfo user = new UserInfo();
+                user.userId = Integer.valueOf(answer[1]);
+                user.balance = Double.valueOf(answer[2]);
+                user.secretQuestion = answer[3];
+                user.birthDate = Date.valueOf(answer[4]);
+                user.userLogin = loginEditText.getText().toString();
+                user.pin = Md5Hasher.getMd5Hash(pinEditText.getText().toString());
+
+                String userPacked = client.gson.toJson(user);
                 //switch to main activity
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                intent.putExtra("ip", savedIp);
+                intent.putExtra("user", userPacked);
                 startActivity(intent);
               } else {
                 //show error message answer[0], answer[1]

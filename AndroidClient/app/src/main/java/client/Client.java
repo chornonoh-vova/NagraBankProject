@@ -21,7 +21,7 @@ public class Client{
     private BufferedReader in = null;
     private PrintWriter out = null;
 
-    private Gson gson = new Gson();
+    public Gson gson = new Gson();
 
     public Client () {}
 
