@@ -1,6 +1,9 @@
 package com.wiev.androidclient;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +27,8 @@ public class LoginActivity extends AppCompatActivity {
 
   private Client client = null;
 
+  private String savedIp = null;
+
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -42,12 +47,20 @@ public class LoginActivity extends AppCompatActivity {
 
     client = new Client();
 
+    SharedPreferences sharedPrefs = getPreferences(Context.MODE_PRIVATE);
+    savedIp = sharedPrefs.getString(getString(R.string.saved_ip), null);
+    ipEditText.setText(savedIp);
+
     connect.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
         new Thread(new Runnable() {
           @Override
           public void run() {
+            SharedPreferences sharedPrefs = getPreferences(Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPrefs.edit();
+            editor.putString(getString(R.string.saved_ip), ipEditText.getText().toString());
+            editor.commit();
             try {
               client.openConnection(ipEditText.getText().toString());
               runOnUiThread(new Runnable() {

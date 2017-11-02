@@ -7,4 +7,5 @@
     <string name="activity_main">Main window</string>
     <string name="activity_login">Log in</string>
     <string name="title_activity_main">Main activity</string>
+    <string name="saved_ip" />
 </resources>
