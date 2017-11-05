@@ -1,11 +1,11 @@
 <resources>
-    <string name="app_name">AndroidClient</string>
+    <string name="app_name">Nagra Bank mobile</string>
     <string name="submit">Submit</string>
     <string name="cancel">Cancel</string>
     <string name="ip_title">Enter ip</string>
     <string name="ok">OK</string>
-    <string name="activity_main">Main window</string>
+    <string name="activity_main">Main page</string>
     <string name="activity_login">Log in</string>
-    <string name="title_activity_main">Main activity</string>
+    <string name="activity_registry">Registry</string>
     <string name="saved_ip" />
 </resources>

@@ -26,7 +26,10 @@ public class Client{
     public Client () {}
 
     public void openConnection(@NonNull String ip) throws Exception {
-        closeConnection();
+        if (socket != null) {
+            sendMessage("close");
+            closeConnection();
+        }
         try {
             this.socket = new Socket(ip, port);
             this.out = new PrintWriter(this.socket.getOutputStream(), true);
@@ -67,6 +70,7 @@ public class Client{
     @Override
     protected void finalize() throws Throwable {
         super.finalize();
+        sendMessage("close");
         closeConnection();
     }
 }

@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements ActionDialog.Noti
     }
 
     @Override
-    public void onDialogPositiveClick(DialogFragment dialog) { super.onBackPressed(); }
+    public void onDialogPositiveClick(DialogFragment dialog) { finish(); }
 
     @Override
     public void onRefresh() {

@@ -1,6 +1,5 @@
 package com.wiev.androidclient;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,8 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
-import com.google.gson.Gson;
 
 import java.sql.Date;
 
@@ -90,7 +87,6 @@ public class LoginActivity extends AppCompatActivity {
       @Override
       public void onClick(View view) {
         new Thread(new Runnable() {
-
           @Override
           public void run() {
             if (Checker.verifyLogin(loginEditText.getText().toString()) && Checker.verifyPinCode(pinEditText.getText().toString())) {
@@ -151,14 +147,14 @@ public class LoginActivity extends AppCompatActivity {
     forgot.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-      //TODO: show forgot pin activity
+        //TODO: show forgot pin activity
       }
     });
 
     registry.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-      //TODO: to registry activity
+        //TODO: to registry activity
         Intent intent = new Intent(LoginActivity.this, RegistryActivity.class);
         startActivity(intent);
       }
@@ -171,7 +167,7 @@ public class LoginActivity extends AppCompatActivity {
     try {
       client.closeConnection();
     } catch (Exception e) {
-            //do nothing
+      //do nothing
     }
   }
 }
