@@ -1,6 +1,8 @@
 package com.wiev.androidclient;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -8,9 +10,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.sql.Date;
+
 import client.Checker;
 import client.Client;
 import client.Md5Hasher;
+import client.UserInfo;
 
 public class LoginActivity extends AppCompatActivity {
   private Button connect = null;
@@ -22,7 +27,9 @@ public class LoginActivity extends AppCompatActivity {
   private EditText loginEditText = null;
   private EditText pinEditText = null;
 
-  private Client client = null;
+  private Client client = new Client();
+
+  private String savedIp = null;
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,7 +47,9 @@ public class LoginActivity extends AppCompatActivity {
     loginEditText = findViewById(R.id.loginEditText);
     pinEditText = findViewById(R.id.pinEditText);
 
-    client = new Client();
+    SharedPreferences sharedPrefs = getPreferences(Context.MODE_PRIVATE);
+    savedIp = sharedPrefs.getString(getString(R.string.saved_ip), null);
+    ipEditText.setText(savedIp);
 
     connect.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -48,6 +57,10 @@ public class LoginActivity extends AppCompatActivity {
         new Thread(new Runnable() {
           @Override
           public void run() {
+            SharedPreferences sharedPrefs = getPreferences(Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPrefs.edit();
+            editor.putString(getString(R.string.saved_ip), ipEditText.getText().toString());
+            editor.commit();
             try {
               client.openConnection(ipEditText.getText().toString());
               runOnUiThread(new Runnable() {
@@ -74,7 +87,6 @@ public class LoginActivity extends AppCompatActivity {
       @Override
       public void onClick(View view) {
         new Thread(new Runnable() {
-
           @Override
           public void run() {
             if (Checker.verifyLogin(loginEditText.getText().toString()) && Checker.verifyPinCode(pinEditText.getText().toString())) {
@@ -98,8 +110,20 @@ public class LoginActivity extends AppCompatActivity {
             try {
               String[] answer = client.getArrayFromMessage();
               if (answer[0].equals("success")) {
+                //create UserInfo object
+                UserInfo user = new UserInfo();
+                user.userId = Integer.valueOf(answer[1]);
+                user.balance = Double.valueOf(answer[2]);
+                user.secretQuestion = answer[3];
+                user.birthDate = Date.valueOf(answer[4]);
+                user.userLogin = loginEditText.getText().toString();
+                user.pin = Md5Hasher.getMd5Hash(pinEditText.getText().toString());
+
+                String userPacked = client.gson.toJson(user);
                 //switch to main activity
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                intent.putExtra("ip", savedIp);
+                intent.putExtra("user", userPacked);
                 startActivity(intent);
               } else {
                 //show error message answer[0], answer[1]
@@ -123,14 +147,14 @@ public class LoginActivity extends AppCompatActivity {
     forgot.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-      //TODO: show forgot pin activity
+        //TODO: show forgot pin activity
       }
     });
 
     registry.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-      //TODO: to registry activity
+        //TODO: to registry activity
         Intent intent = new Intent(LoginActivity.this, RegistryActivity.class);
         startActivity(intent);
       }
@@ -143,7 +167,7 @@ public class LoginActivity extends AppCompatActivity {
     try {
       client.closeConnection();
     } catch (Exception e) {
-            //do nothing
+      //do nothing
     }
   }
 }
