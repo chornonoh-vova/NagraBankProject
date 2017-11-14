@@ -24,7 +24,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:singleLine="true"
-                app:layout_constraintBottom_toTopOf="@+id/textViewLogin"
+                app:layout_constraintBottom_toTopOf="@+id/loginEditText"
                 app:layout_constraintEnd_toStartOf="@+id/connect"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
@@ -37,30 +37,13 @@
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:text="Connect"
-                app:layout_constraintBottom_toTopOf="@+id/textViewLogin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/ipEditText"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/textViewLogin"
-                android:layout_width="323dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:text="Input your login"
-                app:layout_constraintBottom_toTopOf="@+id/loginEditText"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.031"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ipEditText" />
 
             <EditText
                 android:id="@+id/loginEditText"
@@ -71,27 +54,14 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:ems="10"
+                android:hint="Your login"
                 android:inputType="text"
                 android:singleLine="true"
-                app:layout_constraintBottom_toTopOf="@+id/textViewPin"
+                app:layout_constraintBottom_toTopOf="@+id/pinEditText"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewLogin" />
-
-            <TextView
-                android:id="@+id/textViewPin"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:text="Input your pin"
-                app:layout_constraintBottom_toTopOf="@+id/pinEditText"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.028"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/loginEditText" />
+                app:layout_constraintTop_toBottomOf="@+id/ipEditText" />
 
             <EditText
                 android:id="@+id/pinEditText"
@@ -102,13 +72,14 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:ems="10"
+                android:hint="Pin-code"
                 android:inputType="numberPassword"
                 android:singleLine="true"
                 app:layout_constraintBottom_toTopOf="@+id/logIn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewPin" />
+                app:layout_constraintTop_toBottomOf="@+id/loginEditText" />
 
             <Button
                 android:id="@+id/logIn"

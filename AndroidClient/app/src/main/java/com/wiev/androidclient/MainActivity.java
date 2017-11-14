@@ -31,6 +31,9 @@ public class MainActivity extends AppCompatActivity implements ActionDialog.Noti
     private EditText moneyToRefill = null;
     private Button confirmWidthdraw = null;
     private EditText moneyToWidthdraw =  null;
+    private Button confirmTransfer = null;
+    private EditText transferIdTo = null;
+    private EditText moneyToTransfer = null;
 
     private SwipeRefreshLayout swipeRefreshLayout = null;
 
@@ -59,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements ActionDialog.Noti
         tabSpec.setIndicator("About");
         tabHost.addTab(tabSpec);
 
-        tabHost.setCurrentTab(0);
+        //tabHost.setCurrentTab(0);
 
         forLogin = findViewById(R.id.forLogin);
         forBalance = findViewById(R.id.forBalance);
@@ -68,8 +71,14 @@ public class MainActivity extends AppCompatActivity implements ActionDialog.Noti
 
         confirmRefill = findViewById(R.id.confirmRefill);
         moneyToRefill = findViewById(R.id.moneyToRefill);
+
         confirmWidthdraw = findViewById(R.id.confirmWidthdraw);
         moneyToWidthdraw = findViewById(R.id.moneyToWidthdraw);
+
+        confirmTransfer = findViewById(R.id.confirmTransfer);
+        transferIdTo = findViewById(R.id.transferIdTo);
+        moneyToTransfer = findViewById(R.id.moneyToTransfer);
+
         swipeRefreshLayout = findViewById(R.id.swiperefresh);
 
         ip = getIntent().getExtras().getString("ip");
@@ -96,7 +105,11 @@ public class MainActivity extends AppCompatActivity implements ActionDialog.Noti
         forBalance.setText(String.valueOf(user.balance));
         forBirthdate.setText(user.birthDate.toString());
         forSecretQuestion.setText(user.secretQuestion);
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
         confirmRefill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -221,6 +234,67 @@ public class MainActivity extends AppCompatActivity implements ActionDialog.Noti
             }
         });
 
+        confirmTransfer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (transferIdTo.getText().toString().equals(String.valueOf(user.userId))) {
+                    Message errorMessage = new Message();
+                    errorMessage.messageTitle = "Error";
+                    errorMessage.messageToShow = "You cannot transfer money to youself";
+                    errorMessage.show(getFragmentManager(), "error_dialog");
+                    return;
+                }
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            client.sendMessage("transfer", String.valueOf(user.userId),
+                                transferIdTo.getText().toString(), moneyToTransfer.getText().toString());
+                        } catch (Exception e) {
+                            Message errorMessage = new Message();
+                            errorMessage.messageTitle = "Error";
+                            errorMessage.messageToShow = e.getMessage();
+                            errorMessage.show(getFragmentManager(), "error_dialog");
+                        }
+                        String[] answer = null;
+                        try {
+                            answer = client.getArrayFromMessage();
+                        } catch (Exception e) {
+                            Message errorMessage = new Message();
+                            errorMessage.messageTitle = "Error";
+                            errorMessage.messageToShow = e.getMessage();
+                            errorMessage.show(getFragmentManager(), "error_dialog");
+
+                        }
+                        if (answer[0].equals("success")) {
+                            Message message = new Message();
+                            message.messageTitle = "success";
+                            message.messageToShow = "Your money transfered";
+                            message.show(getFragmentManager(), "success");
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    moneyToWidthdraw.setText("");
+                                }
+                            });
+                        } else {
+                            Message message = new Message();
+                            message.messageTitle = answer[0];
+                            message.messageToShow = answer[1];
+                            message.show(getFragmentManager(), "success");
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    transferIdTo.setText("");
+                                    moneyToTransfer.setText("");
+                                }
+                            });
+                        }
+                    }
+                }).start();
+            }
+        });
+
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -254,11 +328,11 @@ public class MainActivity extends AppCompatActivity implements ActionDialog.Noti
                             public void run() {
                                 forBalance.setText(String.valueOf(user.balance));
                                 getIntent().putExtra("user", client.gson.toJson(user));
+                                swipeRefreshLayout.setRefreshing(false);
                             }
                         });
                     }
                 }).start();
-                swipeRefreshLayout.setRefreshing(false);
             }
         });
     }
@@ -282,5 +356,18 @@ public class MainActivity extends AppCompatActivity implements ActionDialog.Noti
     }
 
     @Override
-    public void onDialogPositiveClick(DialogFragment dialog) { finish(); }
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    client.sendMessage("logout");
+                    client.closeConnection();
+                } catch (Exception e) {
+                    //do nothing
+                }
+                finish();
+            }
+        }).start();
+    }
 }
