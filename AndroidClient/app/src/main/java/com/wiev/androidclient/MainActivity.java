@@ -1,5 +1,6 @@
 package com.wiev.androidclient;
 
+import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -40,10 +41,10 @@ public class MainActivity extends AppCompatActivity implements ActionDialog.Noti
     @Override
     protected void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         TabHost tabHost = findViewById(R.id.tabHost);
-
         tabHost.setup();
 
         TabHost.TabSpec tabSpec = tabHost.newTabSpec("tag1");
@@ -119,60 +120,61 @@ public class MainActivity extends AppCompatActivity implements ActionDialog.Noti
                     errorMessage.messageToShow = "you are already rich";
                     errorMessage.show(getFragmentManager(), "error_dialog");
                 }
-                if(moneyToRefill.getText().toString().isEmpty()){
+                else if(moneyToRefill.getText().toString().isEmpty()){
                     Message errorMessage = new Message();
                     errorMessage.messageTitle = "Error";
                     errorMessage.messageToShow = "Fill amount of money first";
                     errorMessage.show(getFragmentManager(), "error_dialog");
 
-                }
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            client.sendMessage("refill", String.valueOf(user.userId), moneyToRefill
-                                .getText().toString());
-                        } catch (Exception e) {
-                            Message errorMessage = new Message();
-                            errorMessage.messageTitle = "Error";
-                            errorMessage.messageToShow = e.getMessage();
-                            errorMessage.show(getFragmentManager(), "error_dialog");
-                        }
-                        String[] answer = null;
-                        try {
-                            answer = client.getArrayFromMessage();
-                        } catch (Exception e) {
-                            Message errorMessage = new Message();
-                            errorMessage.messageTitle = "Error";
-                            errorMessage.messageToShow = e.getMessage();
-                            errorMessage.show(getFragmentManager(), "error_dialog");
+                } else {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                client.sendMessage("refill", String.valueOf(user.userId), moneyToRefill
+                                    .getText().toString());
+                            } catch (Exception e) {
+                                Message errorMessage = new Message();
+                                errorMessage.messageTitle = "Error";
+                                errorMessage.messageToShow = e.getMessage();
+                                errorMessage.show(getFragmentManager(), "error_dialog");
+                            }
+                            String[] answer = null;
+                            try {
+                                answer = client.getArrayFromMessage();
+                            } catch (Exception e) {
+                                Message errorMessage = new Message();
+                                errorMessage.messageTitle = "Error";
+                                errorMessage.messageToShow = e.getMessage();
+                                errorMessage.show(getFragmentManager(), "error_dialog");
 
+                            }
+                            if (answer[0].equals("success")) {
+                                Message message = new Message();
+                                message.messageTitle = "success";
+                                message.messageToShow = "Money refilled";
+                                message.show(getFragmentManager(), "success");
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        moneyToRefill.setText("");
+                                    }
+                                });
+                            } else {
+                                Message message = new Message();
+                                message.messageTitle = answer[0];
+                                message.messageToShow = answer[1];
+                                message.show(getFragmentManager(), "success");
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        moneyToRefill.setText("");
+                                    }
+                                });
+                            }
                         }
-                        if(answer[0].equals("success")) {
-                            Message message = new Message();
-                            message.messageTitle = "success";
-                            message.messageToShow = "Money refilled";
-                            message.show(getFragmentManager(), "success");
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    moneyToRefill.setText("");
-                                }
-                            });
-                        } else {
-                            Message message = new Message();
-                            message.messageTitle = answer[0];
-                            message.messageToShow = answer[1];
-                            message.show(getFragmentManager(), "success");
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    moneyToRefill.setText("");
-                                }
-                            });
-                        }
-                    }
-                }).start();
+                    }).start();
+                }
             }
         });
         confirmWidthdraw.setOnClickListener(new View.OnClickListener() {
@@ -183,54 +185,55 @@ public class MainActivity extends AppCompatActivity implements ActionDialog.Noti
                     errorMessage.messageTitle = "Error";
                     errorMessage.messageToShow = "Fill amount of money first";
                     errorMessage.show(getFragmentManager(), "error_dialog");
-                }
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            client.sendMessage("withdrawal", String.valueOf(user.userId), moneyToWidthdraw
-                                .getText().toString());
-                        } catch (Exception e) {
-                            Message errorMessage = new Message();
-                            errorMessage.messageTitle = "Error";
-                            errorMessage.messageToShow = e.getMessage();
-                            errorMessage.show(getFragmentManager(), "error_dialog");
-                        }
-                        String[] answer = null;
-                        try {
-                            answer = client.getArrayFromMessage();
-                        } catch (Exception e) {
-                            Message errorMessage = new Message();
-                            errorMessage.messageTitle = "Error";
-                            errorMessage.messageToShow = e.getMessage();
-                            errorMessage.show(getFragmentManager(), "error_dialog");
+                } else {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                client.sendMessage("withdrawal", String.valueOf(user.userId), moneyToWidthdraw
+                                    .getText().toString());
+                            } catch (Exception e) {
+                                Message errorMessage = new Message();
+                                errorMessage.messageTitle = "Error";
+                                errorMessage.messageToShow = e.getMessage();
+                                errorMessage.show(getFragmentManager(), "error_dialog");
+                            }
+                            String[] answer = null;
+                            try {
+                                answer = client.getArrayFromMessage();
+                            } catch (Exception e) {
+                                Message errorMessage = new Message();
+                                errorMessage.messageTitle = "Error";
+                                errorMessage.messageToShow = e.getMessage();
+                                errorMessage.show(getFragmentManager(), "error_dialog");
 
+                            }
+                            if (answer[0].equals("success")) {
+                                Message message = new Message();
+                                message.messageTitle = "success";
+                                message.messageToShow = "Your money delivered";
+                                message.show(getFragmentManager(), "success");
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        moneyToWidthdraw.setText("");
+                                    }
+                                });
+                            } else {
+                                Message message = new Message();
+                                message.messageTitle = answer[0];
+                                message.messageToShow = answer[1];
+                                message.show(getFragmentManager(), "success");
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        moneyToWidthdraw.setText("");
+                                    }
+                                });
+                            }
                         }
-                        if(answer[0].equals("success")) {
-                            Message message = new Message();
-                            message.messageTitle = "success";
-                            message.messageToShow = "Your money delivered";
-                            message.show(getFragmentManager(), "success");
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    moneyToWidthdraw.setText("");
-                                }
-                            });
-                        } else {
-                            Message message = new Message();
-                            message.messageTitle = answer[0];
-                            message.messageToShow = answer[1];
-                            message.show(getFragmentManager(), "success");
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    moneyToWidthdraw.setText("");
-                                }
-                            });
-                        }
-                    }
-                }).start();
+                    }).start();
+                }
             }
         });
 
@@ -242,56 +245,62 @@ public class MainActivity extends AppCompatActivity implements ActionDialog.Noti
                     errorMessage.messageTitle = "Error";
                     errorMessage.messageToShow = "You cannot transfer money to youself";
                     errorMessage.show(getFragmentManager(), "error_dialog");
-                    return;
-                }
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            client.sendMessage("transfer", String.valueOf(user.userId),
-                                transferIdTo.getText().toString(), moneyToTransfer.getText().toString());
-                        } catch (Exception e) {
-                            Message errorMessage = new Message();
-                            errorMessage.messageTitle = "Error";
-                            errorMessage.messageToShow = e.getMessage();
-                            errorMessage.show(getFragmentManager(), "error_dialog");
-                        }
-                        String[] answer = null;
-                        try {
-                            answer = client.getArrayFromMessage();
-                        } catch (Exception e) {
-                            Message errorMessage = new Message();
-                            errorMessage.messageTitle = "Error";
-                            errorMessage.messageToShow = e.getMessage();
-                            errorMessage.show(getFragmentManager(), "error_dialog");
+                } else if (transferIdTo.getText().toString().isEmpty() || moneyToTransfer.getText
+                    ().toString().isEmpty()) {
+                    Message errorMessage = new Message();
+                    errorMessage.messageTitle = "Error";
+                    errorMessage.messageToShow = "Fill all fields first";
+                    errorMessage.show(getFragmentManager(), "error_dialog");
+                } else {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                client.sendMessage("transfer", String.valueOf(user.userId),
+                                    transferIdTo.getText().toString(), moneyToTransfer.getText().toString());
+                            } catch (Exception e) {
+                                Message errorMessage = new Message();
+                                errorMessage.messageTitle = "Error";
+                                errorMessage.messageToShow = e.getMessage();
+                                errorMessage.show(getFragmentManager(), "error_dialog");
+                            }
+                            String[] answer = null;
+                            try {
+                                answer = client.getArrayFromMessage();
+                            } catch (Exception e) {
+                                Message errorMessage = new Message();
+                                errorMessage.messageTitle = "Error";
+                                errorMessage.messageToShow = e.getMessage();
+                                errorMessage.show(getFragmentManager(), "error_dialog");
 
+                            }
+                            if (answer[0].equals("success")) {
+                                Message message = new Message();
+                                message.messageTitle = "success";
+                                message.messageToShow = "Your money transfered";
+                                message.show(getFragmentManager(), "success");
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        moneyToWidthdraw.setText("");
+                                    }
+                                });
+                            } else {
+                                Message message = new Message();
+                                message.messageTitle = answer[0];
+                                message.messageToShow = answer[1];
+                                message.show(getFragmentManager(), "success");
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        transferIdTo.setText("");
+                                        moneyToTransfer.setText("");
+                                    }
+                                });
+                            }
                         }
-                        if (answer[0].equals("success")) {
-                            Message message = new Message();
-                            message.messageTitle = "success";
-                            message.messageToShow = "Your money transfered";
-                            message.show(getFragmentManager(), "success");
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    moneyToWidthdraw.setText("");
-                                }
-                            });
-                        } else {
-                            Message message = new Message();
-                            message.messageTitle = answer[0];
-                            message.messageToShow = answer[1];
-                            message.show(getFragmentManager(), "success");
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    transferIdTo.setText("");
-                                    moneyToTransfer.setText("");
-                                }
-                            });
-                        }
-                    }
-                }).start();
+                    }).start();
+                }
             }
         });
 

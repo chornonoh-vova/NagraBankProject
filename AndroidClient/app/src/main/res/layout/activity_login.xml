@@ -17,6 +17,7 @@
             <EditText
                 android:id="@+id/ipEditText"
 
+                style="@android:style/Widget.DeviceDefault.EditText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -47,6 +48,7 @@
 
             <EditText
                 android:id="@+id/loginEditText"
+                style="@android:style/Widget.DeviceDefault.EditText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -65,6 +67,7 @@
 
             <EditText
                 android:id="@+id/pinEditText"
+                style="@android:style/Widget.DeviceDefault.EditText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
