@@ -1,24 +1,23 @@
 class Client {
-	constructor(socket) {
-		this.socket = socket;
+	constructor() {
+		this.xhr = new XMLHttpRequest();
 	}
 
 	openConnection() {
-		//TODO: open connection
+		this.xhr.open("post", "http://localhost/server", true);
 	}
 
 	closeConnection() {
-		sendMessage("close");
-		//TODO: close connection
+		this.xhr.abort();
 	}
 
 	sendMessage(...args) {
 		let message = JSON.stringify(args);
-		//TODO: send message to a server
+		this.xhr.send(message);
 	}
 
 	getMessage() {
-		//TODO: get message from server
+		return this.xhr.responseText;
 	}
 
 	getArrayFromMessage() {
