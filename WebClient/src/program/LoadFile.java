@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.Inet4Address;
+import java.net.InetAddress;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -19,16 +19,14 @@ public class LoadFile implements HttpHandler {
     System.out.println("Request to load file: " + path);
     BufferedReader br = new BufferedReader(new FileReader(path));
     PrintWriter out = new PrintWriter(arg0.getResponseBody());
-    String currentLine = null;
-    String file = new String();
+    String currentLine = new String();
     while ((currentLine = br.readLine()) != null) {
-      file += currentLine;
+      if (path.equals("js/client.js")) {
+        currentLine = currentLine.replaceFirst("localhost", InetAddress.getLocalHost().getHostAddress());
+      }
+      out.print(currentLine);
     }
     br.close();
-    if (path.equals("js/client.js")) {
-      file = file.replaceFirst("localhost", Inet4Address.getLocalHost().getHostAddress());
-    }
-    out.print(file);
     out.close();
     arg0.close();
   }

@@ -3,7 +3,7 @@ class Client {
 		this.xhr = new XMLHttpRequest();
 	}
 
-	//while loading localhost will be replaced to server ip
+	/*while loading will be replaced to server ip*/
 	openConnection() {
 		this.xhr.open("post", "http://localhost/server", false);
 	}

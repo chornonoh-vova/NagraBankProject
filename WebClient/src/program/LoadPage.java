@@ -20,12 +20,10 @@ public class LoadPage implements HttpHandler {
     BufferedReader br = new BufferedReader(new FileReader(path.toString()));
     PrintWriter out = new PrintWriter(arg0.getResponseBody());
     String currentLine = null;
-    StringBuilder sb = new StringBuilder();
     while ((currentLine = br.readLine()) != null) {
-      sb.append(currentLine);
+      out.print(currentLine);
     }
     br.close();
-    out.print(sb.toString());
     out.close();
     arg0.close();
   }
