@@ -7,10 +7,11 @@ import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 
 public class RegistryActivity extends AppCompatActivity{
-    private Button registration = null;
+    private ImageButton registration = null;
     private EditText login = null;
     private EditText password = null;
     private EditText password_confirm = null;
