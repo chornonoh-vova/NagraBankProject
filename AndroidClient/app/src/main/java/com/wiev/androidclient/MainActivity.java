@@ -1,6 +1,5 @@
 package com.wiev.androidclient;
 
-import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -13,7 +12,6 @@ import android.widget.EditText;
 import android.widget.TabHost;
 import android.widget.TextView;
 
-
 import client.Client;
 import client.UserInfo;
 
@@ -23,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements ActionDialog.Noti
     private Client client = new Client();
 
     private String ip = null;
+    private TextView forId = null;
     private TextView forLogin = null;
     private TextView forBalance = null;
     private TextView forBirthdate = null;
@@ -55,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements ActionDialog.Noti
 
         tabSpec = tabHost.newTabSpec("tag2");
         tabSpec.setContent(R.id.tab2);
-        tabSpec.setIndicator("Transaction");
+        tabSpec.setIndicator("Dealing");
         tabHost.addTab(tabSpec);
 
         tabSpec = tabHost.newTabSpec("tag3");
@@ -65,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements ActionDialog.Noti
 
         //tabHost.setCurrentTab(0);
 
+        forId = findViewById(R.id.forId);
         forLogin = findViewById(R.id.forLogin);
         forBalance = findViewById(R.id.forBalance);
         forBirthdate = findViewById(R.id.forBirthdate);
@@ -102,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements ActionDialog.Noti
         user = client.gson.fromJson(userPacked, UserInfo.class);
 
         //update fields
+        forId.setText(String.valueOf(user.userId));
         forLogin.setText(user.userLogin);
         forBalance.setText(String.valueOf(user.balance));
         forBirthdate.setText(user.birthDate.toString());
@@ -379,4 +380,5 @@ public class MainActivity extends AppCompatActivity implements ActionDialog.Noti
             }
         }).start();
     }
+
 }

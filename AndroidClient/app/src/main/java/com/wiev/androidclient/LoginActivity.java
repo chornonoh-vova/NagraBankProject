@@ -156,6 +156,7 @@ public class LoginActivity extends AppCompatActivity {
       public void onClick(View view) {
         //TODO: to registry activity
         Intent intent = new Intent(LoginActivity.this, RegistryActivity.class);
+        intent.putExtra("ip", savedIp);
         startActivity(intent);
       }
     });

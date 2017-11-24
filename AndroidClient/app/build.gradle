@@ -30,4 +30,5 @@ dependencies {
 
     compile 'com.google.code.gson:gson:2.8.2'
     compile 'org.jetbrains:annotations-java5:15.0'
+    implementation 'com.google.android.gms:play-services-maps:11.6.0'
 }
