@@ -21,11 +21,7 @@ public class MainActivity extends AppCompatActivity implements ActionDialog.Noti
     private Client client = new Client();
 
     private String ip = null;
-    private TextView forId = null;
-    private TextView forLogin = null;
     private TextView forBalance = null;
-    private TextView forBirthdate = null;
-    private TextView forSecretQuestion = null;
 
     private Button confirmRefill = null;
     private EditText moneyToRefill = null;
@@ -64,11 +60,11 @@ public class MainActivity extends AppCompatActivity implements ActionDialog.Noti
 
         //tabHost.setCurrentTab(0);
 
-        forId = findViewById(R.id.forId);
-        forLogin = findViewById(R.id.forLogin);
+        TextView forId = findViewById(R.id.forId);
+        TextView forLogin = findViewById(R.id.forLogin);
         forBalance = findViewById(R.id.forBalance);
-        forBirthdate = findViewById(R.id.forBirthdate);
-        forSecretQuestion = findViewById(R.id.forSecretQuestion);
+        TextView forBirthdate = findViewById(R.id.forBirthdate);
+        TextView forSecretQuestion = findViewById(R.id.forSecretQuestion);
 
         confirmRefill = findViewById(R.id.confirmRefill);
         moneyToRefill = findViewById(R.id.moneyToRefill);
