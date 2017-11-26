@@ -52,7 +52,7 @@ public class Database {
 	public Database() {
 		try {
 			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/bank_users", "root",
-					"5787");
+					"root");
 			statement = connection.createStatement();
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
