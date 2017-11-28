@@ -23,7 +23,9 @@ public class ServerHttp {
     server.createContext("/js/jquery-3.2.1.min.js", new LoadFile());
     server.createContext("/js/login.js", new LoadFile());
     server.createContext("/js/registry.js", new LoadFile());
-    server.createContext("/styles.css", new LoadFile());
+    server.createContext("/css/styles-login.css", new LoadFile());
+    server.createContext("/css/styles-registry.css", new LoadFile());
+    server.createContext("/css/styles-main.css", new LoadFile());
     server.start();
   }
 

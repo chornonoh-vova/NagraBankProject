@@ -13,9 +13,9 @@ public class LoadPage implements HttpHandler {
   @Override
   public void handle(HttpExchange arg0) throws IOException {
     arg0.sendResponseHeaders(200, 0);
-    StringBuilder path = new StringBuilder(arg0.getRequestURI().toString());
-    path.deleteCharAt(0);
-    path.append(".html");
+    String path = arg0.getRequestURI().toString();
+    path = "html" + path;
+    path += ".html";
     System.out.println("Request to load page: " + path);
     BufferedReader br = new BufferedReader(new FileReader(path.toString()));
     PrintWriter out = new PrintWriter(arg0.getResponseBody());
