@@ -62,6 +62,7 @@ public class LoginWindow implements ShowMessage, Md5Hasher {
 
 	/**
 	 * Create the application.
+	 * @wbp.parser.entryPoint
 	 */
 	public LoginWindow() {
 		initialize();
@@ -135,7 +136,7 @@ public class LoginWindow implements ShowMessage, Md5Hasher {
 		gbc_passwordInputField.gridy = 4;
 		frmLogin.getContentPane().add(passwordInputField, gbc_passwordInputField);
 
-		btnForgot = new JButton("Forgot?");
+		btnForgot = new JButton("Forgot");
 		btnForgot.addActionListener((arg0) -> {
 				final JDialog dialog = new JDialog();
 				dialog.setAlwaysOnTop(true);

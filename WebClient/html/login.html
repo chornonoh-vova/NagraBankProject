@@ -3,12 +3,14 @@
 <header>
 	<meta charset="utf-8">
 	<title>Login</title>
-	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script src="js/md5.js"></script>
 	<script src="js/util.js"></script>
 	<script src="js/client.js"></script>
 	<script src="js/login.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/styles-login.css">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </header>
 <body>
 	<div id="grid-wrapper">
@@ -19,5 +21,8 @@
 		<button type="button" id="registry"><a href="/registry">Registry</a></button>
 		<button type="button" id="forgot"><a href="/forgot">Forgot?</a></button>
 	</div>
+	<div id="dialog" title="no_title" style="display: none;">
+  <p>no_text</p>
+</div>
 </body>
 </html>

@@ -13,6 +13,7 @@ public class LoadPage implements HttpHandler {
   @Override
   public void handle(HttpExchange arg0) throws IOException {
     arg0.sendResponseHeaders(200, 0);
+    arg0.setAttribute("Content-type", "text/html");
     String path = arg0.getRequestURI().toString();
     path = "html" + path;
     path += ".html";
