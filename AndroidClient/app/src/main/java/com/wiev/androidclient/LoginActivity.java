@@ -148,6 +148,8 @@ public class LoginActivity extends AppCompatActivity {
       @Override
       public void onClick(View view) {
         //TODO: show forgot pin activity
+          Intent intent = new Intent(LoginActivity.this, ForgotActivity.class);
+          startActivity(intent);
       }
     });
 

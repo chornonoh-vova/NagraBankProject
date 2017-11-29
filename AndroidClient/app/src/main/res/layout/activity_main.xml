@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     tools:context="com.wiev.androidclient.MainActivity">
 
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/bucks" />
+
     <TabHost
         android:id="@+id/tabHost"
         android:layout_width="0dp"
@@ -37,60 +43,6 @@
                 android:layout_height="match_parent">
 
                 <LinearLayout
-                    android:id="@+id/tab3"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <ScrollView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <android.support.constraint.ConstraintLayout
-                            android:id="@+id/linearLayout4"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <TextView
-                                android:id="@+id/textViewHeader"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="8dp"
-                                android:layout_marginStart="8dp"
-                                android:text="About our company"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                                app:layout_constraintBottom_toTopOf="@+id/textViewAbout"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_bias="0.5"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <TextView
-                                android:id="@+id/textViewAbout"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="8dp"
-                                android:layout_marginEnd="8dp"
-                                android:layout_marginStart="8dp"
-                                android:layout_marginTop="8dp"
-                                android:text="@string/about"
-                                android:textAlignment="textStart"
-                                android:textAllCaps="false"
-                                android:textSize="20sp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_bias="0.5"
-                                app:layout_constraintLeft_toLeftOf="parent"
-                                app:layout_constraintRight_toRightOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/textViewHeader" />
-
-                        </android.support.constraint.ConstraintLayout>
-
-                    </ScrollView>
-                </LinearLayout>
-
-                <LinearLayout
                     android:id="@+id/tab1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -117,8 +69,10 @@
                                     android:layout_marginEnd="16dp"
                                     android:layout_marginStart="16dp"
                                     android:layout_marginTop="8dp"
+                                    android:background="@android:color/background_light"
                                     android:text="User information"
                                     android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                                    android:textStyle="bold"
                                     app:layout_constraintBottom_toTopOf="@+id/uId"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
@@ -132,8 +86,10 @@
                                     android:layout_marginEnd="8dp"
                                     android:layout_marginStart="16dp"
                                     android:layout_marginTop="8dp"
+                                    android:background="@android:color/background_light"
                                     android:text="Your ID:"
                                     android:textSize="18sp"
+                                    android:textStyle="bold"
                                     app:layout_constraintBottom_toTopOf="@+id/uLogin"
                                     app:layout_constraintEnd_toStartOf="@+id/forId"
                                     app:layout_constraintHorizontal_bias="0.5"
@@ -146,10 +102,12 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="8dp"
                                     android:layout_marginEnd="16dp"
-                                    android:layout_marginStart="8dp"
+                                    android:layout_marginStart="32dp"
                                     android:layout_marginTop="8dp"
+                                    android:background="@android:color/background_light"
                                     android:text="TextView"
                                     android:textSize="18sp"
+                                    android:textStyle="bold"
                                     app:layout_constraintBottom_toTopOf="@+id/forLogin"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintHorizontal_bias="0.5"
@@ -164,8 +122,10 @@
                                     android:layout_marginEnd="8dp"
                                     android:layout_marginStart="16dp"
                                     android:layout_marginTop="8dp"
+                                    android:background="@android:color/background_light"
                                     android:text="Your login:"
                                     android:textSize="18sp"
+                                    android:textStyle="bold"
                                     app:layout_constraintBottom_toTopOf="@+id/ubalance"
                                     app:layout_constraintEnd_toStartOf="@+id/forLogin"
                                     app:layout_constraintStart_toStartOf="parent"
@@ -178,10 +138,12 @@
                                     android:layout_marginBottom="8dp"
                                     android:layout_marginEnd="16dp"
                                     android:layout_marginRight="16dp"
-                                    android:layout_marginStart="8dp"
+                                    android:layout_marginStart="32dp"
                                     android:layout_marginTop="8dp"
+                                    android:background="@android:color/background_light"
                                     android:text="TextView"
                                     android:textSize="18sp"
+                                    android:textStyle="bold"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintHorizontal_bias="0.04"
@@ -198,8 +160,10 @@
                                     android:layout_marginEnd="8dp"
                                     android:layout_marginStart="16dp"
                                     android:layout_marginTop="8dp"
+                                    android:background="@android:color/background_light"
                                     android:text="Your balance:"
                                     android:textSize="18sp"
+                                    android:textStyle="bold"
                                     app:layout_constraintBottom_toTopOf="@+id/ubirthdate"
                                     app:layout_constraintEnd_toStartOf="@+id/forBalance"
                                     app:layout_constraintStart_toStartOf="parent"
@@ -212,10 +176,12 @@
                                     android:layout_marginBottom="8dp"
                                     android:layout_marginEnd="16dp"
                                     android:layout_marginRight="16dp"
-                                    android:layout_marginStart="8dp"
+                                    android:layout_marginStart="32dp"
                                     android:layout_marginTop="8dp"
+                                    android:background="@android:color/background_light"
                                     android:text="TextView"
                                     android:textSize="18sp"
+                                    android:textStyle="bold"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintRight_toRightOf="parent"
@@ -231,8 +197,10 @@
                                     android:layout_marginEnd="8dp"
                                     android:layout_marginStart="16dp"
                                     android:layout_marginTop="8dp"
+                                    android:background="@android:color/background_light"
                                     android:text="Your birthdate:"
                                     android:textSize="18sp"
+                                    android:textStyle="bold"
                                     app:layout_constraintBottom_toTopOf="@+id/usecrquestion"
                                     app:layout_constraintEnd_toStartOf="@+id/forBirthdate"
                                     app:layout_constraintStart_toStartOf="parent"
@@ -245,10 +213,12 @@
                                     android:layout_marginBottom="8dp"
                                     android:layout_marginEnd="16dp"
                                     android:layout_marginRight="16dp"
-                                    android:layout_marginStart="8dp"
+                                    android:layout_marginStart="32dp"
                                     android:layout_marginTop="8dp"
+                                    android:background="@android:color/background_light"
                                     android:text="TextView"
                                     android:textSize="18sp"
+                                    android:textStyle="bold"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintRight_toRightOf="parent"
@@ -264,8 +234,10 @@
                                     android:layout_marginEnd="8dp"
                                     android:layout_marginStart="16dp"
                                     android:layout_marginTop="8dp"
+                                    android:background="@android:color/background_light"
                                     android:text="Your secr question:"
                                     android:textSize="18sp"
+                                    android:textStyle="bold"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toStartOf="@+id/forSecretQuestion"
                                     app:layout_constraintStart_toStartOf="parent"
@@ -278,10 +250,12 @@
                                     android:layout_marginBottom="8dp"
                                     android:layout_marginEnd="16dp"
                                     android:layout_marginRight="16dp"
-                                    android:layout_marginStart="8dp"
+                                    android:layout_marginStart="32dp"
                                     android:layout_marginTop="8dp"
+                                    android:background="@android:color/background_light"
                                     android:text="TextView"
                                     android:textSize="18sp"
+                                    android:textStyle="bold"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintRight_toRightOf="parent"
@@ -317,10 +291,12 @@
                                 android:layout_marginEnd="8dp"
                                 android:layout_marginStart="16dp"
                                 android:layout_marginTop="8dp"
+                                android:background="@android:color/background_light"
                                 android:text="Money to refill"
-                                android:textAlignment="textStart"
+                                android:textAlignment="center"
                                 android:textAllCaps="false"
                                 android:textSize="18sp"
+                                android:textStyle="bold"
                                 app:layout_constraintBottom_toTopOf="@+id/textView10"
                                 app:layout_constraintEnd_toStartOf="@+id/moneyToRefill"
                                 app:layout_constraintHorizontal_bias="0.0"
@@ -335,9 +311,11 @@
                                 android:layout_marginEnd="8dp"
                                 android:layout_marginStart="8dp"
                                 android:layout_marginTop="8dp"
+                                android:background="@drawable/back"
                                 android:ems="10"
                                 android:hint="Amount"
                                 android:inputType="numberSigned"
+                                android:textAlignment="center"
                                 app:layout_constraintBottom_toBottomOf="@+id/textView9"
                                 app:layout_constraintEnd_toStartOf="@+id/confirmRefill"
                                 app:layout_constraintHorizontal_bias="0.5"
@@ -353,6 +331,7 @@
                                 android:layout_marginEnd="16dp"
                                 android:layout_marginStart="8dp"
                                 android:layout_marginTop="8dp"
+                                android:background="@drawable/back"
                                 android:backgroundTint="@color/colorPrimary"
                                 android:text="Confirm"
                                 app:layout_constraintBottom_toBottomOf="@+id/moneyToRefill"
@@ -369,9 +348,11 @@
                                 android:layout_marginEnd="8dp"
                                 android:layout_marginStart="16dp"
                                 android:layout_marginTop="8dp"
+                                android:background="@android:color/background_light"
                                 android:text="Money to widthdraw"
-                                android:textAlignment="textStart"
+                                android:textAlignment="center"
                                 android:textSize="18sp"
+                                android:textStyle="bold"
                                 app:layout_constraintBottom_toTopOf="@+id/textView11"
                                 app:layout_constraintEnd_toStartOf="@+id/moneyToWidthdraw"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -385,9 +366,11 @@
                                 android:layout_marginEnd="8dp"
                                 android:layout_marginStart="8dp"
                                 android:layout_marginTop="8dp"
+                                android:background="@drawable/back"
                                 android:ems="10"
                                 android:hint="Amount"
                                 android:inputType="numberSigned"
+                                android:textAlignment="center"
                                 app:layout_constraintBottom_toTopOf="@+id/textView11"
                                 app:layout_constraintEnd_toStartOf="@+id/confirmWidthdraw"
                                 app:layout_constraintHorizontal_bias="0.5"
@@ -403,6 +386,7 @@
                                 android:layout_marginEnd="16dp"
                                 android:layout_marginStart="8dp"
                                 android:layout_marginTop="8dp"
+                                android:background="@drawable/back"
                                 android:backgroundTint="@color/colorPrimary"
                                 android:text="Confirm"
                                 app:layout_constraintBottom_toTopOf="@+id/textView11"
@@ -418,9 +402,11 @@
                                 android:layout_marginEnd="16dp"
                                 android:layout_marginStart="16dp"
                                 android:layout_marginTop="16dp"
+                                android:background="@android:color/background_light"
                                 android:text="Money transfer"
                                 android:textAlignment="center"
                                 android:textSize="18sp"
+                                android:textStyle="bold"
                                 app:layout_constraintBottom_toTopOf="@+id/moneyToTransfer"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -434,9 +420,11 @@
                                 android:layout_marginEnd="8dp"
                                 android:layout_marginStart="16dp"
                                 android:layout_marginTop="16dp"
+                                android:background="@drawable/back"
                                 android:ems="10"
                                 android:hint="Id to"
                                 android:inputType="number"
+                                android:textAlignment="center"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toStartOf="@+id/moneyToTransfer"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -450,9 +438,11 @@
                                 android:layout_marginEnd="8dp"
                                 android:layout_marginStart="8dp"
                                 android:layout_marginTop="16dp"
+                                android:background="@drawable/back"
                                 android:ems="10"
                                 android:hint="Amount"
                                 android:inputType="numberSigned"
+                                android:textAlignment="center"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toStartOf="@+id/confirmTransfer"
                                 app:layout_constraintHorizontal_bias="0.5"
@@ -468,6 +458,7 @@
                                 android:layout_marginEnd="16dp"
                                 android:layout_marginStart="8dp"
                                 android:layout_marginTop="16dp"
+                                android:background="@drawable/back"
                                 android:backgroundTint="@color/colorPrimary"
                                 android:text="Confirm"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -475,6 +466,64 @@
                                 app:layout_constraintHorizontal_bias="0.5"
                                 app:layout_constraintStart_toEndOf="@+id/moneyToTransfer"
                                 app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+                        </android.support.constraint.ConstraintLayout>
+
+                    </ScrollView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tab3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <android.support.constraint.ConstraintLayout
+                            android:id="@+id/linearLayout4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/textViewHeader"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginStart="8dp"
+                                android:background="@android:color/background_light"
+                                android:text="About our company"
+                                android:textAlignment="center"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                                android:textStyle="bold"
+                                app:layout_constraintBottom_toTopOf="@+id/textViewAbout"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.5"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/textViewAbout"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginTop="8dp"
+                                android:background="@android:color/background_light"
+                                android:text="@string/about"
+                                android:textAlignment="center"
+                                android:textAllCaps="false"
+                                android:textSize="20sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.5"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textViewHeader" />
 
                         </android.support.constraint.ConstraintLayout>
 

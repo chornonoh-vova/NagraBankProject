@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round_1"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity">
+        <activity android:name=".LoginActivity"
+                  android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,11 +24,18 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/activity_main"
-            android:parentActivityName=".LoginActivity" />
+            android:parentActivityName=".LoginActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".RegistryActivity"
             android:label="@string/activity_registry"
-            android:parentActivityName=".LoginActivity" />
+            android:parentActivityName=".LoginActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ForgotActivity"
+            android:label="Forgot"
+            android:parentActivityName=".ForgotActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
