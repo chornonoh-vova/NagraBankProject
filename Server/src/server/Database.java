@@ -124,6 +124,27 @@ public class Database {
 					user.secretQuestion, user.birthDate.toString() };
 			return gson.toJson(send);
 		}
+		case "checkQuestion": {
+			if(checkQuestion(String.valueOf(args[1]), String.valueOf(args[2]))) {
+				String[] send = { "success", "Answer is correct" };
+				return gson.toJson(send);
+			} else {
+				String[] send = { "error", "try again" };
+				return gson.toJson(send);
+			}
+		}
+		
+		
+		case "changePin": {
+			if(changePin(String.valueOf(args[1]), Integer.valueOf(args[2]))) {
+				String[] send = { "success", "pin is change" };
+				return gson.toJson(send);
+			} else {
+				String[] send = { "error", "try again" };
+				return gson.toJson(send);
+			}
+			
+		}
 		default:
 			String[] send = { "error", "unknown operation" };
 			return gson.toJson(send);
@@ -384,7 +405,7 @@ public class Database {
 		
 	}
 	
-	public boolean changePin (String userLogin, String pin) {
+	public boolean changePin (String userLogin, int pin) {
 		try {
 			ResultSet hasUser = (ResultSet) execute(OpType.SELECT,
 					"select user_login from users where user_login = " + userLogin + ";");
