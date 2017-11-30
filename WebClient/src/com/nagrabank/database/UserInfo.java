@@ -1,4 +1,4 @@
-package server;
+package com.nagrabank.database;
 
 import java.sql.Date;
 

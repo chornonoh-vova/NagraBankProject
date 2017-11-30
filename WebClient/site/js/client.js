@@ -5,7 +5,7 @@ class Client {
 
 	/*while loading will be replaced to server ip*/
 	openConnection() {
-		this.xhr.open("post", "http://localhost/server", false);
+		this.xhr.open("post", "http://localhost/query", false);
 	}
 
 	closeConnection() {
