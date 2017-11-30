@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.Font;
 
 public class LoginWindow implements ShowMessage, Md5Hasher {
 	private Client client = Client.getInstance();
@@ -34,6 +35,7 @@ public class LoginWindow implements ShowMessage, Md5Hasher {
 	private JLabel lblYourPincode;
 	private JButton btnRegistration;
 	private JLabel imageLabel;
+	private JLabel lblNewLabel;
 
 	/**
 	 * Launch the application.
@@ -83,30 +85,39 @@ public class LoginWindow implements ShowMessage, Md5Hasher {
 			}
 		});
 		frmLogin.setTitle("Login");
-		frmLogin.setBounds(100, 100, 350, 420);
+		frmLogin.setBounds(100, 100, 350, 530);
 		frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 0, 0, 0 };
-		gridBagLayout.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0 };
+		gridBagLayout.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
 		gridBagLayout.columnWeights = new double[] { 1.0, 0.0, Double.MIN_VALUE };
-		gridBagLayout.rowWeights = new double[] { 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gridBagLayout.rowWeights = new double[] { 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		frmLogin.getContentPane().setLayout(gridBagLayout);
+		
+		lblNewLabel = new JLabel("Nagra Bank Inc.");
+		lblNewLabel.setFont(new Font("Vladimir Script", Font.PLAIN, 30));
+		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+		gbc_lblNewLabel.gridwidth = 2;
+		gbc_lblNewLabel.gridx = 0;
+		gbc_lblNewLabel.gridy = 0;
+		frmLogin.getContentPane().add(lblNewLabel, gbc_lblNewLabel);
 
 		imageLabel = new JLabel(new ImageIcon("img/central_bank_dollar.png"));
+		imageLabel.setBounds(100, 100, 240, 240);
 		GridBagConstraints gbc_imageLabel = new GridBagConstraints();
 		gbc_imageLabel.gridwidth = 2;
 		gbc_imageLabel.fill = GridBagConstraints.BOTH;
-		gbc_imageLabel.insets = new Insets(0, 50, 5, 50);
 		gbc_imageLabel.gridx = 0;
-		gbc_imageLabel.gridy = 0;
+		gbc_imageLabel.gridy = 1;
 		frmLogin.getContentPane().add(imageLabel, gbc_imageLabel);
 
 		JLabel lblYourLogin = new JLabel("Your login");
+		lblYourLogin.setFont(new Font("Segoe UI Light", Font.PLAIN, 16));
 		GridBagConstraints gbc_lblYourLogin = new GridBagConstraints();
 		gbc_lblYourLogin.gridwidth = 2;
 		gbc_lblYourLogin.insets = new Insets(10, 50, 10, 50);
 		gbc_lblYourLogin.gridx = 0;
-		gbc_lblYourLogin.gridy = 1;
+		gbc_lblYourLogin.gridy = 2;
 		frmLogin.getContentPane().add(lblYourLogin, gbc_lblYourLogin);
 
 		loginInputField = new JTextField();
@@ -115,16 +126,17 @@ public class LoginWindow implements ShowMessage, Md5Hasher {
 		gbc_loginInputField.gridwidth = 2;
 		gbc_loginInputField.insets = new Insets(10, 50, 10, 50);
 		gbc_loginInputField.gridx = 0;
-		gbc_loginInputField.gridy = 2;
+		gbc_loginInputField.gridy = 3;
 		frmLogin.getContentPane().add(loginInputField, gbc_loginInputField);
 		loginInputField.setColumns(10);
 
 		lblYourPincode = new JLabel("Your PIN-code:");
+		lblYourPincode.setFont(new Font("Segoe UI Light", Font.PLAIN, 16));
 		GridBagConstraints gbc_lblYourPincode = new GridBagConstraints();
 		gbc_lblYourPincode.gridwidth = 2;
 		gbc_lblYourPincode.insets = new Insets(10, 50, 10, 50);
 		gbc_lblYourPincode.gridx = 0;
-		gbc_lblYourPincode.gridy = 3;
+		gbc_lblYourPincode.gridy = 4;
 		frmLogin.getContentPane().add(lblYourPincode, gbc_lblYourPincode);
 
 		passwordInputField = new JPasswordField();
@@ -133,24 +145,25 @@ public class LoginWindow implements ShowMessage, Md5Hasher {
 		gbc_passwordInputField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_passwordInputField.insets = new Insets(10, 50, 10, 5);
 		gbc_passwordInputField.gridx = 0;
-		gbc_passwordInputField.gridy = 4;
+		gbc_passwordInputField.gridy = 5;
 		frmLogin.getContentPane().add(passwordInputField, gbc_passwordInputField);
 
 		btnForgot = new JButton("Forgot");
+		btnForgot.setFont(new Font("Arial", Font.PLAIN, 14));
 		btnForgot.addActionListener((arg0) -> {
-				final JDialog dialog = new JDialog();
-				dialog.setAlwaysOnTop(true);
-				JOptionPane.showMessageDialog(dialog, "IDI VSPOMINAY", "VSPOMINALKA",
-						JOptionPane.INFORMATION_MESSAGE);
+		  ForgotWindow window = new ForgotWindow();
+      window.frame.setVisible(true);
+      frmLogin.setVisible(false);
 		});
 		GridBagConstraints gbc_btnForgot = new GridBagConstraints();
 		gbc_btnForgot.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnForgot.insets = new Insets(10, 5, 10, 50);
 		gbc_btnForgot.gridx = 1;
-		gbc_btnForgot.gridy = 4;
+		gbc_btnForgot.gridy = 5;
 		frmLogin.getContentPane().add(btnForgot, gbc_btnForgot);
 
 		btnLogIn = new JButton("Log In");
+		btnLogIn.setFont(new Font("Arial", Font.PLAIN, 14));
 		btnLogIn.addActionListener((arg0) -> {
 				String loginToSend = loginInputField.getText();
 				if (!Checker.verifyLogin(loginToSend)) {
@@ -195,10 +208,11 @@ public class LoginWindow implements ShowMessage, Md5Hasher {
 		gbc_btnLogIn.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnLogIn.insets = new Insets(10, 50, 10, 5);
 		gbc_btnLogIn.gridx = 0;
-		gbc_btnLogIn.gridy = 5;
+		gbc_btnLogIn.gridy = 6;
 		frmLogin.getContentPane().add(btnLogIn, gbc_btnLogIn);
 
 		btnRegistration = new JButton("Registration");
+		btnRegistration.setFont(new Font("Arial", Font.PLAIN, 14));
 		btnRegistration.addActionListener((arg0) -> {
 				RegistrationWindow window = new RegistrationWindow();
 				window.frmRegistration.setVisible(true);
@@ -207,7 +221,7 @@ public class LoginWindow implements ShowMessage, Md5Hasher {
 		GridBagConstraints gbc_btnRegistration = new GridBagConstraints();
 		gbc_btnRegistration.insets = new Insets(10, 5, 10, 50);
 		gbc_btnRegistration.gridx = 1;
-		gbc_btnRegistration.gridy = 5;
+		gbc_btnRegistration.gridy = 6;
 		frmLogin.getContentPane().add(btnRegistration, gbc_btnRegistration);
 	}
 

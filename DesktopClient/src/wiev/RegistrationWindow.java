@@ -18,6 +18,7 @@ import javax.swing.JButton;
 import java.io.IOException;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.Font;
 
 public class RegistrationWindow implements ShowMessage, Md5Hasher {
 
@@ -47,6 +48,7 @@ public class RegistrationWindow implements ShowMessage, Md5Hasher {
    */
   private void initialize() {
     frmRegistration = new JFrame();
+    frmRegistration.getContentPane().setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
     frmRegistration.addWindowListener(new WindowAdapter() {
       @Override
       public void windowClosing(WindowEvent arg0) {
@@ -55,7 +57,7 @@ public class RegistrationWindow implements ShowMessage, Md5Hasher {
       }
     });
     frmRegistration.setTitle("Registration");
-    frmRegistration.setBounds(100, 100, 450, 339);
+    frmRegistration.setBounds(100, 100, 450, 402);
     frmRegistration.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     GridBagLayout gridBagLayout = new GridBagLayout();
     gridBagLayout.columnWidths = new int[] { 215, 219, 0 };
@@ -66,6 +68,7 @@ public class RegistrationWindow implements ShowMessage, Md5Hasher {
     frmRegistration.getContentPane().setLayout(gridBagLayout);
 
     JLabel lblEnterYourLogin = new JLabel("Enter your login");
+    lblEnterYourLogin.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
     GridBagConstraints gbc_lblEnterYourLogin = new GridBagConstraints();
     gbc_lblEnterYourLogin.gridwidth = 2;
     gbc_lblEnterYourLogin.insets = new Insets(0, 0, 5, 0);
@@ -74,6 +77,7 @@ public class RegistrationWindow implements ShowMessage, Md5Hasher {
     frmRegistration.getContentPane().add(lblEnterYourLogin, gbc_lblEnterYourLogin);
 
     loginField = new JTextField();
+    loginField.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
     GridBagConstraints gbc_loginField = new GridBagConstraints();
     gbc_loginField.fill = GridBagConstraints.HORIZONTAL;
     gbc_loginField.gridwidth = 2;
@@ -84,6 +88,7 @@ public class RegistrationWindow implements ShowMessage, Md5Hasher {
     loginField.setColumns(10);
 
     JLabel lblEnterYourPin = new JLabel("Enter your pin");
+    lblEnterYourPin.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
     GridBagConstraints gbc_lblEnterYourPin = new GridBagConstraints();
     gbc_lblEnterYourPin.gridwidth = 2;
     gbc_lblEnterYourPin.insets = new Insets(0, 0, 5, 0);
@@ -92,6 +97,7 @@ public class RegistrationWindow implements ShowMessage, Md5Hasher {
     frmRegistration.getContentPane().add(lblEnterYourPin, gbc_lblEnterYourPin);
 
     passwordField = new JPasswordField();
+    passwordField.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
     GridBagConstraints gbc_passwordField = new GridBagConstraints();
     gbc_passwordField.fill = GridBagConstraints.HORIZONTAL;
     gbc_passwordField.gridwidth = 2;
@@ -101,6 +107,7 @@ public class RegistrationWindow implements ShowMessage, Md5Hasher {
     frmRegistration.getContentPane().add(passwordField, gbc_passwordField);
 
     JLabel lblEnterYourPin_1 = new JLabel("Enter your pin again");
+    lblEnterYourPin_1.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
     GridBagConstraints gbc_lblEnterYourPin_1 = new GridBagConstraints();
     gbc_lblEnterYourPin_1.gridwidth = 2;
     gbc_lblEnterYourPin_1.insets = new Insets(0, 0, 5, 0);
@@ -109,6 +116,7 @@ public class RegistrationWindow implements ShowMessage, Md5Hasher {
     frmRegistration.getContentPane().add(lblEnterYourPin_1, gbc_lblEnterYourPin_1);
 
     passwordField_1 = new JPasswordField();
+    passwordField_1.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
     GridBagConstraints gbc_passwordField_1 = new GridBagConstraints();
     gbc_passwordField_1.fill = GridBagConstraints.HORIZONTAL;
     gbc_passwordField_1.gridwidth = 2;
@@ -118,6 +126,7 @@ public class RegistrationWindow implements ShowMessage, Md5Hasher {
     frmRegistration.getContentPane().add(passwordField_1, gbc_passwordField_1);
 
     lblBirthdate = new JLabel("Birthdate");
+    lblBirthdate.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
     GridBagConstraints gbc_lblBirthdate = new GridBagConstraints();
     gbc_lblBirthdate.gridwidth = 2;
     gbc_lblBirthdate.insets = new Insets(0, 0, 5, 0);
@@ -126,6 +135,7 @@ public class RegistrationWindow implements ShowMessage, Md5Hasher {
     frmRegistration.getContentPane().add(lblBirthdate, gbc_lblBirthdate);
 
     birthdateField = new JTextField();
+    birthdateField.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
     GridBagConstraints gbc_birthdateField = new GridBagConstraints();
     gbc_birthdateField.fill = GridBagConstraints.HORIZONTAL;
     gbc_birthdateField.gridwidth = 2;
@@ -136,6 +146,7 @@ public class RegistrationWindow implements ShowMessage, Md5Hasher {
     birthdateField.setColumns(10);
 
     lblSecretQuestion = new JLabel("Secret question");
+    lblSecretQuestion.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
     GridBagConstraints gbc_lblSecretQuestion = new GridBagConstraints();
     gbc_lblSecretQuestion.gridwidth = 2;
     gbc_lblSecretQuestion.insets = new Insets(0, 0, 5, 0);
@@ -144,6 +155,7 @@ public class RegistrationWindow implements ShowMessage, Md5Hasher {
     frmRegistration.getContentPane().add(lblSecretQuestion, gbc_lblSecretQuestion);
 
     questionField = new JTextField();
+    questionField.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
     GridBagConstraints gbc_questionField = new GridBagConstraints();
     gbc_questionField.fill = GridBagConstraints.HORIZONTAL;
     gbc_questionField.gridwidth = 2;
@@ -154,6 +166,7 @@ public class RegistrationWindow implements ShowMessage, Md5Hasher {
     questionField.setColumns(10);
 
     lblAnswerToThe = new JLabel("Answer to the secret question");
+    lblAnswerToThe.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
     GridBagConstraints gbc_lblAnswerToThe = new GridBagConstraints();
     gbc_lblAnswerToThe.gridwidth = 2;
     gbc_lblAnswerToThe.insets = new Insets(0, 0, 5, 0);
@@ -162,6 +175,7 @@ public class RegistrationWindow implements ShowMessage, Md5Hasher {
     frmRegistration.getContentPane().add(lblAnswerToThe, gbc_lblAnswerToThe);
 
     answerField = new JTextField();
+    answerField.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
     GridBagConstraints gbc_answerField = new GridBagConstraints();
     gbc_answerField.fill = GridBagConstraints.HORIZONTAL;
     gbc_answerField.gridwidth = 2;
@@ -172,6 +186,7 @@ public class RegistrationWindow implements ShowMessage, Md5Hasher {
     answerField.setColumns(10);
 
     btnBack = new JButton("< Back");
+    btnBack.setFont(new Font("Arial", Font.PLAIN, 14));
     btnBack.addActionListener((arg0) -> {
       LoginWindow window = new LoginWindow();
       window.frmLogin.setVisible(true);
@@ -185,6 +200,7 @@ public class RegistrationWindow implements ShowMessage, Md5Hasher {
     frmRegistration.getContentPane().add(btnBack, gbc_btnBack);
 
     btnContinue = new JButton("Continue ");
+    btnContinue.setFont(new Font("Arial", Font.PLAIN, 14));
     btnContinue.addActionListener((arg0) -> {
       String loginToSend = loginField.getText();
       if (!Checker.verifyLogin(loginToSend)) {

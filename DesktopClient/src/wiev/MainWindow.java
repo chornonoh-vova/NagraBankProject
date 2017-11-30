@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 import javax.swing.UIManager;
 import javax.swing.JTextField;
+import java.awt.Font;
 
 public class MainWindow implements ShowMessage, Md5Hasher {
 
@@ -57,7 +58,7 @@ public class MainWindow implements ShowMessage, Md5Hasher {
       }
     });
     frmNagrabank.setTitle("NagraBank");
-    frmNagrabank.setBounds(100, 100, 526, 461);
+    frmNagrabank.setBounds(100, 100, 600, 400);
     frmNagrabank.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     GridBagLayout gridBagLayout = new GridBagLayout();
     gridBagLayout.columnWidths = new int[] { 0, 0 };
@@ -68,7 +69,8 @@ public class MainWindow implements ShowMessage, Md5Hasher {
 
     JPanel userInfoPanel = new JPanel();
     userInfoPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"),
-        "Your account info", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+        "Your account info", TitledBorder.CENTER, TitledBorder.TOP,
+        new Font("Arial", Font.PLAIN, 14), new Color(0, 0, 0)));
     GridBagConstraints gbc_userInfoPanel = new GridBagConstraints();
     gbc_userInfoPanel.fill = GridBagConstraints.BOTH;
     gbc_userInfoPanel.insets = new Insets(5, 25, 5, 25);
@@ -84,6 +86,7 @@ public class MainWindow implements ShowMessage, Md5Hasher {
     userInfoPanel.setLayout(gbl_userInfoPanel);
 
     JLabel lblLogin = new JLabel("Login");
+    lblLogin.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
     GridBagConstraints gbc_lblLogin = new GridBagConstraints();
     gbc_lblLogin.insets = new Insets(5, 10, 5, 5);
     gbc_lblLogin.gridx = 0;
@@ -91,6 +94,7 @@ public class MainWindow implements ShowMessage, Md5Hasher {
     userInfoPanel.add(lblLogin, gbc_lblLogin);
 
     JLabel lblBirthdate = new JLabel("Birthdate");
+    lblBirthdate.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
     GridBagConstraints gbc_lblBirthdate = new GridBagConstraints();
     gbc_lblBirthdate.insets = new Insets(5, 5, 5, 5);
     gbc_lblBirthdate.gridx = 1;
@@ -98,6 +102,7 @@ public class MainWindow implements ShowMessage, Md5Hasher {
     userInfoPanel.add(lblBirthdate, gbc_lblBirthdate);
 
     JLabel lblBalance = new JLabel("Balance");
+    lblBalance.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
     GridBagConstraints gbc_lblBalance = new GridBagConstraints();
     gbc_lblBalance.insets = new Insets(5, 5, 5, 5);
     gbc_lblBalance.gridx = 2;
@@ -105,6 +110,7 @@ public class MainWindow implements ShowMessage, Md5Hasher {
     userInfoPanel.add(lblBalance, gbc_lblBalance);
 
     JLabel lblAccountId = new JLabel("Account ID");
+    lblAccountId.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
     GridBagConstraints gbc_lblAccountId = new GridBagConstraints();
     gbc_lblAccountId.insets = new Insets(5, 5, 5, 5);
     gbc_lblAccountId.gridx = 3;
@@ -112,6 +118,7 @@ public class MainWindow implements ShowMessage, Md5Hasher {
     userInfoPanel.add(lblAccountId, gbc_lblAccountId);
 
     JLabel lblSecretQuestion = new JLabel("Secret question");
+    lblSecretQuestion.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
     GridBagConstraints gbc_lblSecretQuestion = new GridBagConstraints();
     gbc_lblSecretQuestion.insets = new Insets(5, 5, 5, 5);
     gbc_lblSecretQuestion.gridx = 4;
@@ -119,6 +126,7 @@ public class MainWindow implements ShowMessage, Md5Hasher {
     userInfoPanel.add(lblSecretQuestion, gbc_lblSecretQuestion);
 
     JButton btnUpdate = new JButton("Update");
+    btnUpdate.setFont(new Font("Arial", Font.PLAIN, 14));
 
     GridBagConstraints gbc_btnUpdate = new GridBagConstraints();
     gbc_btnUpdate.fill = GridBagConstraints.HORIZONTAL;
@@ -128,6 +136,7 @@ public class MainWindow implements ShowMessage, Md5Hasher {
     userInfoPanel.add(btnUpdate, gbc_btnUpdate);
 
     JLabel labelForLogin = new JLabel(user.userLogin);
+    labelForLogin.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
     GridBagConstraints gbc_labelForLogin = new GridBagConstraints();
     gbc_labelForLogin.insets = new Insets(5, 10, 5, 5);
     gbc_labelForLogin.gridx = 0;
@@ -135,6 +144,7 @@ public class MainWindow implements ShowMessage, Md5Hasher {
     userInfoPanel.add(labelForLogin, gbc_labelForLogin);
 
     JLabel labelForBirthdate = new JLabel(user.birthDate.toString());
+    labelForBirthdate.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
     GridBagConstraints gbc_labelForBirthdate = new GridBagConstraints();
     gbc_labelForBirthdate.insets = new Insets(5, 5, 5, 5);
     gbc_labelForBirthdate.gridx = 1;
@@ -142,6 +152,7 @@ public class MainWindow implements ShowMessage, Md5Hasher {
     userInfoPanel.add(labelForBirthdate, gbc_labelForBirthdate);
 
     JLabel labelForBalance = new JLabel(String.valueOf(user.balance));
+    labelForBalance.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
     GridBagConstraints gbc_labelForBalance = new GridBagConstraints();
     gbc_labelForBalance.insets = new Insets(5, 5, 5, 5);
     gbc_labelForBalance.gridx = 2;
@@ -149,6 +160,7 @@ public class MainWindow implements ShowMessage, Md5Hasher {
     userInfoPanel.add(labelForBalance, gbc_labelForBalance);
 
     JLabel labelForId = new JLabel(String.valueOf(user.userId));
+    labelForId.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
     GridBagConstraints gbc_labelForId = new GridBagConstraints();
     gbc_labelForId.insets = new Insets(5, 5, 5, 5);
     gbc_labelForId.gridx = 3;
@@ -156,6 +168,7 @@ public class MainWindow implements ShowMessage, Md5Hasher {
     userInfoPanel.add(labelForId, gbc_labelForId);
 
     JLabel labelForSecrQuestion = new JLabel(user.secretQuestion);
+    labelForSecrQuestion.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
     GridBagConstraints gbc_labelForSecrQuestion = new GridBagConstraints();
     gbc_labelForSecrQuestion.insets = new Insets(5, 5, 5, 5);
     gbc_labelForSecrQuestion.gridx = 4;
@@ -186,9 +199,10 @@ public class MainWindow implements ShowMessage, Md5Hasher {
     });
 
     JPanel moneyOperations = new JPanel();
-    moneyOperations.setBorder(
-        new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Operations with your balance",
-            TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+    moneyOperations.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"),
+        "Operations with your balance", TitledBorder.CENTER, TitledBorder.TOP,
+        new Font("Arial", Font.PLAIN, 14), new Color(0, 0, 0)));
+
     GridBagConstraints gbc_moneyOperations = new GridBagConstraints();
     gbc_moneyOperations.insets = new Insets(5, 25, 5, 25);
     gbc_moneyOperations.fill = GridBagConstraints.BOTH;
@@ -203,6 +217,7 @@ public class MainWindow implements ShowMessage, Md5Hasher {
     moneyOperations.setLayout(gbl_moneyOperations);
 
     JLabel lblAmountOfMoney = new JLabel("Amount of money");
+    lblAmountOfMoney.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
     GridBagConstraints gbc_lblAmountOfMoney = new GridBagConstraints();
     gbc_lblAmountOfMoney.insets = new Insets(5, 10, 5, 5);
     gbc_lblAmountOfMoney.gridx = 0;
@@ -210,6 +225,7 @@ public class MainWindow implements ShowMessage, Md5Hasher {
     moneyOperations.add(lblAmountOfMoney, gbc_lblAmountOfMoney);
 
     moneyToRefill = new JTextField();
+    moneyToRefill.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
     GridBagConstraints gbc_moneyToRefill = new GridBagConstraints();
     gbc_moneyToRefill.fill = GridBagConstraints.HORIZONTAL;
     gbc_moneyToRefill.insets = new Insets(5, 5, 5, 5);
@@ -219,6 +235,7 @@ public class MainWindow implements ShowMessage, Md5Hasher {
     moneyToRefill.setColumns(10);
 
     JButton btnRefill = new JButton("Refill");
+    btnRefill.setFont(new Font("Arial", Font.PLAIN, 14));
     btnRefill.addActionListener((arg0) -> {
       if (user.balance > 10000000d) {
         showErrorMessage("error", "you are already rich");
@@ -254,6 +271,7 @@ public class MainWindow implements ShowMessage, Md5Hasher {
     moneyOperations.add(btnRefill, gbc_btnRefill);
 
     moneyToWidthdraw = new JTextField();
+    moneyToWidthdraw.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
     GridBagConstraints gbc_moneyToWidthdraw = new GridBagConstraints();
     gbc_moneyToWidthdraw.fill = GridBagConstraints.HORIZONTAL;
     gbc_moneyToWidthdraw.insets = new Insets(5, 5, 5, 5);
@@ -263,6 +281,7 @@ public class MainWindow implements ShowMessage, Md5Hasher {
     moneyToWidthdraw.setColumns(10);
 
     JButton btnWidthdraw = new JButton("Widthdraw");
+    btnWidthdraw.setFont(new Font("Arial", Font.PLAIN, 14));
     btnWidthdraw.addActionListener((arg0) -> {
       if (moneyToWidthdraw.getText().isEmpty()) {
         showErrorMessage("error", "Fill amount of money first");
@@ -293,6 +312,7 @@ public class MainWindow implements ShowMessage, Md5Hasher {
     moneyOperations.add(btnWidthdraw, gbc_btnWidthdraw);
 
     JLabel lblTransferTo = new JLabel("Transfer to");
+    lblTransferTo.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
     GridBagConstraints gbc_lblTransferTo = new GridBagConstraints();
     gbc_lblTransferTo.insets = new Insets(5, 10, 5, 5);
     gbc_lblTransferTo.gridx = 0;
@@ -300,6 +320,7 @@ public class MainWindow implements ShowMessage, Md5Hasher {
     moneyOperations.add(lblTransferTo, gbc_lblTransferTo);
 
     JLabel lblAmountOfMoney_1 = new JLabel("Amount of money");
+    lblAmountOfMoney_1.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
     GridBagConstraints gbc_lblAmountOfMoney_1 = new GridBagConstraints();
     gbc_lblAmountOfMoney_1.insets = new Insets(5, 0, 5, 5);
     gbc_lblAmountOfMoney_1.gridx = 1;
@@ -307,6 +328,7 @@ public class MainWindow implements ShowMessage, Md5Hasher {
     moneyOperations.add(lblAmountOfMoney_1, gbc_lblAmountOfMoney_1);
 
     textField = new JTextField();
+    textField.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
     GridBagConstraints gbc_textField = new GridBagConstraints();
     gbc_textField.insets = new Insets(5, 10, 5, 5);
     gbc_textField.fill = GridBagConstraints.HORIZONTAL;
@@ -316,6 +338,7 @@ public class MainWindow implements ShowMessage, Md5Hasher {
     textField.setColumns(10);
 
     textField_1 = new JTextField();
+    textField_1.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
     GridBagConstraints gbc_textField_1 = new GridBagConstraints();
     gbc_textField_1.insets = new Insets(5, 5, 5, 5);
     gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
@@ -325,6 +348,7 @@ public class MainWindow implements ShowMessage, Md5Hasher {
     textField_1.setColumns(10);
 
     JButton btnTransfer = new JButton("Transfer");
+    btnTransfer.setFont(new Font("Arial", Font.PLAIN, 14));
     btnTransfer.addActionListener((arg0) -> {
       if (textField.getText().isEmpty() || textField_1.getText().isEmpty()) {
         showErrorMessage("error", "fill fields first");
