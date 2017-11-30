@@ -1,4 +1,4 @@
-package server;
+package com.nagrabank.database;
 
 import java.sql.*;
 
@@ -11,7 +11,7 @@ import com.google.gson.*;
  * @see java.sql.Statement
  * @see java.sql.DriverManager
  * @see java.sql.ResultSet
- * @see server.OpType
+ * @see com.nagrabank.database.OpType
  */
 public class Database {
 	/**
