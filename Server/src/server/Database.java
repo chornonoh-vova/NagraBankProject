@@ -368,6 +368,44 @@ public class Database {
 		}
 	}
 
+	public boolean checkQuestion (String userLogin, String secretAnswer) {
+		try {
+			ResultSet client = (ResultSet) execute(OpType.SELECT, "select user_login, secretAnswer from users "
+					+ "where secretAnswer = '" + secretAnswer + "' and user_login = '" + userLogin + "';");
+			if (!client.first()) {
+				return false;
+			}
+			return true;
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
+		
+		
+	}
+	
+	public boolean changePin (String userLogin, String pin) {
+		try {
+			ResultSet hasUser = (ResultSet) execute(OpType.SELECT,
+					"select user_login from users where user_login = " + userLogin + ";");
+			if (!hasUser.first()) {
+				return false;
+			}
+			hasUser.close();
+			execute(OpType.UPDATE,
+					"update users set pin = " + pin + " where user_login = " + userLogin + ";");
+			round();
+			return true;
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
+		
+		
+	}
+	
+	
+	
 	/**
 	 * Close connection with database<br>
 	 * Call every time (when finished working with DB) to avoid resource leak
