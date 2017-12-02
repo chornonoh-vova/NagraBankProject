@@ -17,7 +17,7 @@ public class Message extends DialogFragment {
   public String messageToShow = null;
 
   @Override
-  public AlertDialog onCreateDialog(@Nullable  Bundle savedInstanceState) {
+  public AlertDialog onCreateDialog(@Nullable Bundle savedInstanceState) {
     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
     builder.setTitle(messageTitle);
     builder.setCancelable(false);

@@ -11,20 +11,19 @@ import java.security.NoSuchAlgorithmException;
  * @see java.security.MessageDigest
  */
 public class Md5Hasher {
-    /**
-     * Method to get MD5 of a parameter input
-     *
-     * @param input
-     *          string, that will be converted to hash
-     * @return MD5 hash
-     */
-    public static String getMd5Hash(String input) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            md.update(StandardCharsets.UTF_8.encode(input));
-            return String.format("%032x", new BigInteger(1, md.digest()));
-        } catch (NoSuchAlgorithmException expected) {
-            return null;
-        }
+  /**
+   * Method to get MD5 of a parameter input
+   *
+   * @param input string, that will be converted to hash
+   * @return MD5 hash
+   */
+  public static String getMd5Hash(String input) {
+    try {
+      MessageDigest md = MessageDigest.getInstance("MD5");
+      md.update(StandardCharsets.UTF_8.encode(input));
+      return String.format("%032x", new BigInteger(1, md.digest()));
+    } catch (NoSuchAlgorithmException expected) {
+      return null;
     }
+  }
 }
