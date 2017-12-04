@@ -1,8 +1,92 @@
+header {
+	height: 90px;
+}
+
+body {
+	background-color: rgba(230,230,230,1);
+	font-family: Arial, sans-serif;
+	padding: 0;
+	margin: 0;
+}
+
+
+.container {
+	width: 1000px;
+	margin: 0 auto;
+}
+
+.clearfix:after {
+	content:'';
+	display: table;
+	width: 100%;
+	clear: both;
+}
+
+div {
+	box-sizing: border-box;
+}
+
+.logo {
+	margin-top:5px;
+	float: left;
+}
+.name {
+	font-family: Arial, sans-serif;
+	color: rgba(84,142,30,1);
+	font-size: 50px;
+}
+
+.rate {
+	float: right;
+	margin-top: 50px;
+}
+
+.currency {
+	padding: 0;
+	margin: 0;
+	display: block;
+}
+
+.currency li {
+	float: left;
+	display: block;
+	margin-right: 25px;
+	font-size: 14px;
+}
+
+.list {
+	float: left;
+}
+
+.info {
+	padding: 10px;
+	display: block;
+}
+
+.info li {
+	display: block;
+	margin-top: 25px;
+}
+
+.info p {
+	font-size: 12px;
+}
+
+.info h5 {
+	margin: 0;
+}
+
+.info_img {
+	float: left;
+}
+
 #grid-wrapper {
+	float: right;
+	background-color: #fff;
 	border: 1px solid grey;
-	border-radius: 5px;
+	border-radius: 3px;
 	width: 450px;
-	padding: 8px;
+	padding: 10px;
 	margin: 32px auto auto 32px;
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
@@ -24,7 +108,8 @@ h1 {
 input, button, a {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 12pt;
-	color: #000;
+	font-weight: bold;
+	color: #001020;
 	text-decoration: none;
 }
 
@@ -41,19 +126,39 @@ input, button, a {
 }
 
 #confirm {
+	background-color: rgba(84,142,30,1);
 	border-radius: 5px;
 	margin: 8px 8px 8px 16px;
 	grid-area: btnCon;
 }
 
 #registry {
+	background-color: rgba(84,142,30,1);
 	border-radius: 5px;
 	margin: 8px 8px 8px 8px;
 	grid-area: btnReg;
 }
 
 #forgot {
+	background-color: rgba(84,142,30,1);
 	border-radius: 5px;
 	margin: 8px 16px 8px 8px;
 	grid-area: btnForg;
+}
+
+
+footer {
+	margin: 50px 0 20px 0;
+
+}
+
+footer a {
+	color: green;
+	font-size: 13px;
+	margin: 0 30px 0 30px;
+}
+
+.footer_info {
+	text-align: center;
+	margin: auto;
 }

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<header>
+<head>
 	<meta charset="utf-8">
 	<title>Login</title>
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -11,18 +11,130 @@
 	<script src="js/login.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/styles-login.css">
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-</header>
+</head>
 <body>
-	<div id="grid-wrapper">
-		<h1>Login</h1>
-		<input type="text" id="inputLogin" placeholder="Your login">
-		<input type="password" id="inputPin" placeholder="Your pin-code">
-		<button type="button" id="confirm">Confirm</button>
-		<button type="button" id="registry"><a href="/registry">Registry</a></button>
-		<button type="button" id="forgot"><a href="/forgot">Forgot?</a></button>
+	<header>
+		<div class="container">
+			<div class="heading clearfix">
+				<div class="logo">
+					<div class="name">
+						<b>NagraBank</b>
+					</div>
+					<div>
+						<b>Your favorite Internet-bank</b>
+					</div>
+				</div>
+				<nav class="rate">
+					<ul class="currency">
+						<li>
+							<div><b>USD:</b> 26.950/27.190</div>
+						</li>
+						<li>
+							<div><b>EUR:</b> 32.050/32.500</div>
+						</li>
+					</ul>
+				</nav>
+			</div>
+			<hr>
+		</div>
+	</header>
+
+	<section>
+		<div class="container">
+			<div class="body clearfix">
+				<nav class="list">
+					<ul class="info">
+						<li>
+							<div class="info_img">
+								<img src="img/icon1.png" alt="img" weigh="70px" height="60px">
+							</div>
+							<div class="info_text">
+								<h5>Internet-bank</h5>
+								<p>	
+									Reliable bank. Created for the joy of people.
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="info_img">
+								<img src="img/icon2.png" alt="img" weigh="70px" height="60px">
+							</div>
+							<div class="info_text">
+								<h5>Saving money</h5>
+								<p>
+									We are responsible for the reliability of your money.
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="info_img">
+								<img src="img/icon3.png" alt="img" weigh="70px" height="60px">
+							</div>
+							<div class="info_text">
+								<h5>Money transactions</h5>
+								<p>
+									Convenient personal account management.
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="info_img">
+								<img src="img/icon4.png" alt="img" weigh="70px" height="60px">
+							</div>
+							<div class="info_text">
+								<h5>Convenient refill</h5>
+								<p>
+									Quickly refill, without interruption
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="info_img">
+								<img src="img/icon5.png" alt="img" weigh="70px" height="60px">
+							</div>
+							<div class="info_text">
+								<h5>Fast transfer</h5>
+								<p>
+									 Instantly transfer funds to other accounts.
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="info_img">
+								<img src="img/icon6.png" alt="img" weigh="70px" height="60px">
+							</div>
+							<div class="info_text">
+								<h5>Personal domestic currency</h5>
+								<p>
+									 New currency - "<b>Vovanchiki</b>"
+								</p>
+							</div>
+						</li>
+					</ul>
+				</nav>
+			<div id="grid-wrapper">
+				<h1>Login</h1>
+				<input type="text" id="inputLogin" placeholder="Your login">
+				<input type="password" id="inputPin" placeholder="Your pin-code">
+				<button type="button" id="confirm">Confirm</button>
+				<button type="button" id="registry"><a href="registry.html">Registry</a></button>
+				<button type="button" id="forgot"><a href="forgot.html">Forgot?</a></button>
+			</div>
+			<div id="dialog" title="no_title" style="display: none;">
+		  		<p>no_text</p>
+			</div>
+		</div>
 	</div>
-	<div id="dialog" title="no_title" style="display: none;">
-  <p>no_text</p>
-</div>
+	</section>
+	<footer>
+		<div class="container">
+			<hr>
+			<div class="footer_info">
+				<a href="about_us.html">About Us</a>
+				<a href="#">Mobile version</a>
+				<a href="https://www.youtube.com/watch?v=2lA6fPnlbYA">Google</a>
+			</div>
+		</div>
+	</footer>
 </body>
 </html>
