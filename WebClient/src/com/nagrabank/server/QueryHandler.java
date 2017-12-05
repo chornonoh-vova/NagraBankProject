@@ -8,6 +8,7 @@ import org.apache.http.HttpException;
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.MethodNotSupportedException;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.protocol.HttpContext;
 import org.apache.http.protocol.HttpRequestHandler;
@@ -37,7 +38,7 @@ public class QueryHandler implements HttpRequestHandler {
     System.out.println("request from user: " + requestBody);
     
     String responseBody = db.processInput(requestBody);
-    response.setEntity(new StringEntity(responseBody, "UTF-8"));
+    response.setEntity(new StringEntity(responseBody, ContentType.create("application/json")));
 
     System.out.println("response from server: " + responseBody);
   }

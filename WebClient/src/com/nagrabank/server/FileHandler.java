@@ -3,6 +3,7 @@ package com.nagrabank.server;
 import java.io.File;
 import java.io.IOException;
 import java.net.URLDecoder;
+import java.nio.charset.Charset;
 import java.util.Locale;
 
 import org.apache.http.HttpConnection;
@@ -75,6 +76,10 @@ public class FileHandler implements HttpRequestHandler {
           body = new FileEntity(file, ContentType.create("text/css", "UTF-8"));
         } else if (target.endsWith(".js")) {
           body = new FileEntity(file, ContentType.create("application/javascript", "UTF-8"));
+        } else if (target.endsWith(".jpg")) {
+          body = new FileEntity(file, ContentType.create("image/jpeg", (Charset)null));
+        } else if (target.endsWith(".png")) {
+          body = new FileEntity(file, ContentType.create("image/png", (Charset)null));
         } else {
           body = new FileEntity(file, ContentType.create("text/plain", "UTF-8"));
         }
