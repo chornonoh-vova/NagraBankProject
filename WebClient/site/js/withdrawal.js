@@ -1,18 +1,17 @@
 $("document").ready(function () {
+	if (getCookie("login") === undefined) {
+		document.location.href = "login.html";
+	}
+	
 	let client = new Client();
 
 	$("#confirm").click(function () {
-		let userId = $("#userId").val();
 		let money = $("#money").val();
-		
-
-		alert("Confirmed, id: " + userId + " money: " + money);
-
+		//TODO: verificate money
 		client.openConnection();
-		client.sendMessage("withdrawal", userId, money);
+		client.sendMessage("withdrawal", getCookie("id"), money);
 		
 		let answer = client.getArrayFromMessage();
-			alert("Answer:" + answer);
-		
+		alert("Answer:" + answer);
 	});
 });

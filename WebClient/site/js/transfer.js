@@ -1,19 +1,18 @@
 $("document").ready(function () {
+	if (getCookie("login") === undefined) {
+		document.location.href = "login.html";
+	}
+	
 	let client = new Client();
 
 	$("#confirm").click(function () {
-		let userIdFrom = $("#userIdFrom").val();
 		let userIdTo = $("#userIdTo").val();
 		let money = $("#money").val();
-		
-
-		alert("Confirmed, userIdFrom: " + userIdFrom + "userIdTo" +userIdTo+ " money: " + money);
-
+		//TODO: verificate money & id
 		client.openConnection();
-		client.sendMessage("transfer", userIdFrom, userIdTo, money);
+		client.sendMessage("transfer", getCookie("id"), userIdTo, money);
 		
 		let answer = client.getArrayFromMessage();
-			alert("Answer:" + answer);
-		
+		alert("Answer:" + answer);
 	});
 });

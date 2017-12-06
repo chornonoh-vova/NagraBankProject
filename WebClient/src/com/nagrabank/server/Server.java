@@ -9,7 +9,7 @@ import org.apache.http.impl.bootstrap.ServerBootstrap;
 
 import com.nagrabank.database.Database;
 
-public class Server {
+public final class Server {
 
   public static void main(String[] args) throws Exception {
     SocketConfig socketConfig = SocketConfig.custom().setSoTimeout(15000).setTcpNoDelay(true)
