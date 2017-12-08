@@ -32,6 +32,8 @@ $("document").ready(function () {
 				let answer1 = client.getArrayFromMessage();
 				if (answer1[0] === "error") {
 					alert("Wrong answer!");
+				} else if (answer1[0] === "success") {
+					alert("Answer is correct!");
 				}
 			   }
 		});
