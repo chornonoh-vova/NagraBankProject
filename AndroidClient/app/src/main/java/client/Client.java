@@ -28,10 +28,10 @@ public class Client {
   }
 
   public void openConnection(@NonNull String ip) throws Exception {
-    if (socket != null) {
-      sendMessage("close");
-      closeConnection();
-    }
+//    if (socket != null) {
+//      sendMessage("close");
+//      closeConnection();
+//    }
     try {
       this.socket = new Socket(ip, port);
       this.out = new PrintWriter(this.socket.getOutputStream(), true);

@@ -149,6 +149,7 @@ public class LoginActivity extends AppCompatActivity {
       public void onClick(View view) {
         //TODO: show forgot pin activity
         Intent intent = new Intent(LoginActivity.this, ForgotActivity.class);
+        intent.putExtra("ip", savedIp);
         startActivity(intent);
       }
     });

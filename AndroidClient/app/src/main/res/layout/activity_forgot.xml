@@ -7,7 +7,7 @@
     tools:context="com.wiev.androidclient.ForgotActivity">
 
     <ImageView
-        android:id="@+id/newPassword"
+        android:id="@+id/image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,7 +21,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
-            android:id="@+id/questionForgot"
+            android:id="@+id/forQuestion"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -31,13 +31,13 @@
             android:background="@android:color/background_light"
             android:textAlignment="center"
             android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/answerForgot"
+            app:layout_constraintBottom_toTopOf="@+id/answerEdit"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fogotEnterLogin" />
+            app:layout_constraintTop_toBottomOf="@+id/loginEdit" />
 
         <EditText
-            android:id="@+id/fogotEnterLogin"
+            android:id="@+id/loginEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -49,13 +49,13 @@
             android:inputType="textPersonName"
             android:textAlignment="center"
             android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/questionForgot"
+            app:layout_constraintBottom_toTopOf="@+id/forQuestion"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/fogotLogin"
+            app:layout_constraintStart_toEndOf="@+id/enterLoginView"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/answerForgot"
+            android:id="@+id/answerEdit"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_marginBottom="8dp"
@@ -69,10 +69,10 @@
             app:layout_constraintBottom_toTopOf="@+id/newPasswordEdit"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/questionForgot" />
+            app:layout_constraintTop_toBottomOf="@+id/forQuestion" />
 
         <TextView
-            android:id="@+id/fogotLogin"
+            android:id="@+id/enterLoginView"
             android:layout_width="97dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -82,8 +82,8 @@
             android:text="Enter login"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/questionForgot"
-            app:layout_constraintEnd_toStartOf="@+id/fogotEnterLogin"
+            app:layout_constraintBottom_toTopOf="@+id/forQuestion"
+            app:layout_constraintEnd_toStartOf="@+id/loginEdit"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -97,13 +97,13 @@
             android:textAlignment="center"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/newPassword"
+            app:layout_constraintBottom_toTopOf="@+id/password"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
-            android:id="@+id/newPassword"
+            android:id="@+id/password"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_marginBottom="16dp"
@@ -127,13 +127,13 @@
             android:textAlignment="center"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/newPassword2"
+            app:layout_constraintBottom_toTopOf="@+id/passwordConfirm"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
-            android:id="@+id/newPassword2"
+            android:id="@+id/passwordConfirm"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_marginBottom="16dp"
@@ -141,13 +141,13 @@
             android:ems="10"
             android:inputType="numberPassword"
             android:textAlignment="center"
-            app:layout_constraintBottom_toTopOf="@+id/imageButton"
+            app:layout_constraintBottom_toTopOf="@+id/forgot"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent" />
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/forgot"
             android:layout_width="55dp"
             android:layout_height="55dp"
             android:layout_marginBottom="15dp"
