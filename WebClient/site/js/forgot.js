@@ -15,6 +15,8 @@ $("document").ready(function () {
 			let answer = client.getArrayFromMessage();
 			if (answer[0] === "success") {
 				$("#question").text(answer[1]);
+			} else if(answer[0] === "error") {
+				alert("wrong login");
 			}
 		   }
 	});
@@ -28,7 +30,7 @@ $("document").ready(function () {
 				client.sendMessage("checkQuestion", loginToSend, answerForLogin);
 
 				let answer1 = client.getArrayFromMessage();
-				if (answer1[0] === "error") {
+				if (answer1[0] === "error! Answer is not correct") {
 					alert(answer1[0] + " : " + answer1[2])
 				}
 			   }
@@ -38,7 +40,7 @@ $("document").ready(function () {
 		let loginToSend = $("#userLogin").val();
 		let firstPin = getMd5Hash($("#pin").val());
 		let secondPin = getMd5Hash($("#confirm_pin").val());
-			if (firstPin !== secondPin) {
+			if ($("#pin").val() !== $("#confirm_pin").val()) {
 				alert("not equal pins!!!");
 				return;
 			}
