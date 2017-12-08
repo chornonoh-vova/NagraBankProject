@@ -14,7 +14,7 @@ $("document").ready(function () {
 
 			let answer = client.getArrayFromMessage();
 			if (answer[0] === "success") {
-				$("#question").text(answer[1]);
+				$("#question").text(answer[2]);
 			}
 		   }
 	});
