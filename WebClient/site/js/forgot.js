@@ -14,7 +14,7 @@ $("document").ready(function () {
 
 			let answer = client.getArrayFromMessage();
 			if (answer[0] === "success") {
-				$("question").text(answer[1]);
+				$("#question").text(answer[1]);
 			}
 		   }
 	});
@@ -34,8 +34,8 @@ $("document").ready(function () {
 		});
 
 	$("#confirm").click(function () {
-		let firstPin = getMd5Hash($("pin").val());
-		let secondPin = getMd5Hash($("confirm_pin").val());
+		let firstPin = getMd5Hash($("#pin").val());
+		let secondPin = getMd5Hash($("#confirm_pin").val());
 			if (firstPin !== secondPin) {
 				alert("not equal pins!!!");
 				return;
