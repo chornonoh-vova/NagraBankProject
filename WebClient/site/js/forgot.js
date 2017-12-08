@@ -21,10 +21,11 @@ $("document").ready(function () {
 
 	$("#answer").keypress(function(e){
 		   if(e.keyCode==13){
-			   let answer = $("#answer").val();
+		   	let loginToSend = $("#userLogin").val();
+			   let answerForLogin = $("#answer").val();
 
 				client.openConnection();
-				client.sendMessage("checkQuestion", loginToSend, answer);
+				client.sendMessage("checkQuestion", loginToSend, answerForLogin);
 
 				let answer1 = client.getArrayFromMessage();
 				if (answer1[0] === "error") {
@@ -34,6 +35,7 @@ $("document").ready(function () {
 		});
 
 	$("#confirm").click(function () {
+		let loginToSend = $("#userLogin").val();
 		let firstPin = getMd5Hash($("#pin").val());
 		let secondPin = getMd5Hash($("#confirm_pin").val());
 			if (firstPin !== secondPin) {
