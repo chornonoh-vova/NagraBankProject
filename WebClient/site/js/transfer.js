@@ -8,7 +8,11 @@ $("document").ready(function () {
 	$("#confirm").click(function () {
 		let userIdTo = $("#userIdTo").val();
 		let money = $("#money").val();
-		//TODO: verificate money & id
+		
+		if (filterFloat(money) === undefined) {
+			alert("Money amount wrong");
+			return;
+		}
 		client.openConnection();
 		client.sendMessage("transfer", getCookie("id"), userIdTo, money);
 		

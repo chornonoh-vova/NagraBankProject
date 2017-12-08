@@ -8,7 +8,10 @@ $("document").ready(function () {
 
 	$("#confirm").click(function () {
 		let money = $("#money").val();
-		//TODO: verificate money
+		if (filterFloat(money) === undefined) {
+			alert("Money amount wrong");
+			return;
+		}
 		client.openConnection();
 		client.sendMessage("refill", getCookie("id"), money);
 		
