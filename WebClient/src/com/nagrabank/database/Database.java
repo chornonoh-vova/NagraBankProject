@@ -11,9 +11,9 @@ import com.google.gson.*;
  * @see java.sql.Statement
  * @see java.sql.DriverManager
  * @see java.sql.ResultSet
- * @see com.nagrabank.database.OpType
+ * @see server.OpType
  */
-public class Database {
+public class Database implements AutoCloseable {
 	/**
 	 * Provides connection to DB
 	 */
@@ -69,7 +69,7 @@ public class Database {
 	public String processInput(String request) {
 		Gson gson = new Gson();
 		String[] args = gson.fromJson(request, String[].class);
-
+		
 		switch (args[0]) {
 		case "login": {
 			if (logIn(args[1], args[2])) {
@@ -123,6 +123,24 @@ public class Database {
 			String[] send = { "success", String.valueOf(user.userId), String.valueOf(user.balance),
 					user.secretQuestion, user.birthDate.toString() };
 			return gson.toJson(send);
+		}
+		case "checkQuestion": {
+			if(checkQuestion(String.valueOf(args[1]), String.valueOf(args[2]))) {
+				String[] send = { "success", "Answer is correct" };
+				return gson.toJson(send);
+			} else {
+				String[] send = { "error", "try again" };
+				return gson.toJson(send);
+			}
+		}
+		case "changePin": {
+			if(changePin(String.valueOf(args[1]), Integer.valueOf(args[2]))) {
+				String[] send = { "success", "pin is change" };
+				return gson.toJson(send);
+			} else {
+				String[] send = { "error", "try again" };
+				return gson.toJson(send);
+			}
 		}
 		default:
 			String[] send = { "error", "unknown operation" };
@@ -368,15 +386,39 @@ public class Database {
 		}
 	}
 
+	public boolean checkQuestion (String userLogin, String secretAnswer) {
+		try {
+			ResultSet client = (ResultSet) execute(OpType.SELECT, "select user_login, secret_answer from users "
+					+ "where secret_answer = '" + secretAnswer + "' and user_login = '" + userLogin + "';");
+			if (!client.first()) {
+				return false;
+			}
+			return true;
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			return false;
+		}	
+	}
+	
+	public boolean changePin (String userLogin, int pin) {
+		try {
+			execute(OpType.UPDATE,
+					"update users set pin = '" + pin + "' where user_login = '" + userLogin + "';");
+			round();
+			return true;
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
+	}
+	
 	/**
 	 * Close connection with database<br>
 	 * Call every time (when finished working with DB) to avoid resource leak
 	 */
-	public void closeConnection() {
-		try {
-			connection.close();
-			statement.close();
-		} catch (SQLException e) {
-		}
-	}
+	@Override
+  public void close() throws Exception {
+    connection.close();
+    statement.close();
+  }
 }
