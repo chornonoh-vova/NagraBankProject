@@ -134,7 +134,7 @@ public class Database implements AutoCloseable {
       }
     }
     case "changePin": {
-      if (changePin(String.valueOf(args[1]), Integer.valueOf(args[2]))) {
+      if (changePin(args[1], args[2])) {
         String[] send = { "success", "pin is change" };
         return gson.toJson(send);
       } else {
@@ -431,7 +431,7 @@ public class Database implements AutoCloseable {
     }
   }
 
-  public boolean changePin(String userLogin, int pin) {
+  public boolean changePin(String userLogin, String pin) {
     try {
       execute(OpType.UPDATE,
           "update users set pin = '" + pin + "' where user_login = '" + userLogin + "';");

@@ -75,7 +75,7 @@ public class ForgotWindow implements ShowMessage, Md5Hasher {
     frame.getContentPane().add(loginField, gbc_loginField);
     loginField.setColumns(10);
     
-    JLabel lblForQuestion = new JLabel("<secret_question>");
+    JLabel lblForQuestion = new JLabel(" ");
     lblForQuestion.setFont(new Font("Segoe UI Light", Font.PLAIN, 16));
     GridBagConstraints gbc_lblForQuestion = new GridBagConstraints();
     gbc_lblForQuestion.gridwidth = 3;
@@ -94,6 +94,7 @@ public class ForgotWindow implements ShowMessage, Md5Hasher {
     frame.getContentPane().add(lblEnterSecretAnswer, gbc_lblEnterSecretAnswer);
     
     answerField = new JTextField();
+    answerField.setEnabled(false);
     
     GridBagConstraints gbc_answerField = new GridBagConstraints();
     gbc_answerField.insets = new Insets(0, 0, 5, 5);
@@ -111,7 +112,6 @@ public class ForgotWindow implements ShowMessage, Md5Hasher {
     });
     
     JLabel lblEnterNewPincode = new JLabel("Enter new pin-code");
-    lblEnterNewPincode.setEnabled(false);
     lblEnterNewPincode.setFont(new Font("Segoe UI Light", Font.PLAIN, 16));
     GridBagConstraints gbc_lblEnterNewPincode = new GridBagConstraints();
     gbc_lblEnterNewPincode.insets = new Insets(0, 0, 5, 5);
@@ -130,7 +130,6 @@ public class ForgotWindow implements ShowMessage, Md5Hasher {
     frame.getContentPane().add(pinCodeField, gbc_pinCodeField);
     
     JLabel lblRepeatNewPincode = new JLabel("Repeat new pin-code");
-    lblRepeatNewPincode.setEnabled(false);
     lblRepeatNewPincode.setFont(new Font("Segoe UI Light", Font.PLAIN, 16));
     GridBagConstraints gbc_lblRepeatNewPincode = new GridBagConstraints();
     gbc_lblRepeatNewPincode.insets = new Insets(0, 0, 5, 5);
@@ -157,6 +156,7 @@ public class ForgotWindow implements ShowMessage, Md5Hasher {
     frame.getContentPane().add(backButton, gbc_backButton);
     
     JButton continueButton = new JButton("Continue");
+    continueButton.setEnabled(false);
     continueButton.setFont(new Font("Arial", Font.PLAIN, 14));
     GridBagConstraints gbc_continueButton = new GridBagConstraints();
     gbc_continueButton.gridx = 2;
@@ -168,7 +168,7 @@ public class ForgotWindow implements ShowMessage, Md5Hasher {
         if (arg0.getKeyCode() == KeyEvent.VK_ENTER) {
           String loginToSend = loginField.getText();
           if (!Checker.verifyLogin(loginToSend)) {
-            showErrorMessage("error", "nepravilny login bitch");
+            showErrorMessage("error", "Uncorrect login, try again");
             return;
           }
           client.sendMessage("getQuestion", loginToSend);
@@ -180,7 +180,8 @@ public class ForgotWindow implements ShowMessage, Md5Hasher {
           }
           if (answer[0].equals("success")) {
             lblForQuestion.setText(answer[1]);
-            loginField.setEditable(false);
+            loginField.setEnabled(false);
+            answerField.setEnabled(true);
           } else {
             showErrorMessage("error", answer[1]);
           }
@@ -191,12 +192,58 @@ public class ForgotWindow implements ShowMessage, Md5Hasher {
       @Override
       public void keyPressed(KeyEvent arg0) {
         if (arg0.getKeyCode() == KeyEvent.VK_ENTER) {
-          System.out.println("ncdjchd");
+          String loginToSend = loginField.getText();
+          String answerToSend = answerField.getText();
+          client.sendMessage("checkQuestion", loginToSend, answerToSend);
+          
+          String[] answer = null;
+          try {
+            answer = client.getArrayFromMessage();
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+          
+          if (answer[0].equals("success")) {
+            answerField.setEnabled(false);
+            pinCodeField.setEnabled(true);
+            pinCodeFiled_1.setEnabled(true);
+            continueButton.setEnabled(true);
+          } else {
+            showErrorMessage("error", "Incorrect answer on secret question\ntry again");
+            return;
+          }
         }
       }
     });
     continueButton.addActionListener((arg0)-> {
+      String login = loginField.getText();
+      String pin = String.valueOf(pinCodeField.getPassword());
+      String confirmPin = String.valueOf(pinCodeFiled_1.getPassword());
       
+      if (!Checker.verifyPinCode(pin) || !pin.equals(confirmPin)) {
+        showErrorMessage("error", "Incorrect password or password`s don`t match\ntry again");
+        return;
+      }
+      
+      String hashedPin = getMd5Hash(pin);
+      
+      client.sendMessage("changePin", login, hashedPin);
+      
+      String[] answer = null;
+      try {
+        answer = client.getArrayFromMessage();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+      
+      if (answer[0].equals("success")) {
+        showPlainMessage(answer[0], answer[1]);
+        LoginWindow window = new LoginWindow();
+        this.frame.setVisible(false);
+        window.frmLogin.setVisible(true);
+      } else {
+        showErrorMessage("error", "try again");
+      }
     });
   }
 
