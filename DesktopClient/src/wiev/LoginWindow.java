@@ -68,10 +68,6 @@ public class LoginWindow implements ShowMessage, Md5Hasher {
 	 */
 	public LoginWindow() {
 		initialize();
-		if (client.isClosed()) {
-		  showErrorMessage("Connection", "Connection with server suddenly closed");
-		  System.exit(1);
-		}
 	}
 
 	/**
@@ -152,7 +148,7 @@ public class LoginWindow implements ShowMessage, Md5Hasher {
 		gbc_passwordInputField.gridy = 5;
 		frmLogin.getContentPane().add(passwordInputField, gbc_passwordInputField);
 
-		btnForgot = new JButton("Forgot");
+		btnForgot = new JButton("Forgot Password");
 		btnForgot.setFont(new Font("Arial", Font.PLAIN, 14));
 		btnForgot.addActionListener((arg0) -> {
 		  ForgotWindow window = new ForgotWindow();
