@@ -68,10 +68,6 @@ public class LoginWindow implements ShowMessage, Md5Hasher {
 	 */
 	public LoginWindow() {
 		initialize();
-		if (client.isClosed()) {
-		  showErrorMessage("Connection", "Connection with server suddenly closed");
-		  System.exit(1);
-		}
 	}
 
 	/**
