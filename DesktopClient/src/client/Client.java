@@ -34,6 +34,9 @@ public class Client {
 	}
 
 	public String getMessage() throws IOException {
+	  if (isClosed()) {
+	    return "[\"error\",\"connection closed\"]";
+	  }
 		return in.readLine();
 	}
 
@@ -43,11 +46,18 @@ public class Client {
 	}
 
 	public void sendMessage(String... args) {
+	  if (isClosed()) {
+	    return;
+	  }
 		Gson gson = new Gson();
 		out.println(gson.toJson(args));
 	}
 
 	public static Client getInstance() {
 		return uniqueInstance;
+	}
+	
+	public boolean isClosed() {
+	  return socket.isClosed();
 	}
 }

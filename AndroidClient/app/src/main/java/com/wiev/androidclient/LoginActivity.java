@@ -118,7 +118,7 @@ public class LoginActivity extends AppCompatActivity {
                 user.birthDate = Date.valueOf(answer[4]);
                 user.userLogin = loginEditText.getText().toString();
                 user.pin = Md5Hasher.getMd5Hash(pinEditText.getText().toString());
-
+                client.sendMessage("close");
                 String userPacked = client.gson.toJson(user);
                 //switch to main activity
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -148,8 +148,8 @@ public class LoginActivity extends AppCompatActivity {
       @Override
       public void onClick(View view) {
         //TODO: show forgot pin activity
-          Intent intent = new Intent(LoginActivity.this, ForgotActivity.class);
-          startActivity(intent);
+        Intent intent = new Intent(LoginActivity.this, ForgotActivity.class);
+        startActivity(intent);
       }
     });
 
@@ -166,11 +166,12 @@ public class LoginActivity extends AppCompatActivity {
 
   @Override
   protected void onDestroy() {
-    super.onDestroy();
     try {
+      client.sendMessage("close");
       client.closeConnection();
     } catch (Exception e) {
       //do nothing
     }
+    super.onDestroy();
   }
 }

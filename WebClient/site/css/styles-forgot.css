@@ -28,14 +28,14 @@ body {
 	font-size: 50px;
 }
 
-.logo_registry {
+.logo_second {
 	color: #000;
 	font-size: 40px;
 	float: right;
 	margin: 40px 0 0 0;
 }
 
-.registry_grid {
+.main_grid {
 	padding-top: 25px;
 	background-color: #fff;
 	margin: auto;
@@ -49,7 +49,7 @@ body {
 	margin: auto;
 }
 
-.registry_grid p {
+.main_grid p {
 	text-align: center;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 12pt;
@@ -59,13 +59,13 @@ body {
 	margin: 0;
 }
 
-.registry_grid input {
+.main_grid input {
 	padding: 10px 25px;
 	border-radius: 5px;
 	margin: 0 0 15px 0;
 }
 
-.registry_grid button {
+.main_grid button {
 	text-decoration: none;
 	border-radius: 5px;
 	background: green;
