@@ -14,7 +14,6 @@ import com.google.gson.Gson;
  */
 public class Client {
 	private static Client uniqueInstance;
-	@SuppressWarnings("unused")
 	private Socket socket;
 	private PrintWriter out;
 	private BufferedReader in;
