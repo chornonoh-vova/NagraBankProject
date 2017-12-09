@@ -4,6 +4,7 @@ import client.Checker;
 import client.Client;
 import client.Md5Hasher;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -94,7 +95,10 @@ public class ForgotActivity extends AppCompatActivity {
                 String confirmPin = newPassword2.getText().toString();
 
                 if (!Checker.verifyPinCode(pin) || !pin.equals(confirmPin)) {
-                    //show error message
+                    Message errorMessage = new Message();
+                    errorMessage.messageTitle = "Error";
+                    errorMessage.messageToShow = "Passwords do not match, please try again";
+                    errorMessage.show(getFragmentManager(), "error_dialog");
                     return;
                 }
 
@@ -119,11 +123,17 @@ public class ForgotActivity extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    //nothing yet
+                                    Message errorMessage = new Message();
+                                    errorMessage.messageTitle = "Success";
+                                    errorMessage.messageToShow = "Password changed successfully. " + "You can log in now!";
+                                    errorMessage.show(getFragmentManager(), "success_dialog");
+
                                 }
                             });
                         } else {
-                            //show error message
+                            Intent intent = new Intent(ForgotActivity.this, LoginActivity.class);
+                            startActivity(intent);
+
                         }
                     }
                 }).start();
@@ -155,11 +165,17 @@ public class ForgotActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            //nothing yet
+                            Message errorMessage = new Message();
+                            errorMessage.messageTitle = "Success";
+                            errorMessage.messageToShow = "Enter a new password!";
+                            errorMessage.show(getFragmentManager(), "success_dialog");
                         }
                     });
                 } else {
-                    //show error message
+                    Message errorMessage = new Message();
+                    errorMessage.messageTitle = "Error";
+                    errorMessage.messageToShow = "Answer incorrect, please try again";
+                    errorMessage.show(getFragmentManager(), "error_dialog");
                 }
             }
         }).start();
@@ -172,7 +188,6 @@ public class ForgotActivity extends AppCompatActivity {
                 String loginToSend = forgotLoginEdit.getText().toString();
 
                 if (!Checker.verifyLogin(loginToSend)) {
-                    //message login incorrect
                     return;
                 }
 
@@ -197,7 +212,11 @@ public class ForgotActivity extends AppCompatActivity {
                         }
                     });
                 } else {
-                    //show error message
+                    Message errorMessage = new Message();
+                    errorMessage.messageTitle = "Error";
+                    errorMessage.messageToShow = "Login incorrect, please try again";
+                    errorMessage.show(getFragmentManager(), "error_dialog");
+
                 }
             }
         }).start();
