@@ -1,16 +1,8 @@
 package com.wiev.androidclient;
 
-<<<<<<< HEAD
 import client.Checker;
 import client.Client;
 import client.Md5Hasher;
-
-<<<<<<< HEAD
-import android.content.Intent;
-=======
->>>>>>> 66232b5599abb99ca5ab1b77dbf4e0c753defcb1
-=======
->>>>>>> parent of f2af5ea... Error massage in Forgot Activity
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -19,10 +11,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
-import client.Checker;
-import client.Client;
-import client.Md5Hasher;
 
 public class ForgotActivity extends AppCompatActivity {
   private Client client = Client.getInstance();
@@ -81,233 +69,125 @@ public class ForgotActivity extends AppCompatActivity {
   }
 
   private void forgotClick() {
-    new Thread(new Runnable() {
-      @Override
-      public void run() {
-        final String loginToSend = forgotLoginEdit.getText().toString();
-        String pin = newPassword.getText().toString();
-        String confirmPin = newPassword2.getText().toString();
+    final String loginToSend = forgotLoginEdit.getText().toString();
+    final String pin = newPassword.getText().toString();
+    String confirmPin = newPassword2.getText().toString();
 
-        if (!Checker.verifyPinCode(pin) || !pin.equals(confirmPin)) {
-          //show error message
-          return;
-        }
-
-        final String hashedPin = Md5Hasher.getMd5Hash(pin);
-
-        new Thread(new Runnable() {
-          @Override
-          public void run() {
-            try {
-              client.sendMessage("changePin", loginToSend, hashedPin);
-            } catch (Exception e) {
-              e.printStackTrace();
-            }
-            String[] answer = new String[0];
-            try {
-              answer = client.getArrayFromMessage();
-            } catch (Exception e) {
-              e.printStackTrace();
-            }
-<<<<<<< HEAD
-        });
-    }
-
-    private void forgotClick() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                final String loginToSend = forgotLoginEdit.getText().toString();
-                String pin = newPassword.getText().toString();
-                String confirmPin = newPassword2.getText().toString();
-
-                if (!Checker.verifyPinCode(pin) || !pin.equals(confirmPin)) {
-                    //show error message
-                    return;
-                }
-
-                final String hashedPin = Md5Hasher.getMd5Hash(pin);
-
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            client.sendMessage("changePin", loginToSend, hashedPin);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        String[] answer = new String[0];
-                        try {
-                            answer = client.getArrayFromMessage();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        if (answer[0].equals("success")) {
-                            final String[] finalAnswer = answer;
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    //nothing yet
-                                }
-                            });
-                        } else {
-                            //show error message
-                        }
-                    }
-                }).start();
-=======
-            if (answer[0].equals("success")) {
-              final String[] finalAnswer = answer;
-              runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                  //nothing yet
-                }
-              });
-            } else {
-              //show error message
->>>>>>> 66232b5599abb99ca5ab1b77dbf4e0c753defcb1
-            }
+    if (!Checker.verifyPinCode(pin) || !pin.equals(confirmPin)) {
+      Message errorMessage = new Message();
+      errorMessage.messageTitle = "Error";
+      errorMessage.messageToShow = "Passwords do not match, please try again";
+      errorMessage.show(getFragmentManager(), "error_dialog");
+    } else {
+      new Thread(new Runnable() {
+        @Override
+        public void run() {
+          String hashedPin = Md5Hasher.getMd5Hash(pin);
+          try {
+            client.sendMessage("changePin", loginToSend, hashedPin);
+          } catch (Exception e) {
+            e.printStackTrace();
           }
-        }).start();
-      }
-    }).start();
+          String[] answer = null;
+          try {
+            answer = client.getArrayFromMessage();
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
+          if (answer[0].equals("success")) {
+            Message message = new Message();
+            message.messageTitle = "Success";
+            message.messageToShow = "Password changed successfully.\n" + "You can log in now!";
+            message.show(getFragmentManager(), "success_dialog");
+          } else {
+            Message errorMessage = new Message();
+            errorMessage.messageTitle = "Error";
+            errorMessage.messageToShow = answer[1];
+            errorMessage.show(getFragmentManager(), "error_dialog");
+          }
+        }
+      }).start();
+    }
   }
 
   private void answerEditPressed() {
+    final String loginToSend = forgotLoginEdit.getText().toString();
+    final String answerToSend = answerForgot.getText().toString();
+
     new Thread(new Runnable() {
       @Override
       public void run() {
-        String loginToSend = forgotLoginEdit.getText().toString();
-        String answerToSend = answerForgot.getText().toString();
-
         try {
           client.sendMessage("checkQuestion", loginToSend, answerToSend);
         } catch (Exception e) {
           e.printStackTrace();
         }
 
-        String[] answer = new String[0];
+        String[] answer = null;
         try {
           answer = client.getArrayFromMessage();
         } catch (Exception e) {
           e.printStackTrace();
         }
         if (answer[0].equals("success")) {
-          final String[] finalAnswer = answer;
-          runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-<<<<<<< HEAD
-                String loginToSend = forgotLoginEdit.getText().toString();
-                String answerToSend = answerForgot.getText().toString();
-
-                try {
-                    client.sendMessage("checkQuestion", loginToSend, answerToSend);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                String[] answer = new String[0];
-                try {
-                    answer = client.getArrayFromMessage();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                if (answer[0].equals("success")) {
-                    final String[] finalAnswer = answer;
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            //nothing yet
-                        }
-                    });
-                } else {
-                    //show error message
-                }
-=======
-              //nothing yet
->>>>>>> 66232b5599abb99ca5ab1b77dbf4e0c753defcb1
-            }
-          });
+          Message message = new Message();
+          message.messageTitle = "Success";
+          message.messageToShow = "Enter a new password!";
+          message.show(getFragmentManager(), "success_dialog");
         } else {
-          //show error message
+          Message errorMessage = new Message();
+          errorMessage.messageTitle = "Error";
+          errorMessage.messageToShow = "Answer incorrect, please try again";
+          errorMessage.show(getFragmentManager(), "error_dialog");
         }
       }
     }).start();
   }
 
   private void loginEditPressed() {
-    new Thread(new Runnable() {
-      @Override
-      public void run() {
-        String loginToSend = forgotLoginEdit.getText().toString();
+    final String loginToSend = forgotLoginEdit.getText().toString();
 
-        if (!Checker.verifyLogin(loginToSend)) {
-          //message login incorrect
-          return;
+    if (!Checker.verifyLogin(loginToSend)) {
+      Message errorMessage = new Message();
+      errorMessage.messageTitle = "Error";
+      errorMessage.messageToShow = "Login incorrect, please try again";
+      errorMessage.show(getFragmentManager(), "error_dialog");
+    } else {
+      new Thread(new Runnable() {
+        @Override
+        public void run() {
+          try {
+            client.sendMessage("getQuestion", loginToSend);
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
+
+          String[] answer = null;
+          try {
+            answer = client.getArrayFromMessage();
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
+          if (answer[0].equals("success")) {
+            final String[] finalAnswer = answer;
+            runOnUiThread(new Runnable() {
+              @Override
+              public void run() {
+                questionForgot.setText(finalAnswer[1]);
+              }
+            });
+          } else {
+            Message errorMessage = new Message();
+            errorMessage.messageTitle = "Error";
+            errorMessage.messageToShow = answer[1];
+            errorMessage.show(getFragmentManager(), "error_dialog");
+          }
         }
-
-        try {
-          client.sendMessage("getQuestion", loginToSend);
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
-
-        String[] answer = new String[0];
-        try {
-          answer = client.getArrayFromMessage();
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
-        if (answer[0].equals("success")) {
-          final String[] finalAnswer = answer;
-          runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-<<<<<<< HEAD
-                String loginToSend = forgotLoginEdit.getText().toString();
-
-                if (!Checker.verifyLogin(loginToSend)) {
-                    //message login incorrect
-                    return;
-                }
-
-                try {
-                    client.sendMessage("getQuestion", loginToSend);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                String[] answer = new String[0];
-                try {
-                    answer = client.getArrayFromMessage();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                if (answer[0].equals("success")) {
-                    final String[] finalAnswer = answer;
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            questionForgot.setText(finalAnswer[1]);
-                        }
-                    });
-                } else {
-                    //show error message
-                }
-=======
-              questionForgot.setText(finalAnswer[1]);
->>>>>>> 66232b5599abb99ca5ab1b77dbf4e0c753defcb1
-            }
-          });
-        } else {
-          //show error message
-        }
-      }
-    }).start();
+      }).start();
+    }
   }
 }
+
 
 
 
