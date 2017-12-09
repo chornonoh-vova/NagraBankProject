@@ -50,9 +50,9 @@ public class LoginWindow implements ShowMessage, Md5Hasher {
 					String ip = (String) JOptionPane.showInputDialog(dialog, "Server ip:", "Enter",
 							JOptionPane.PLAIN_MESSAGE);
 					if ((ip != null) && (ip.length() > 0)) {
-						window.client = new Client(ip);
+						window.client = Client.getInstance(ip);
 					} else {
-						System.exit(0);
+						System.exit(1);
 					}
 					window.frmLogin.setVisible(true);
 				} catch (Exception e) {
