@@ -5,9 +5,12 @@ import client.Checker;
 import client.Client;
 import client.Md5Hasher;
 
+<<<<<<< HEAD
 import android.content.Intent;
 =======
 >>>>>>> 66232b5599abb99ca5ab1b77dbf4e0c753defcb1
+=======
+>>>>>>> parent of f2af5ea... Error massage in Forgot Activity
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -119,10 +122,7 @@ public class ForgotActivity extends AppCompatActivity {
                 String confirmPin = newPassword2.getText().toString();
 
                 if (!Checker.verifyPinCode(pin) || !pin.equals(confirmPin)) {
-                    Message errorMessage = new Message();
-                    errorMessage.messageTitle = "Error";
-                    errorMessage.messageToShow = "Passwords do not match, please try again";
-                    errorMessage.show(getFragmentManager(), "error_dialog");
+                    //show error message
                     return;
                 }
 
@@ -147,17 +147,11 @@ public class ForgotActivity extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Message errorMessage = new Message();
-                                    errorMessage.messageTitle = "Success";
-                                    errorMessage.messageToShow = "Password changed successfully. " + "You can log in now!";
-                                    errorMessage.show(getFragmentManager(), "success_dialog");
-
+                                    //nothing yet
                                 }
                             });
                         } else {
-                            Intent intent = new Intent(ForgotActivity.this, LoginActivity.class);
-                            startActivity(intent);
-
+                            //show error message
                         }
                     }
                 }).start();
@@ -225,17 +219,11 @@ public class ForgotActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Message errorMessage = new Message();
-                            errorMessage.messageTitle = "Success";
-                            errorMessage.messageToShow = "Enter a new password!";
-                            errorMessage.show(getFragmentManager(), "success_dialog");
+                            //nothing yet
                         }
                     });
                 } else {
-                    Message errorMessage = new Message();
-                    errorMessage.messageTitle = "Error";
-                    errorMessage.messageToShow = "Answer incorrect, please try again";
-                    errorMessage.show(getFragmentManager(), "error_dialog");
+                    //show error message
                 }
 =======
               //nothing yet
@@ -281,6 +269,7 @@ public class ForgotActivity extends AppCompatActivity {
                 String loginToSend = forgotLoginEdit.getText().toString();
 
                 if (!Checker.verifyLogin(loginToSend)) {
+                    //message login incorrect
                     return;
                 }
 
@@ -305,11 +294,7 @@ public class ForgotActivity extends AppCompatActivity {
                         }
                     });
                 } else {
-                    Message errorMessage = new Message();
-                    errorMessage.messageTitle = "Error";
-                    errorMessage.messageToShow = "Login incorrect, please try again";
-                    errorMessage.show(getFragmentManager(), "error_dialog");
-
+                    //show error message
                 }
 =======
               questionForgot.setText(finalAnswer[1]);
