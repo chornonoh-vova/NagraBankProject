@@ -24,11 +24,8 @@ public final class Server {
     server.start();
     server.awaitTermination(Long.MAX_VALUE, TimeUnit.DAYS);
 
-    Runtime.getRuntime().addShutdownHook(new Thread() {
-      @Override
-      public void run() {
-        server.shutdown(5, TimeUnit.SECONDS);
-      }
-    });
+    Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+      server.shutdown(0, TimeUnit.SECONDS);
+    }, "server-close"));
   }
 }

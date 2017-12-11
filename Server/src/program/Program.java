@@ -21,28 +21,38 @@ public class Program {
 
   public static void main(String[] args) {
     int portNumber = 4444;
+    Database db = new Database();
+
+    Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+      try {
+        System.out.println("Closing connection with database...");
+        db.close();
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }, "db-close"));
 
     try (ServerSocket serverSocket = new ServerSocket(portNumber);
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        Database db = new Database()) {
-      
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
+
       System.out.println("Server started at ip: " + InetAddress.getLocalHost().getHostAddress());
       System.out.println("Avalaible commands:\n\tquit to exit from program");
       System.out.println("\t(one client will be accepted and then server will be closed)");
-      
+
       while (!serverSocket.isClosed()) {
         if (br.ready()) {
           String serverCommand = br.readLine();
           if (serverCommand.equalsIgnoreCase("quit")) {
             System.out.println("Closing server...");
+            executor.shutdown();
+            br.close();
             serverSocket.close();
+            System.exit(0);
           }
         }
         // waiting for a new client to connect
         executor.execute(new MultiServerThread(serverSocket.accept(), db));
       }
-      // closing all threads after quit command
-      executor.shutdown();
     } catch (Exception e) {
       System.err.println(e.getMessage());
     }

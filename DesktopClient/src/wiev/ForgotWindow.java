@@ -25,7 +25,7 @@ public class ForgotWindow implements ShowMessage, Md5Hasher {
   private JPasswordField pinCodeField;
   private JPasswordField pinCodeFiled_1;
 
-   /**
+  /**
    * Create the application.
    */
   public ForgotWindow() {
@@ -40,12 +40,13 @@ public class ForgotWindow implements ShowMessage, Md5Hasher {
     frame.setBounds(100, 100, 450, 460);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     GridBagLayout gridBagLayout = new GridBagLayout();
-    gridBagLayout.columnWidths = new int[]{0, 0, 0, 0};
-    gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-    gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
-    gridBagLayout.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+    gridBagLayout.columnWidths = new int[] { 0, 0, 0, 0 };
+    gridBagLayout.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 0.0, Double.MIN_VALUE };
+    gridBagLayout.rowWeights = new double[] { 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+        Double.MIN_VALUE };
     frame.getContentPane().setLayout(gridBagLayout);
-    
+
     JLabel lblAccountRecovery = new JLabel("Account recovery");
     lblAccountRecovery.setFont(new Font("Vladimir Script", Font.PLAIN, 42));
     GridBagConstraints gbc_lblAccountRecovery = new GridBagConstraints();
@@ -55,7 +56,7 @@ public class ForgotWindow implements ShowMessage, Md5Hasher {
     gbc_lblAccountRecovery.gridx = 0;
     gbc_lblAccountRecovery.gridy = 0;
     frame.getContentPane().add(lblAccountRecovery, gbc_lblAccountRecovery);
-    
+
     JLabel lblEnterYourLogin = new JLabel("Enter your login");
     lblEnterYourLogin.setFont(new Font("Segoe UI Light", Font.PLAIN, 16));
     GridBagConstraints gbc_lblEnterYourLogin = new GridBagConstraints();
@@ -64,9 +65,9 @@ public class ForgotWindow implements ShowMessage, Md5Hasher {
     gbc_lblEnterYourLogin.gridx = 0;
     gbc_lblEnterYourLogin.gridy = 1;
     frame.getContentPane().add(lblEnterYourLogin, gbc_lblEnterYourLogin);
-    
+
     loginField = new JTextField();
-    
+
     GridBagConstraints gbc_loginField = new GridBagConstraints();
     gbc_loginField.insets = new Insets(0, 0, 5, 5);
     gbc_loginField.fill = GridBagConstraints.HORIZONTAL;
@@ -74,7 +75,7 @@ public class ForgotWindow implements ShowMessage, Md5Hasher {
     gbc_loginField.gridy = 2;
     frame.getContentPane().add(loginField, gbc_loginField);
     loginField.setColumns(10);
-    
+
     JLabel lblForQuestion = new JLabel(" ");
     lblForQuestion.setFont(new Font("Segoe UI Light", Font.PLAIN, 16));
     GridBagConstraints gbc_lblForQuestion = new GridBagConstraints();
@@ -83,7 +84,7 @@ public class ForgotWindow implements ShowMessage, Md5Hasher {
     gbc_lblForQuestion.gridx = 0;
     gbc_lblForQuestion.gridy = 3;
     frame.getContentPane().add(lblForQuestion, gbc_lblForQuestion);
-    
+
     JLabel lblEnterSecretAnswer = new JLabel("Enter secret answer");
     lblEnterSecretAnswer.setFont(new Font("Segoe UI Light", Font.PLAIN, 16));
     GridBagConstraints gbc_lblEnterSecretAnswer = new GridBagConstraints();
@@ -92,10 +93,10 @@ public class ForgotWindow implements ShowMessage, Md5Hasher {
     gbc_lblEnterSecretAnswer.gridx = 0;
     gbc_lblEnterSecretAnswer.gridy = 4;
     frame.getContentPane().add(lblEnterSecretAnswer, gbc_lblEnterSecretAnswer);
-    
+
     answerField = new JTextField();
     answerField.setEnabled(false);
-    
+
     GridBagConstraints gbc_answerField = new GridBagConstraints();
     gbc_answerField.insets = new Insets(0, 0, 5, 5);
     gbc_answerField.fill = GridBagConstraints.HORIZONTAL;
@@ -103,14 +104,14 @@ public class ForgotWindow implements ShowMessage, Md5Hasher {
     gbc_answerField.gridy = 5;
     frame.getContentPane().add(answerField, gbc_answerField);
     answerField.setColumns(10);
-    
+
     JButton backButton = new JButton("Back");
     backButton.addActionListener((arg0) -> {
       LoginWindow window = new LoginWindow();
       window.frmLogin.setVisible(true);
       frame.setVisible(false);
     });
-    
+
     JLabel lblEnterNewPincode = new JLabel("Enter new pin-code");
     lblEnterNewPincode.setFont(new Font("Segoe UI Light", Font.PLAIN, 16));
     GridBagConstraints gbc_lblEnterNewPincode = new GridBagConstraints();
@@ -118,7 +119,7 @@ public class ForgotWindow implements ShowMessage, Md5Hasher {
     gbc_lblEnterNewPincode.gridx = 1;
     gbc_lblEnterNewPincode.gridy = 6;
     frame.getContentPane().add(lblEnterNewPincode, gbc_lblEnterNewPincode);
-    
+
     pinCodeField = new JPasswordField();
     pinCodeField.setEnabled(false);
     pinCodeField.setColumns(10);
@@ -128,7 +129,7 @@ public class ForgotWindow implements ShowMessage, Md5Hasher {
     gbc_pinCodeField.gridx = 1;
     gbc_pinCodeField.gridy = 7;
     frame.getContentPane().add(pinCodeField, gbc_pinCodeField);
-    
+
     JLabel lblRepeatNewPincode = new JLabel("Repeat new pin-code");
     lblRepeatNewPincode.setFont(new Font("Segoe UI Light", Font.PLAIN, 16));
     GridBagConstraints gbc_lblRepeatNewPincode = new GridBagConstraints();
@@ -136,7 +137,7 @@ public class ForgotWindow implements ShowMessage, Md5Hasher {
     gbc_lblRepeatNewPincode.gridx = 1;
     gbc_lblRepeatNewPincode.gridy = 8;
     frame.getContentPane().add(lblRepeatNewPincode, gbc_lblRepeatNewPincode);
-    
+
     pinCodeFiled_1 = new JPasswordField();
     pinCodeFiled_1.setEnabled(false);
     pinCodeFiled_1.setColumns(10);
@@ -154,7 +155,7 @@ public class ForgotWindow implements ShowMessage, Md5Hasher {
     gbc_backButton.gridx = 0;
     gbc_backButton.gridy = 10;
     frame.getContentPane().add(backButton, gbc_backButton);
-    
+
     JButton continueButton = new JButton("Continue");
     continueButton.setEnabled(false);
     continueButton.setFont(new Font("Arial", Font.PLAIN, 14));
@@ -195,14 +196,14 @@ public class ForgotWindow implements ShowMessage, Md5Hasher {
           String loginToSend = loginField.getText();
           String answerToSend = answerField.getText();
           client.sendMessage("checkQuestion", loginToSend, answerToSend);
-          
+
           String[] answer = null;
           try {
             answer = client.getArrayFromMessage();
           } catch (IOException e) {
             e.printStackTrace();
           }
-          
+
           if (answer[0].equals("success")) {
             answerField.setEnabled(false);
             pinCodeField.setEnabled(true);
@@ -215,27 +216,27 @@ public class ForgotWindow implements ShowMessage, Md5Hasher {
         }
       }
     });
-    continueButton.addActionListener((arg0)-> {
+    continueButton.addActionListener((arg0) -> {
       String login = loginField.getText();
       String pin = String.valueOf(pinCodeField.getPassword());
       String confirmPin = String.valueOf(pinCodeFiled_1.getPassword());
-      
+
       if (!Checker.verifyPinCode(pin) || !pin.equals(confirmPin)) {
         showErrorMessage("error", "Incorrect password or password`s don`t match\ntry again");
         return;
       }
-      
+
       String hashedPin = getMd5Hash(pin);
-      
+
       client.sendMessage("changePin", login, hashedPin);
-      
+
       String[] answer = null;
       try {
         answer = client.getArrayFromMessage();
       } catch (IOException e) {
         e.printStackTrace();
       }
-      
+
       if (answer[0].equals("success")) {
         showPlainMessage(answer[0], answer[1]);
         LoginWindow window = new LoginWindow();
