@@ -1,10 +1,12 @@
 package com.wiev.androidclient;
 
-import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -12,15 +14,20 @@ import android.widget.EditText;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
+import java.io.UnsupportedEncodingException;
+import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+
 import client.Client;
 import client.UserInfo;
 
-public class MainActivity extends AppCompatActivity implements ActionDialog.NoticeDialogListener {
+public class MainActivity extends AppCompatActivity {
 
   private UserInfo user = null;
-  private Client client = new Client();
-
-  private String ip = null;
+  private Client client = Client.getInstance();
   private TextView forBalance = null;
 
   private Button confirmRefill = null;
@@ -78,24 +85,8 @@ public class MainActivity extends AppCompatActivity implements ActionDialog.Noti
 
     swipeRefreshLayout = findViewById(R.id.swiperefresh);
 
-    ip = getIntent().getExtras().getString("ip");
-
-    new Thread(new Runnable() {
-      @Override
-      public void run() {
-        try {
-          client.openConnection(ip);
-        } catch (Exception e) {
-          Message errorMessage = new Message();
-          errorMessage.messageTitle = "Error";
-          errorMessage.messageToShow = e.getMessage();
-          errorMessage.show(getFragmentManager(), "error_dialog");
-        }
-      }
-    }).start();
-
     String userPacked = getIntent().getExtras().getString("user");
-    user = client.gson.fromJson(userPacked, UserInfo.class);
+    user = new Gson().fromJson(userPacked, UserInfo.class);
 
     //update fields
     forId.setText(String.valueOf(user.userId));
@@ -315,7 +306,6 @@ public class MainActivity extends AppCompatActivity implements ActionDialog.Noti
               errorMessage.show(getFragmentManager(), "error_dialog");
             }
             String[] upInfo = null;
-
             try {
               upInfo = client.getArrayFromMessage();
             } catch (Exception e) {
@@ -324,15 +314,11 @@ public class MainActivity extends AppCompatActivity implements ActionDialog.Noti
               errorMessage.messageToShow = e.getMessage();
               errorMessage.show(getFragmentManager(), "error_dialog");
             }
-
             user.balance = Double.valueOf(upInfo[2]);
-
-
             runOnUiThread(new Runnable() {
               @Override
               public void run() {
                 forBalance.setText(String.valueOf(user.balance));
-                getIntent().putExtra("user", client.gson.toJson(user));
                 swipeRefreshLayout.setRefreshing(false);
               }
             });
@@ -343,37 +329,40 @@ public class MainActivity extends AppCompatActivity implements ActionDialog.Noti
   }
 
   @Override
-  public void onBackPressed() {
-    ActionDialog dialog = new ActionDialog();
-    dialog.message = "Do you really wanna quit?";
-    dialog.title = "Back";
-    dialog.show(getFragmentManager(), "action_dialog");
-  }
-
-  @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
       case android.R.id.home:
-        onBackPressed();
+        closePage();
         return true;
     }
-    return super.onOptionsItemSelected(item);
+    return true;
   }
 
   @Override
-  public void onDialogPositiveClick(DialogFragment dialog) {
-    new Thread(new Runnable() {
-      @Override
-      public void run() {
-        try {
-          client.sendMessage("logout");
-          client.closeConnection();
-        } catch (Exception e) {
-          //do nothing
-        }
-        finish();
-      }
-    }).start();
+  public void onBackPressed() {
+    closePage();
   }
 
+  @Override
+  protected void onDestroy() {
+    client.close();
+    super.onDestroy();
+  }
+
+  private void closePage() {
+    new AlertDialog.Builder(this)
+        .setIcon(android.R.drawable.ic_dialog_alert)
+        .setTitle("Close")
+        .setMessage("Are you sure you want to close this page?")
+        .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dialog, int which) {
+            finish();
+          }
+
+        })
+        .setNegativeButton("No", null)
+        .show();
+  }
 }

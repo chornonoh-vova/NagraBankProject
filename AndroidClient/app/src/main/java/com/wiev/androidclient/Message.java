@@ -2,7 +2,6 @@ package com.wiev.androidclient;
 
 import android.app.AlertDialog;
 import android.app.DialogFragment;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
@@ -22,13 +21,7 @@ public class Message extends DialogFragment {
     builder.setTitle(messageTitle);
     builder.setCancelable(false);
     builder.setMessage(messageToShow);
-    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-      @Override
-      public void onClick(DialogInterface dialogInterface, int i) {
-        //ok button pressed
-        return;
-      }
-    });
+    builder.setPositiveButton("OK", null);
     return builder.create();
   }
 }

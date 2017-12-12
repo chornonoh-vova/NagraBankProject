@@ -145,10 +145,10 @@ public class Database implements AutoCloseable {
     case "getQuestion": {
       String questionToSend = getQuestion(args[1]);
       if (questionToSend.equals("error")) {
-        String[] send = {"error", "no such user"};
+        String[] send = { "error", "no such user" };
         return gson.toJson(send);
       } else {
-        String[] send = {"success", questionToSend};
+        String[] send = { "success", questionToSend };
         return gson.toJson(send);
       }
     }
@@ -401,7 +401,7 @@ public class Database implements AutoCloseable {
       ResultSet info = (ResultSet) execute(OpType.SELECT,
           "select secret_question from users where user_login = '" + userLogin + "';");
       String question = null;
-      
+
       while (info.next()) {
         question = info.getString(1);
       }

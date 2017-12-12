@@ -1,8 +1,9 @@
 package com.wiev.androidclient;
 
-import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
@@ -13,7 +14,7 @@ import client.Client;
 import client.Md5Hasher;
 
 
-public class RegistryActivity extends AppCompatActivity implements ActionDialog.NoticeDialogListener {
+public class RegistryActivity extends AppCompatActivity {
   private ImageButton registration = null;
   private EditText login = null;
   private EditText password = null;
@@ -22,8 +23,7 @@ public class RegistryActivity extends AppCompatActivity implements ActionDialog.
   private EditText question = null;
   private EditText answer = null;
 
-  private Client client = new Client();
-  String ip = null;
+  private Client client = Client.getInstance();
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,21 +38,6 @@ public class RegistryActivity extends AppCompatActivity implements ActionDialog.
     birthdate = findViewById(R.id.birthdate);
     question = findViewById(R.id.question);
     answer = findViewById(R.id.answer);
-
-    ip = getIntent().getExtras().getString("ip");
-    new Thread(new Runnable() {
-      @Override
-      public void run() {
-        try {
-          client.openConnection(ip);
-        } catch (Exception e) {
-          Message errorMessage = new Message();
-          errorMessage.messageTitle = "Error";
-          errorMessage.messageToShow = e.getMessage();
-          errorMessage.show(getFragmentManager(), "error_dialog");
-        }
-      }
-    }).start();
 
     registration.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -104,12 +89,7 @@ public class RegistryActivity extends AppCompatActivity implements ActionDialog.
 
               }
               if (answer[0].equals("success")) {
-                ActionDialog message = new ActionDialog();
-                message.title = "success";
-                message.message = "Welcome to our Family!\n" +
-                    "You can now switch to login page";
-                message.show(getFragmentManager(), "success");
-
+                showActionDialog();
               } else {
                 Message message = new Message();
                 message.messageTitle = answer[0];
@@ -123,8 +103,20 @@ public class RegistryActivity extends AppCompatActivity implements ActionDialog.
     });
   }
 
-  @Override
-  public void onDialogPositiveClick(DialogFragment dialog) {
-    finish();
+  private void showActionDialog() {
+    new AlertDialog.Builder(this)
+        .setIcon(android.R.drawable.ic_dialog_alert)
+        .setTitle("Close")
+        .setMessage("Are you sure you want to close this page?")
+        .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dialog, int which) {
+            finish();
+          }
+
+        })
+        .setNegativeButton("No", null)
+        .show();
   }
 }

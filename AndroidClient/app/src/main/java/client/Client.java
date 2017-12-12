@@ -1,7 +1,5 @@
 package client;
 
-import android.support.annotation.NonNull;
-
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -16,63 +14,61 @@ import java.net.Socket;
  * @see java.net.Socket
  */
 public class Client {
-  private int port = 4444;
+  private static Client uniqueInstance;
+  private Socket socket;
+  private PrintWriter out;
+  private BufferedReader in;
 
-  private Socket socket = null;
-  private BufferedReader in = null;
-  private PrintWriter out = null;
-
-  public Gson gson = new Gson();
-
-  public Client() {
-  }
-
-  public void openConnection(@NonNull String ip) throws Exception {
-    if (socket != null) {
-      sendMessage("close");
-      closeConnection();
-    }
+  private Client(String ip) {
     try {
-      this.socket = new Socket(ip, port);
-      this.out = new PrintWriter(this.socket.getOutputStream(), true);
-      this.in = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
-    } catch (IOException e) {
-      throw new Exception("Cannot create socket: " + e.getMessage());
+      Socket socket = new Socket(ip, 4444);
+      PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+      BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+      this.socket = socket;
+      this.out = out;
+      this.in = in;
+    } catch (Exception e) {
+      System.exit(1);
     }
-  }
-
-  public void closeConnection() throws Exception {
-    if (this.socket != null && !this.socket.isClosed()) {
-      try {
-        this.socket.close();
-      } catch (IOException e) {
-        throw new Exception("Cannot close socket: " + e.getMessage());
-      } finally {
-        this.socket = null;
-      }
-    }
-    this.socket = null;
   }
 
   public String getMessage() throws IOException {
+    if (isClosed()) {
+      return "[\"error\",\"connection closed\"]";
+    }
     return in.readLine();
   }
 
-  public String[] getArrayFromMessage() throws Exception {
+  public String[] getArrayFromMessage() throws IOException {
+    Gson gson = new Gson();
     return gson.fromJson(getMessage(), String[].class);
   }
 
-  public void sendMessage(String... args) throws Exception {
-    if (this.socket == null || this.socket.isClosed()) {
-      throw new Exception("Cannot send data. Socket not created or closed");
+  public void sendMessage(String... args) {
+    if (isClosed()) {
+      return;
     }
-    out.println(this.gson.toJson(args));
+    Gson gson = new Gson();
+    out.println(gson.toJson(args));
   }
 
-  @Override
-  protected void finalize() throws Throwable {
-    super.finalize();
-    sendMessage("close");
-    closeConnection();
+  public static Client getInstance(String ip) {
+    if (uniqueInstance == null) {
+      uniqueInstance = new Client(ip);
+    }
+    return uniqueInstance;
+  }
+
+  public static Client getInstance() {
+    return uniqueInstance;
+  }
+
+  private boolean isClosed() {
+    return socket.isClosed();
+  }
+
+  public void close() {
+    this.sendMessage("close");
+    uniqueInstance = null;
   }
 }

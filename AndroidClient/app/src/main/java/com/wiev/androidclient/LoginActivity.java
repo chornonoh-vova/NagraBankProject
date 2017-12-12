@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.gson.Gson;
+
 import java.sql.Date;
 
 import client.Checker;
@@ -20,14 +22,14 @@ import client.UserInfo;
 public class LoginActivity extends AppCompatActivity {
   private Button connect = null;
   private Button logIn = null;
-  private Button forgot = null;
-  private Button registry = null;
 
   private EditText ipEditText = null;
   private EditText loginEditText = null;
   private EditText pinEditText = null;
+  private Button forgot = null;
+  private Button registry = null;
 
-  private Client client = new Client();
+  private Client client = null;
 
   private String savedIp = null;
 
@@ -50,7 +52,16 @@ public class LoginActivity extends AppCompatActivity {
     SharedPreferences sharedPrefs = getPreferences(Context.MODE_PRIVATE);
     savedIp = sharedPrefs.getString(getString(R.string.saved_ip), null);
     ipEditText.setText(savedIp);
+  }
 
+  @Override
+  protected void onStart() {
+    ipEditText.setEnabled(true);
+    connect.setEnabled(true);
+
+    logIn.setEnabled(false);
+    registry.setEnabled(false);
+    forgot.setEnabled(false);
     connect.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
@@ -60,24 +71,19 @@ public class LoginActivity extends AppCompatActivity {
             SharedPreferences sharedPrefs = getPreferences(Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPrefs.edit();
             editor.putString(getString(R.string.saved_ip), ipEditText.getText().toString());
-            editor.commit();
-            try {
-              client.openConnection(ipEditText.getText().toString());
-              runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                  ipEditText.setEnabled(false);
-                  connect.setEnabled(false);
-                  logIn.setEnabled(true);
-                }
-              });
-            } catch (Exception e) {
-              //show error message: cannot create connection e.getMessage
-              Message errorMessage = new Message();
-              errorMessage.messageTitle = "Error";
-              errorMessage.messageToShow = e.getMessage();
-              errorMessage.show(getFragmentManager(), "error_dialog");
-            }
+            editor.apply();
+            client = Client.getInstance(savedIp);
+
+            runOnUiThread(new Runnable() {
+              @Override
+              public void run() {
+                ipEditText.setEnabled(false);
+                connect.setEnabled(false);
+                logIn.setEnabled(true);
+                registry.setEnabled(true);
+                forgot.setEnabled(true);
+              }
+            });
           }
         }).start();
       }
@@ -118,11 +124,9 @@ public class LoginActivity extends AppCompatActivity {
                 user.birthDate = Date.valueOf(answer[4]);
                 user.userLogin = loginEditText.getText().toString();
                 user.pin = Md5Hasher.getMd5Hash(pinEditText.getText().toString());
-                client.sendMessage("close");
-                String userPacked = client.gson.toJson(user);
+                String userPacked = new Gson().toJson(user);
                 //switch to main activity
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                intent.putExtra("ip", savedIp);
                 intent.putExtra("user", userPacked);
                 startActivity(intent);
               } else {
@@ -147,7 +151,6 @@ public class LoginActivity extends AppCompatActivity {
     forgot.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        //TODO: show forgot pin activity
         Intent intent = new Intent(LoginActivity.this, ForgotActivity.class);
         startActivity(intent);
       }
@@ -156,22 +159,21 @@ public class LoginActivity extends AppCompatActivity {
     registry.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        //TODO: to registry activity
         Intent intent = new Intent(LoginActivity.this, RegistryActivity.class);
-        intent.putExtra("ip", savedIp);
         startActivity(intent);
       }
     });
+    super.onStart();
+  }
+
+  @Override
+  public void onBackPressed() {
+    finish();
   }
 
   @Override
   protected void onDestroy() {
-    try {
-      client.sendMessage("close");
-      client.closeConnection();
-    } catch (Exception e) {
-      //do nothing
-    }
+    client.close();
     super.onDestroy();
   }
 }
