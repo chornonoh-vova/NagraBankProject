@@ -67,6 +67,7 @@ public class ForgotWindow implements ShowMessage, Md5Hasher {
     frame.getContentPane().add(lblEnterYourLogin, gbc_lblEnterYourLogin);
 
     loginField = new JTextField();
+    loginField.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
 
     GridBagConstraints gbc_loginField = new GridBagConstraints();
     gbc_loginField.insets = new Insets(0, 0, 5, 5);
@@ -95,6 +96,7 @@ public class ForgotWindow implements ShowMessage, Md5Hasher {
     frame.getContentPane().add(lblEnterSecretAnswer, gbc_lblEnterSecretAnswer);
 
     answerField = new JTextField();
+    answerField.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
     answerField.setEnabled(false);
 
     GridBagConstraints gbc_answerField = new GridBagConstraints();
@@ -121,6 +123,7 @@ public class ForgotWindow implements ShowMessage, Md5Hasher {
     frame.getContentPane().add(lblEnterNewPincode, gbc_lblEnterNewPincode);
 
     pinCodeField = new JPasswordField();
+    pinCodeField.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
     pinCodeField.setEnabled(false);
     pinCodeField.setColumns(10);
     GridBagConstraints gbc_pinCodeField = new GridBagConstraints();
@@ -139,6 +142,7 @@ public class ForgotWindow implements ShowMessage, Md5Hasher {
     frame.getContentPane().add(lblRepeatNewPincode, gbc_lblRepeatNewPincode);
 
     pinCodeFiled_1 = new JPasswordField();
+    pinCodeFiled_1.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
     pinCodeFiled_1.setEnabled(false);
     pinCodeFiled_1.setColumns(10);
     GridBagConstraints gbc_pinCodeFiled_1 = new GridBagConstraints();

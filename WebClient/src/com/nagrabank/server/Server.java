@@ -25,6 +25,11 @@ public final class Server {
     server.awaitTermination(Long.MAX_VALUE, TimeUnit.DAYS);
 
     Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+      try {
+        db.close();
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
       server.shutdown(0, TimeUnit.SECONDS);
     }, "server-close"));
   }

@@ -121,6 +121,7 @@ public class LoginWindow implements ShowMessage, Md5Hasher {
     frmLogin.getContentPane().add(lblYourLogin, gbc_lblYourLogin);
 
     loginInputField = new JTextField();
+    loginInputField.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
     GridBagConstraints gbc_loginInputField = new GridBagConstraints();
     gbc_loginInputField.fill = GridBagConstraints.HORIZONTAL;
     gbc_loginInputField.gridwidth = 2;
@@ -140,6 +141,7 @@ public class LoginWindow implements ShowMessage, Md5Hasher {
     frmLogin.getContentPane().add(lblYourPincode, gbc_lblYourPincode);
 
     passwordInputField = new JPasswordField();
+    passwordInputField.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
 
     GridBagConstraints gbc_passwordInputField = new GridBagConstraints();
     gbc_passwordInputField.fill = GridBagConstraints.HORIZONTAL;
