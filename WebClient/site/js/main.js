@@ -2,6 +2,7 @@ $("document").ready(function () {
 	if (getCookie("login") === undefined) {
 		document.location.href = "login.html";
 	}
+	let client = new Client();
 
 	let loginToSend = getCookie("login");
 		client.openConnection();
