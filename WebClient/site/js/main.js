@@ -3,6 +3,19 @@ $("document").ready(function () {
 		document.location.href = "login.html";
 	}
 
+	let loginToSend = getCookie("login");
+		client.openConnection();
+		client.sendMessage("update", loginToSend);
+
+	let answer = client.getArrayFromMessage();
+	if (answer[0] === "success") {
+			setCookie("login", loginToSend);
+			setCookie("id", answer[1]);
+			setCookie("balance", answer[2]);
+			setCookie("question", answer[3]);
+			setCookie("birthdate", answer[4]);
+	}
+
 	/*page initialization*/
 	$("#login").text("Your login: " + getCookie("login"));
 	$("#id").text("Your bank id: " + getCookie("id"));
