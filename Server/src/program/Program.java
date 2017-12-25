@@ -1,7 +1,5 @@
 package program;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.util.concurrent.ExecutorService;
@@ -12,7 +10,7 @@ import server.MultiServerThread;
 
 /**
  * Main server class<br>
- * Accepts te connection and launches every new client in a new thread
+ * Accepts the connection and launches every new client in a new thread
  * 
  * @see server.MultiServerThread
  */
@@ -32,24 +30,12 @@ public class Program {
       }
     }, "db-close"));
 
-    try (ServerSocket serverSocket = new ServerSocket(portNumber);
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
+    try (ServerSocket serverSocket = new ServerSocket(portNumber)) {
 
       System.out.println("Server started at ip: " + InetAddress.getLocalHost().getHostAddress());
-      System.out.println("Avalaible commands:\n\tquit to exit from program");
-      System.out.println("\t(one client will be accepted and then server will be closed)");
+      System.out.println("Press Ctrl+C to close");
 
       while (!serverSocket.isClosed()) {
-        if (br.ready()) {
-          String serverCommand = br.readLine();
-          if (serverCommand.equalsIgnoreCase("quit")) {
-            System.out.println("Closing server...");
-            executor.shutdown();
-            br.close();
-            serverSocket.close();
-            System.exit(0);
-          }
-        }
         // waiting for a new client to connect
         executor.execute(new MultiServerThread(serverSocket.accept(), db));
       }

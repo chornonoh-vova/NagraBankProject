@@ -14,8 +14,9 @@ public final class Server {
   public static void main(String[] args) throws Exception {
     SocketConfig socketConfig = SocketConfig.custom().setSoTimeout(15000).setTcpNoDelay(true)
         .build();
-    System.out.println("Server started at ip: " + InetAddress.getLocalHost().getHostAddress());
     Database db = new Database();
+    System.out.println("Server started at ip: " + InetAddress.getLocalHost().getHostAddress());
+    System.out.println("Press Ctrl+С to close");
     final HttpServer server = ServerBootstrap.bootstrap().setListenerPort(80)
         .setServerInfo("NagrabankServer/1.1").setSocketConfig(socketConfig).setSslContext(null)
         .setExceptionLogger(new ErrorLogger()).registerHandler("*", new FileHandler())
