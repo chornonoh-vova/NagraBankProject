@@ -1,6 +1,5 @@
 $("document").ready(function () {
 	let client = new Client();
-
 	$("#userLogin").keypress(function(e){
 	   if(e.keyCode==13){
 		   let loginToSend = $("#userLogin").val();
@@ -32,13 +31,12 @@ $("document").ready(function () {
 				let answer1 = client.getArrayFromMessage();
 				if (answer1[0] === "error") {
 					alert("Wrong answer!");
+					$("#confirm").click(function () {
+						alert("Your answer wrong!");
+						});
 				} else if (answer1[0] === "success") {
 					alert("Answer is correct!");
-				}
-			   }
-		});
-	if (answer1[0] === "success") {
-		$("#confirm").click(function () {
+					$("#confirm").click(function () {
 			let loginToSend = $("#userLogin").val();
 			let firstPin = getMd5Hash($("#pin").val());
 			let secondPin = getMd5Hash($("#confirm_pin").val());
@@ -55,5 +53,8 @@ $("document").ready(function () {
 					}
 
 		});
-	}
+				}
+			   }
+
+		});
 	});
