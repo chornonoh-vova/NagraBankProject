@@ -1,9 +1,9 @@
 package program;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.net.ServerSocket;
+import java.util.Enumeration;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -12,12 +12,13 @@ import server.MultiServerThread;
 
 /**
  * Main server class<br>
- * Accepts te connection and launches every new client in a new thread
+ * Accepts the connection and launches every new client in a new thread
  * 
  * @see server.MultiServerThread
  */
 public class Program {
   static ExecutorService executor = Executors.newFixedThreadPool(10);
+  private static String address;
 
   public static void main(String[] args) {
     int portNumber = 4444;
@@ -32,24 +33,15 @@ public class Program {
       }
     }, "db-close"));
 
-    try (ServerSocket serverSocket = new ServerSocket(portNumber);
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
-
-      System.out.println("Server started at ip: " + InetAddress.getLocalHost().getHostAddress());
-      System.out.println("Avalaible commands:\n\tquit to exit from program");
-      System.out.println("\t(one client will be accepted and then server will be closed)");
+    try (ServerSocket serverSocket = new ServerSocket(portNumber)) {
+      Enumeration<InetAddress> e = NetworkInterface.getByName("wlp3s0").getInetAddresses();
+      while (e.hasMoreElements()) {
+      	address = e.nextElement().getHostAddress();
+      }
+      System.out.println("Server started at ip: " + address);
+      System.out.println("Press Ctrl+C to close");
 
       while (!serverSocket.isClosed()) {
-        if (br.ready()) {
-          String serverCommand = br.readLine();
-          if (serverCommand.equalsIgnoreCase("quit")) {
-            System.out.println("Closing server...");
-            executor.shutdown();
-            br.close();
-            serverSocket.close();
-            System.exit(0);
-          }
-        }
         // waiting for a new client to connect
         executor.execute(new MultiServerThread(serverSocket.accept(), db));
       }

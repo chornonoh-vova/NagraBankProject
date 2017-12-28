@@ -2,7 +2,6 @@ package com.nagrabank.server;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.URLDecoder;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -78,10 +77,10 @@ public class FileHandler implements HttpRequestHandler {
       } else if (target.endsWith(".css")) {
         body = new FileEntity(file, ContentType.create("text/css", "UTF-8"));
       } else if (target.endsWith(".js")) {
-        if (file.getPath().equals("site\\js\\client.js")) {
+        if (target.equals("js/client.js")) {
           Path path = Paths.get(file.getPath());
           String content = new String(Files.readAllBytes(path), StandardCharsets.UTF_8);
-          content = content.replaceAll("localhost", InetAddress.getLocalHost().getHostAddress());
+          content = content.replaceAll("localhost", Server.address + ":8080");
           body = new StringEntity(content, ContentType.create("application/javascript", "UTF-8"));
           // Files.write(path, content.getBytes());
         } else {

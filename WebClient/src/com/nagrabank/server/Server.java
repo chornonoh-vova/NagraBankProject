@@ -1,6 +1,8 @@
 package com.nagrabank.server;
 
 import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.util.Enumeration;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.http.config.SocketConfig;
@@ -10,13 +12,19 @@ import org.apache.http.impl.bootstrap.ServerBootstrap;
 import com.nagrabank.database.Database;
 
 public final class Server {
-
+  public static String address = null;
+  
   public static void main(String[] args) throws Exception {
     SocketConfig socketConfig = SocketConfig.custom().setSoTimeout(15000).setTcpNoDelay(true)
         .build();
-    System.out.println("Server started at ip: " + InetAddress.getLocalHost().getHostAddress());
     Database db = new Database();
-    final HttpServer server = ServerBootstrap.bootstrap().setListenerPort(80)
+    Enumeration<InetAddress> e = NetworkInterface.getByName("wlp3s0").getInetAddresses();
+    while (e.hasMoreElements()) {
+    	address = e.nextElement().getHostAddress();
+    }
+    System.out.println("Server started at ip: " + address);
+    System.out.println("Press Ctrl+С to close");
+    final HttpServer server = ServerBootstrap.bootstrap().setListenerPort(8080)
         .setServerInfo("NagrabankServer/1.1").setSocketConfig(socketConfig).setSslContext(null)
         .setExceptionLogger(new ErrorLogger()).registerHandler("*", new FileHandler())
         .registerHandler("/query", new QueryHandler(db)).create();
@@ -27,8 +35,8 @@ public final class Server {
     Runtime.getRuntime().addShutdownHook(new Thread(() -> {
       try {
         db.close();
-      } catch (Exception e) {
-        e.printStackTrace();
+      } catch (Exception e1) {
+        e1.printStackTrace();
       }
       server.shutdown(0, TimeUnit.SECONDS);
     }, "server-close"));
